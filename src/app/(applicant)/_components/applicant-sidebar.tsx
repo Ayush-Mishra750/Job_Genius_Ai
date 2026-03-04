@@ -1,5 +1,6 @@
 "use client";
 import { logoutUserAction } from "@/app/(auth)/_actions/registeruser";
+import { ThemeToggle } from "@/app/(employer)/_components/theme-provider";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -15,24 +16,22 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-// import { URLPattern } from 'next/server';
 import React from "react";
-import { ThemeToggle } from "./theme-provider";
 
-const base = "/employer-dashboard";
+const base = "/dashboard";
 
 const navigationItems = [
-  { name: "Overview", icon: LayoutDashboard, href: base + "/" },
-  { name: "Employer Profile", icon: User, href: base + "/profile" },
-  { name: "Post New Job", icon: Plus, href: base + "/jobs" },
-  { name: "Posted Jobs", icon: Briefcase, href: base + "/jobsList" },
-  { name: "Saved Candidate", icon: Bookmark },
-  { name: "Plans & Billing", icon: CreditCard },
-  { name: "All Companies", icon: Building },
+  { name: "Home", icon: LayoutDashboard, href: base + "/" },
+  { name: "Find Jobs", icon: User, href: base + "/find-jobs" },
+
+  { name: "Applied Jobs", icon: Briefcase, href: base + "/applied-jobs" },
+  { name: "Saved Jobs", icon: Bookmark ,href:base+"/saved-jobs" },
+  { name: "Plans & Billing", icon: CreditCard  ,href:base+"/plans-billing"},
+
   { name: "Settings", icon: Settings, href: base + "/settings" },
 ];
 
-const EmployerSidebar = () => {
+const ApplicantSidebar = () => {
   const pathname = usePathname();
 
   function isLinkActive({
@@ -57,7 +56,7 @@ const EmployerSidebar = () => {
     <div className="w-64 bg-card border-r border-border fixed bottom-0 top-0">
       <div className="p-6">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
-          Employer Dashboard
+          Applicants Dashboard
         </h2>
       </div>
 
@@ -74,7 +73,7 @@ const EmployerSidebar = () => {
                   href: curNav.href || "#",
                   pathname,
                   base: "/dashboard",
-                }) && "text-primary bg-blue-300",
+                }) && "text-primary bg-blue-300 dark:text-black",
               )}
             >
               <Icon />
@@ -84,9 +83,10 @@ const EmployerSidebar = () => {
         })}
       </nav>
 
-      <div className="absolute bottom-0 w-full p-4 border-t border-border">
+      <div className="absolute bottom-6 left-3 right-3 ">
         {/* dark and light mode */}
-       <ThemeToggle  />
+        <ThemeToggle />
+
         <Button
           onClick={logoutUserAction}
           className="flex items-center gap-3 px-3 py-2 text-sm font-medium mt-4 rounded-lg  w-full"
@@ -99,4 +99,4 @@ const EmployerSidebar = () => {
   );
 };
 
-export default EmployerSidebar;
+export default ApplicantSidebar;

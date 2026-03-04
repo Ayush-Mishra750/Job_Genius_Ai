@@ -54,8 +54,8 @@ const LoginForm: React.FC = () => {
           <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
             <UserCheck className="w-8 h-8 text-primary-foreground" />
           </div>
-          <CardTitle className="text-2xl">Join Our Job Portal</CardTitle>
-          <CardDescription>Create your account to get started</CardDescription>
+          <CardTitle className="text-2xl">Join Job Genius AI </CardTitle>
+          <CardDescription>Login to get started</CardDescription>
         </CardHeader>
 
         <CardContent>
@@ -122,17 +122,17 @@ const LoginForm: React.FC = () => {
 
             {/* Submit Button */}
             <Button type="submit" className="w-full">
-              Create Account
+              Sign In
             </Button>
 
             <div className="text-center">
               <p className="text-sm text-muted-foreground">
-                Already have an account?
+                Create an account?
                 <Link
                   href="/register"
                   className="text-primary hover:text-primary/80 font-medium underline-offset-4 hover:underline"
                 >
-                  Sign in here
+                  Sign up here
                 </Link>
               </p>
             </div>

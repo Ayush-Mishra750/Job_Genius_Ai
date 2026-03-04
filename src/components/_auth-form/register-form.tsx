@@ -71,7 +71,7 @@ const RegistrationForm = () => {
           <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
             <UserCheck className="w-8 h-8 text-primary-foreground" />
           </div>
-          <CardTitle className="text-2xl">Join Our Job Portal</CardTitle>
+          <CardTitle className="text-2xl">Join Job Genius AI</CardTitle>
           <CardDescription>Create your account to get started</CardDescription>
         </CardHeader>
 

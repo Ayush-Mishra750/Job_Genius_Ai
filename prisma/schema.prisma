@@ -129,7 +129,7 @@ model Job {
   tags           String?
   minSalary      Int?
   maxSalary      Int?
-  salaryCurrency String?
+   salaryCurrency String?
   salaryPeriod   String?
   location       String?
   jobType        String?

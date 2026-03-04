@@ -2,8 +2,8 @@ import { cookies, headers } from "next/headers";
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { SESSION_LIFETIME, SESSION_REFRESH_TIME } from "@/app/functions/constant";
-import { getIPAddress } from "@/app/functions/location";
+import { SESSION_LIFETIME, SESSION_REFRESH_TIME } from "@/app/_functions/constant";
+import { getIPAddress } from "@/app/_functions/location";
 
 type CreateSessionData = {
   userAgent: string;

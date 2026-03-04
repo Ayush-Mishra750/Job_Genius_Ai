@@ -1,3 +1,4 @@
+"use server"
 import { cookies } from "next/headers";
 import { cache } from "react";
 import { validateSessionAndGetUser } from "./session";
@@ -9,7 +10,7 @@ export const getCurrentUser = cache(async () => {
   if (!session) return null;
 
   const user = await validateSessionAndGetUser(session);
-  console.log(user)
+  // console.log(user)
   return user;
 });
 
