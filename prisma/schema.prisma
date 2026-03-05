@@ -1,17 +1,140 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-    output   = "../generated/prisma"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int        @id @default(autoincrement())
+  name        String
+  userName    String     @unique
+  password    String
+  email       String     @unique
+  role        Role       @default(applicant)
+  phoneNumber String?
+  avatarUrl   String?
+  deletedAt   DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  applicant   Applicant?
+  employer    Employer?
+  savedJobs   SavedJob[]
+  sessions    Session[]
+}
+
+model Session {
+  id        String   @id
+  userId    Int
+  userAgent String
+  ip        String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Employer {
+  id                  Int       @id
+  name                String?
+  description         String?
+  bannerImageUrl      String?
+  organizationType    String?
+  teamSize            String?
+  yearOfEstablishment Int?
+  websiteUrl          String?
+  location            String?
+  deletedAt           DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  user                User      @relation(fields: [id], references: [id], onDelete: Cascade)
+  jobs                Job[]
+}
+
+model Applicant {
+  id            Int              @id
+  biography     String?
+  dateOfBirth   DateTime?
+  nationality   String?
+  maritalStatus MaritalStatus?
+  gender        Gender?
+  education     EducationLevel?
+  experience    String?
+  websiteUrl    String?
+  location      String?
+  deletedAt     DateTime?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  user          User             @relation(fields: [id], references: [id], onDelete: Cascade)
+  applications  JobApplication[]
+  resumes       Resume[]
+}
+
+model Job {
+  id             Int              @id @default(autoincrement())
+  title          String
+  employerId     Int
+  description    String
+  tags           String?
+  minSalary      Int?
+  maxSalary      Int?
+  salaryCurrency String?
+  salaryPeriod   String?
+  location       String?
+  jobType        String?
+  workType       String?
+  jobLevel       String?
+  experience     String?
+  minEducation   String?
+  isFeatured     Boolean          @default(false)
+  expiresAt      DateTime?
+  deletedAt      DateTime?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  employer       Employer         @relation(fields: [employerId], references: [id], onDelete: Cascade)
+  applications   JobApplication[]
+  savedJobs      SavedJob[]
+}
+
+model JobApplication {
+  id          Int       @id @default(autoincrement())
+  jobId       Int
+  applicantId Int
+  resumeId    Int
+  coverLetter String?
+  appliedAt   DateTime  @default(now())
+  applicant   Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  job         Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  resume      Resume    @relation(fields: [resumeId], references: [id])
+
+  @@unique([jobId, applicantId])
+}
+
+model SavedJob {
+  id        Int      @id @default(autoincrement())
+  jobId     Int
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  job       Job      @relation(fields: [jobId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, jobId])
+}
+
+model Resume {
+  id           Int              @id @default(autoincrement())
+  applicantId  Int
+  fileUrl      String
+  fileName     String
+  fileSize     Int?
+  isPrimary    Boolean          @default(false)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  applications JobApplication[]
+  applicant    Applicant        @relation(fields: [applicantId], references: [id], onDelete: Cascade)
 }
 
 enum Role {
@@ -46,133 +169,4 @@ enum ApplicationStatus {
   interview
   rejected
   hired
-}
-
-model User {
-  id           Int       @id @default(autoincrement())
-  name         String
-  userName     String    @unique
-  password     String
-  email        String    @unique
-  role         Role      @default(applicant)
-  phoneNumber  String?
-  avatarUrl    String?
-  deletedAt    DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-
-  employer     Employer?
-  applicant    Applicant?
-  sessions     Session[]
-  savedJobs    SavedJob[]
-}
-
-model Session {
-  id         String   @id
-  userId     Int
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userAgent  String
-  ip         String
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-}
-
-model Employer {
-  id                   Int      @id
-  user                 User     @relation(fields: [id], references: [id], onDelete: Cascade)
-
-  name                 String?
-  description          String?
-  bannerImageUrl       String?
-  organizationType     String?
-  teamSize             String?
-  yearOfEstablishment  Int?
-  websiteUrl           String?
-  location             String?
-
-  deletedAt            DateTime?
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
-
-  jobs                 Job[]
-}
-
-model Applicant {
-  id            Int       @id
-  user          User      @relation(fields: [id], references: [id], onDelete: Cascade)
-
-  biography     String?
-  dateOfBirth   DateTime?
-  nationality   String?
-  maritalStatus MaritalStatus?
-  gender        Gender?
-  education     EducationLevel?
-  experience    String?
-  websiteUrl    String?
-  location      String?
-
-  deletedAt     DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  applications  Application[]
-}
-
-model Job {
-  id             Int      @id @default(autoincrement())
-  title          String
-  employerId     Int
-  employer       Employer @relation(fields: [employerId], references: [id], onDelete: Cascade)
-
-  description    String
-  tags           String?
-  minSalary      Int?
-  maxSalary      Int?
-   salaryCurrency String?
-  salaryPeriod   String?
-  location       String?
-  jobType        String?
-  workType       String?
-  jobLevel       String?
-  experience     String?
-  minEducation   String?
-  isFeatured     Boolean  @default(false)
-  expiresAt      DateTime?
-  deletedAt      DateTime?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  applications   Application[]
-  savedJobs      SavedJob[]
-}
-
-model Application {
-  id           Int               @id @default(autoincrement())
-  jobId        Int
-  applicantId  Int
-  resumeUrl    String
-  status       ApplicationStatus @default(pending)
-
-  job          Job        @relation(fields: [jobId], references: [id])
-  applicant    Applicant  @relation(fields: [applicantId], references: [id], onDelete: Cascade)
-
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-
-  @@unique([jobId, applicantId])
-}
-
-model SavedJob {
-  id        Int      @id @default(autoincrement())
-  jobId     Int
-  userId    Int
-
-  job       Job   @relation(fields: [jobId], references: [id])
-  user      User  @relation(fields: [userId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([userId, jobId])
 }

@@ -17,7 +17,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -35,18 +34,16 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  applicantSettingsSchema,
-  ApplicantSettingsSchema,
-} from "../applicant.schema";
-import Tiptap from "@/components/text-editor";
-import { ImageUpload } from "@/features/employers/components/employer-setting-form";
 import { cn } from "@/lib/utils";
-import { ResumeUpload } from "./resume-upload";
-import { createApplicantProfile } from "../actions/applicant.action";
 import { toast } from "sonner";
+import { applicantSettingsSchema, ApplicantSettingsSchema } from "../_utils/setting-schema";
+import { createApplicantProfile } from "../actions/applicant-setting-action";
+import { ImageUpload } from "@/app/(employer)/_components/employer-setting-form";
+import Tiptap from "@/components/richTextEditor/text-editor";
+import { ResumeUpload } from "./resume-upload";
 
 const ApplicantSettingsForm = () => {
+
   const {
     register,
     handleSubmit,
@@ -56,12 +53,12 @@ const ApplicantSettingsForm = () => {
   } = useForm<ApplicantSettingsSchema>({
     resolver: zodResolver(applicantSettingsSchema),
     defaultValues: {
-      email: "vinod@thapa.com",
+      email: "ayushmishra270306@gmail.com",
     },
   });
 
   const onSubmit = async (data: ApplicantSettingsSchema) => {
-    console.log("Saving Data:", data);
+    // console.log("Saving Data:", data);
 
     try {
       const res = await createApplicantProfile(data);
@@ -376,25 +373,6 @@ const ApplicantSettingsForm = () => {
               )}
             </div>
 
-            {/* <div className="space-y-2">
-              <Label>Biography</Label>
-              <Textarea
-                {...register("biography")}
-                className={`min-h-[120px] ${errors.biography ? "border-destructive focus-visible:ring-destructive" : ""}`}
-                placeholder="Tell us about yourself..."
-              />
-              <div className="flex justify-between items-start">
-                {errors.biography && (
-                  <p className="text-sm text-destructive">
-                    {errors.biography.message}
-                  </p>
-                )}
-                <p className="text-[10px] text-right text-muted-foreground ml-auto">
-                  Max 500 characters
-                </p>
-              </div>
-            </div> */}
-
             <div className="space-y-2">
               <Controller
                 name="biography"
@@ -416,41 +394,7 @@ const ApplicantSettingsForm = () => {
 
             <Separator />
 
-            {/* --- RESUME UPLOAD --- */}
-            {/* <div className="space-y-4">
-              <Label className="text-base">Resume / CV</Label>
-
-              <input
-                type="file"
-                id="resume-upload"
-                className="hidden"
-                accept=".pdf"
-                {...register("resume")}
-              />
-
-              <label
-                htmlFor="resume-upload"
-                className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition cursor-pointer 
-                    ${errors.resume ? "border-destructive bg-destructive/5" : "border-gray-200 hover:bg-gray-50"}
-                  `}
-              >
-                <div className="p-3 bg-blue-50 text-blue-600 rounded-full mb-3">
-                  <UploadCloud className="h-6 w-6" />
-                </div>
-                <h4 className="font-medium text-sm">
-                  Click to upload or drag and drop
-                </h4>
-                <p className="text-xs text-muted-foreground mt-1">
-                  PDF (Max 5MB)
-                </p>
-              </label>
-
-              {errors.resume && (
-                <p className="text-sm text-destructive text-center font-medium">
-                  {errors.resume.message as string}
-                </p>
-              )}
-            </div> */}
+          
 
             {/* --- RESUME UPLOAD --- */}
             <div className="space-y-4">

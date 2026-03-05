@@ -13,11 +13,10 @@
 // 3. Better code splitting and maintainability
 
 import { redirect } from "next/navigation";
-
-import { ApplicantStats } from "@/features/applicants/components/applicant-stats";
-import { ApplicantProfileStatus } from "@/features/applicants/components/applicant-profile-status";
-import { RecentApplications } from "@/features/applicants/components/recent-applications";
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
+import { ApplicantStats } from "../_components/applicant-stats";
+import { ApplicantProfileStatus } from "../_components/applicant-profile-stats";
+import { RecentApplications } from "../_components/recent-applicants";
 
 export default async function ApplicantDashboard() {
   const user = await getCurrentUser();

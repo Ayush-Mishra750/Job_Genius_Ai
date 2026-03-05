@@ -1,18 +1,16 @@
 "use server";
 
-import { getCurrentUser } from "@/features/auth/server/auth.queries";
+import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import {
   applicantSettingsSchema,
   ApplicantSettingsSchema,
-} from "../applicant.schema";
-import { db } from "@/config/db";
-import { applicants, resumes, users } from "@/drizzle/schema";
-import { eq } from "drizzle-orm";
+} from "../_utils/setting-schema";
+import { prisma } from "@/lib/prisma";
 
-export const createApplicantProfile = async (data: ApplicantSettingsSchema) => {
+export const createApplicantProfile = async (
+  data: ApplicantSettingsSchema
+) => {
   try {
-    console.log("data: ", data);
-
     const user = await getCurrentUser();
     if (!user) return { status: "ERROR", message: "Unauthorized" };
 
@@ -20,7 +18,6 @@ export const createApplicantProfile = async (data: ApplicantSettingsSchema) => {
       applicantSettingsSchema.safeParse(data);
 
     if (error) {
-      // Return the very first Zod validation error message
       return { status: "ERROR", message: error.issues[0].message };
     }
 
@@ -42,42 +39,70 @@ export const createApplicantProfile = async (data: ApplicantSettingsSchema) => {
       resumeSize,
     } = validatedData;
 
-    await db.transaction(async (tx) => {
-      // 1: update the user's table
-      await tx
-        .update(users)
-        .set({
+    await prisma.$transaction(async (tx) => {
+
+      // 1️⃣ Update user table
+      await tx.user.update({
+        where: { id: user.id },
+        data: {
           name,
           phoneNumber,
           avatarUrl,
-        })
-        .where(eq(users.id, user.id));
-
-      await tx.insert(applicants).values({
-        id: user.id, // Foreign key & Primary key
-        location,
-        dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
-        nationality,
-        gender,
-        maritalStatus,
-        education,
-        experience,
-        websiteUrl,
-        biography,
+        },
       });
 
-      if (resumeName && resumeUrl) {
-        await tx.insert(resumes).values({
-          applicantId: user.id,
-          fileUrl: resumeUrl,
-          fileName: resumeName,
-          fileSize: resumeSize,
+      // 2️⃣ Create applicant profile
+     await tx.applicant.upsert({
+  where: { id: user.id },
+  update: {
+    location,
+    dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
+    nationality,
+    gender,
+    maritalStatus,
+    education: "high_school",
+    experience,
+    websiteUrl,
+    biography,
+  },
+  create: {
+    id: user.id,
+    location,
+    dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
+    nationality,
+    gender,
+    maritalStatus,
+    education: "high_school",
+    experience,
+    websiteUrl,
+    biography,
+  },
+});
+
+      // 3️⃣ Save resume if uploaded
+      if (resumeUrl) {
+        await tx.resume.create({
+          data: {
+            applicantId: user.id,
+            fileUrl: resumeUrl,
+            fileName: resumeName || "Resume",
+            fileSize: resumeSize || 0,
+          },
         });
       }
+
     });
-    return { status: "SUCCESS", message: "Profile created successfully!" };
+
+    return {
+      status: "SUCCESS",
+      message: "Profile created successfully!",
+    };
+
   } catch (error) {
     console.error("CREATE PROFILE ERROR:", error);
-    return { status: "ERROR", message: "Failed to create Profile." };
+    return {
+      status: "ERROR",
+      message: "Failed to create Profile.",
+    };
   }
 };

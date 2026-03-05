@@ -137,4 +137,4 @@ export function RecentApplications() {
   );
 }
 
-import { ArrowRight } from "lucide-react"; // Forgot to import this in the snippet above
+import { ArrowRight } from "lucide-react"; 
