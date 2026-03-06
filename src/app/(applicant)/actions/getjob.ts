@@ -138,26 +138,15 @@ export async function appliedJob(){
     if(!user || user.role!=="applicant"){
        redirect("/login");
     }
-   const result = await prisma.application.findMany({
-  where: {
-    applicantId: user.id,
+ const result=await prisma.jobApplication.findMany({
+  where:{
+    applicantId: user.id
   },
-  orderBy: {
-    createdAt: "desc",
-  },
-  select: {
-    id: true,
-    status: true,
-    createdAt: true,
-    resumeUrl: true,
-    job: {
-      select: {
-        id: true,
-        title: true,
-      },
-    },
-  },
-}); // 🔥 THIS WAS MISSING
+ include:{
+    job:true,
+     resume:true
+ }
+ })
 
   if(!result){
     return {

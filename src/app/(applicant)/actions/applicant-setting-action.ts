@@ -41,7 +41,7 @@ export const createApplicantProfile = async (
 
     await prisma.$transaction(async (tx) => {
 
-      // 1️⃣ Update user table
+      // 1️ Update user table
       await tx.user.update({
         where: { id: user.id },
         data: {
@@ -51,7 +51,7 @@ export const createApplicantProfile = async (
         },
       });
 
-      // 2️⃣ Create applicant profile
+      // 2️ Create applicant profile
      await tx.applicant.upsert({
   where: { id: user.id },
   update: {
@@ -60,7 +60,7 @@ export const createApplicantProfile = async (
     nationality,
     gender,
     maritalStatus,
-    education: "high_school",
+    education,
     experience,
     websiteUrl,
     biography,
@@ -72,7 +72,7 @@ export const createApplicantProfile = async (
     nationality,
     gender,
     maritalStatus,
-    education: "high_school",
+    education,
     experience,
     websiteUrl,
     biography,

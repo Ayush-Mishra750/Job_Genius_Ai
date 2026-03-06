@@ -1,9 +1,8 @@
 "use client";
 
-import { useTransition, useState } from "react";
-// import { toggleSaveJob } from "@/actions/saveJob.action";
+import { useTransition, useState, useEffect } from "react";
 import { Bookmark, BookmarkCheck } from "lucide-react";
-// import { toggleSaveJob, unsaveJob } from "../actions/savedjobs";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { toggleSaveJob, unsaveJob } from "@/app/(applicant)/actions/savedjobaction";
 
@@ -53,17 +52,24 @@ export default function SaveJobButton({
 
 
 
-export  function UnsaveButton({ jobId }: { jobId: number }) {
+
+
+export function UnsaveButton({ jobId }: { jobId: number }) {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
+  const handleUnsave = () => {
+    startTransition(async () => {
+      await unsaveJob(jobId);
+      router.refresh(); // refresh data
+    });
+  };
 
   return (
     <Button
-      onClick={() =>
-        startTransition(() => unsaveJob(jobId))
-      }
+      onClick={handleUnsave}
       disabled={isPending}
-      variant={"destructive"}
-      className="text-lg  cursor-pointer"
+      className="text-lg cursor-pointer"
     >
       {isPending ? "Removing..." : "Unsave"}
     </Button>

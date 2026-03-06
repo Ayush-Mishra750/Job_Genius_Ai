@@ -2,14 +2,14 @@ import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { prisma } from "@/lib/prisma";
 
 export async function checkIfApplied(jobId: number) {
-  const session = await getCurrentUser();
+  const user = await getCurrentUser();
 
-  if (!session?.id) return false;
+  if (!user?.id) return false;
 
-  const result = await prisma.application.findFirst({
+  const result = await prisma.jobApplication.findFirst({
     where: {
       jobId: jobId,
-      applicantId: session.id,
+      applicantId: user.id,
     },
     select: {
       id: true,

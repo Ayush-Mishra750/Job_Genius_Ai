@@ -41,9 +41,13 @@ import { createApplicantProfile } from "../actions/applicant-setting-action";
 import { ImageUpload } from "@/app/(employer)/_components/employer-setting-form";
 import Tiptap from "@/components/richTextEditor/text-editor";
 import { ResumeUpload } from "./resume-upload";
+import { ApplicantProfileType } from "../actions/applicant.queries";
 
-const ApplicantSettingsForm = () => {
-
+interface ApplicantSettingsFormProps {
+  initialData: ApplicantProfileType|null;
+}
+const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
+// console.log(initialData)
   const {
     register,
     handleSubmit,
@@ -53,7 +57,22 @@ const ApplicantSettingsForm = () => {
   } = useForm<ApplicantSettingsSchema>({
     resolver: zodResolver(applicantSettingsSchema),
     defaultValues: {
-      email: "ayushmishra270306@gmail.com",
+      name: initialData?.name || "",
+      email: initialData?.email || "",
+      phoneNumber: initialData?.phoneNumber || "",
+      location: initialData?.location || "",
+      dateOfBirth: initialData?.dateOfBirth || "",
+      nationality: initialData?.nationality || "",
+      gender: initialData?.gender || undefined,
+      maritalStatus: initialData?.maritalStatus || undefined,
+      education: initialData?.education || undefined,
+      experience: initialData?.experience || "",
+      websiteUrl: initialData?.websiteUrl || "",
+      biography: initialData?.biography || "",
+      avatarUrl: initialData?.avatarUrl || "",
+      resumeUrl: initialData?.resumeUrl || "",
+      resumeName: initialData?.resumeName || "",
+      resumeSize: initialData?.resumeSize || undefined,
     },
   });
 

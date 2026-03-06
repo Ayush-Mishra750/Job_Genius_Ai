@@ -1,8 +1,12 @@
-import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
+// import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
+// import { appliedJob } from "../../actions/getjob";
+
+import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { appliedJob } from "../../actions/getjob";
-import { StatusBadge } from "../../_components/status-badge";
+
+// import { StatusBadge } from "../../_components/status-badge";
 export const dynamic = "force-dynamic";
 
 const AppliedJob=async ()=> {
@@ -33,16 +37,16 @@ const AppliedJob=async ()=> {
             <div className="space-y-1">
               <h2 className="text-lg font-medium">{item.job.title}</h2>
               <p className="text-sm text-gray-500">
-                Applied on {new Date(item.createdAt).toLocaleDateString()}
+                Applied on {new Date(item.job.createdAt).toLocaleDateString()}
               </p>
             </div>
 
             {/* RIGHT */}
             <div className="flex items-center gap-3">
-              <StatusBadge status={item.status} />
+              {/* <StatusBadge status={item.job.status} /> */}
 
               <a
-                href={item.resumeUrl}
+                href={item.resume.fileUrl}
                 target="_blank"
                 className="text-sm text-blue-600 hover:underline"
               >

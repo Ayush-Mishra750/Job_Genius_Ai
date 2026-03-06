@@ -13,6 +13,7 @@ import { Card } from "@/components/ui/card";
 import { getJobIDAction } from "@/app/(employer)/_actions/Job_action";
 import { formatPostedTime } from "@/app/(employer)/_components/format-posted";
 import Link from "next/link";
+import { formatJobDescription } from "@/app/(applicant)/_utils/json-to-text";
 
 export default async function ViewJobPage({ params }: { params: { jobId: number } }) {
 
@@ -133,13 +134,10 @@ export default async function ViewJobPage({ params }: { params: { jobId: number 
             </h2>
 
             <div
-              className="
-                prose dark:prose-invert
-                max-w-none
-                text-muted-foreground
-                break-words whitespace-normal
-              "
-              dangerouslySetInnerHTML={{ __html: job.description }}
+              className="prose max-w-none break-words overflow-hidden"
+              dangerouslySetInnerHTML={{
+                __html: formatJobDescription(job.description),
+              }}
             />
           </Card>
 

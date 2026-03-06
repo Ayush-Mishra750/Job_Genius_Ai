@@ -55,7 +55,7 @@ export default function SavedJobCard({ job }: savedProps) {
                 {job.title}
               </h3>
             </div>
-            <UnsaveButton jobId={job.id} />
+          
           </div>
 
           <div className="flex flex-wrap gap-y-2 gap-x-4 text-sm text-slate-500 dark:text-slate-400">
@@ -108,15 +108,11 @@ export default function SavedJobCard({ job }: savedProps) {
             </Button>
           </Link>
           
-          <Link
-            href={`/dashboard/find-jobs/${job.id}`}
-            className="w-full sm:flex-1"
-          >
-            <Button className="w-full gap-2 shadow-sm group/btn">
-              Apply Now
-              <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+          
+               <UnsaveButton jobId={job.id} />
+            
+           
+    
         </CardFooter>
       </div>
     </Card>

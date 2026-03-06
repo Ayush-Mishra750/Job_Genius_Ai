@@ -8,7 +8,7 @@ const MARITAL_STATUS_OPTIONS = ["single", "married", "divorced"] as const;
 
 const EDUCATION_OPTIONS = [
   "none",
-  "high school",
+  "high_school",
   "undergraduate",
   "masters",
   "phd",
@@ -39,20 +39,6 @@ export const applicantSettingsSchema = z.object({
     .max(500, "Bio must be less than 500 characters")
     .optional(),
   avatarUrl: z.string().optional(),
-
-  // resume: z
-  //   .any()
-  //   .refine((files) => files?.length == 1, "Resume is required.")
-  //   .refine(
-  //     (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-  //     `Max file size is 5MB.`,
-  //   )
-  //   .refine(
-  //     (files) => ACCEPTED_DOCUMENT_TYPES.includes(files?.[0]?.type),
-  //     "Only .pdf format is supported.",
-  //   )
-  //   .optional(),
-
   resumeUrl: z.url({ error: "Invalid URL" }).optional().or(z.literal("")),
   resumeName: z.string().optional(),
   resumeSize: z.int().optional(),

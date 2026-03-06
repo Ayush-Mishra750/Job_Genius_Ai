@@ -1,4 +1,4 @@
-// features/employers/employer.queries.ts
+
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { prisma } from "@/lib/prisma";
 
@@ -19,7 +19,30 @@ const result = await prisma.employer.findUnique({
   return result || null;
 }
 
- export function htmlToText(html: string) {
-  return html.replace(/<[^>]*>/g, "").trim();
+export function htmlToText(html: string) {
+  if (!html) return "";
+
+  return html
+    // convert list items to bullet points
+    .replace(/<li>/gi, "\n• ")
+    .replace(/<\/li>/gi, "")
+
+    // convert headings to new sections
+    .replace(/<h[1-6][^>]*>/gi, "\n\n")
+    .replace(/<\/h[1-6]>/gi, "\n")
+
+    // convert paragraphs
+    .replace(/<p[^>]*>/gi, "")
+    .replace(/<\/p>/gi, "\n")
+
+    // convert line breaks
+    .replace(/<br\s*\/?>/gi, "\n")
+
+    // remove remaining tags
+    .replace(/<[^>]*>/g, "")
+
+    // remove extra spaces
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
 }
 
