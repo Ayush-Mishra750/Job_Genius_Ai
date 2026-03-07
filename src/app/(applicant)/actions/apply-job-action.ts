@@ -62,3 +62,64 @@ try {
     }
 }
 }
+
+
+
+// export async function getAppliedJobsForApplicant(userId: number) {
+//   const applications = await prisma.jobApplication.findMany({
+//     where: {
+//       applicantId: userId,
+//     },
+//     include: {
+//         // jobApplication: true,
+//       job: {
+//         include: {
+//           employer: true,
+          
+//         },
+//       },
+//     },
+//     orderBy: {
+//       appliedAt: "desc",
+//     },
+//   });
+
+//   // Convert to Drizzle-like grouped structure
+//   return applications.map((app) => ({
+//     JobApplication: {
+//       id: app.id,
+//       jobId: app.jobId,
+//       applicantId: app.applicantId,
+//       resumeId: app.resumeId,
+//       coverLetter: app.coverLetter,
+//       appliedAt: app.appliedAt,
+//     },
+//     job: app.job,
+//     employer: app.job?.employer ?? null,
+//   }));
+// }
+
+export async function getAppliedJobsForApplicant(userId: number) {
+    const applications = await prisma.jobApplication.findMany({
+        where: {
+            applicantId: userId,
+        },
+        include: {
+            job: {
+                include: {
+                    employer: true,
+                    jobApplication: {
+                        where: {
+                            applicantId: userId,
+                        },
+                    },
+                    
+                },
+            },
+        },
+        orderBy: {
+            appliedAt: "desc",
+        },
+    });
+    return applications
+}
