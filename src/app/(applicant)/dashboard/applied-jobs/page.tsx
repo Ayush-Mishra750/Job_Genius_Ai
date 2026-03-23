@@ -47,7 +47,7 @@ export default async function AppliedJobsPage() {
             You haven&apos;t applied to any jobs yet. Start exploring!
           </p>
           <Button asChild>
-            <Link href="/jobs">Browse Jobs</Link>
+            <Link href="/dashboard/find-jobs">Browse Jobs</Link>
           </Button>
         </div>
       ) : (
@@ -70,9 +70,9 @@ export default async function AppliedJobsPage() {
                   {/* Employer Header */}
                   <div className="flex justify-between items-start">
                     <div className="h-12 w-12 relative rounded-md border bg-gray-50 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                      {app?.job.employer?.bannerImageUrl ? (
+                      {app?.job.employer?.user.avatarUrl ? (
                         <Image
-                          src={app.job.employer?.bannerImageUrl || "/placeholder-avatar.png"}
+                          src={app.job.employer?.user.avatarUrl || "/placeholder-avatar.png"}
                           alt={app.job.employer.name || "Company"}
                           fill
                           className="object-cover"
@@ -133,7 +133,7 @@ export default async function AppliedJobsPage() {
                 {/* Footer Action */}
                 <CardFooter className="p-6 pt-0 mt-auto">
                   <Button variant="outline" className="w-full" asChild>
-                    <Link href={`/dashboard/find-jobs/${app.id}`}>
+                    <Link href={`/find-jobs/${app.job.id}`}>
                       View Job Details
                     </Link>
                   </Button>

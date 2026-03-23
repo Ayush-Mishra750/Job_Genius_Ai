@@ -26,9 +26,8 @@ const navigationItems = [
   { name: "Employer Profile", icon: User, href: base + "/profile" },
   { name: "Post New Job", icon: Plus, href: base + "/jobs" },
   { name: "Posted Jobs", icon: Briefcase, href: base + "/jobsList" },
-  { name: "Saved Candidate", icon: Bookmark },
+  { name: " Applications", icon: Bookmark ,href:base+"/applications" },
   { name: "Plans & Billing", icon: CreditCard },
-  { name: "All Companies", icon: Building },
   { name: "Settings", icon: Settings, href: base + "/settings" },
 ];
 
@@ -74,7 +73,7 @@ const EmployerSidebar = () => {
                   href: curNav.href || "#",
                   pathname,
                   base: "/dashboard",
-                }) && "text-primary bg-blue-300",
+                }) && "dark:text-black bg-blue-300",
               )}
             >
               <Icon />
@@ -85,8 +84,7 @@ const EmployerSidebar = () => {
       </nav>
 
       <div className="absolute bottom-0 w-full p-4 border-t border-border">
-        {/* dark and light mode */}
-       <ThemeToggle  />
+      
         <Button
           onClick={logoutUserAction}
           className="flex items-center gap-3 px-3 py-2 text-sm font-medium mt-4 rounded-lg  w-full"

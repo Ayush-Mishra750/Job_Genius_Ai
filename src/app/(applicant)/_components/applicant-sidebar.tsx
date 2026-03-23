@@ -16,19 +16,19 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 
-const base = "/dashboard";
+
+// const base = "/dashboard";
 
 const navigationItems = [
-  { name: "Home", icon: LayoutDashboard, href: base + "/" },
-  { name: "Find Jobs", icon: User, href: base + "/find-jobs" },
+  { name: "Home", icon: LayoutDashboard, href:  "/dashboard" },
+  { name: "Find Jobs", icon: User, href:  "/find-jobs" },
 
-  { name: "Applied Jobs", icon: Briefcase, href: base + "/applied-jobs" },
-  { name: "Saved Jobs", icon: Bookmark ,href:base+"/saved-jobs" },
-  { name: "Plans & Billing", icon: CreditCard  ,href:base+"/plans-billing"},
+  { name: "Applied Jobs", icon: Briefcase, href:  "/dashboard/applied-jobs" },
+  { name: "Saved Jobs", icon: Bookmark ,href:"/dashboard/saved-jobs" },
+  { name: "Plans & Billing", icon: CreditCard  ,href:"/dashboard/plans-billing"},
 
-  { name: "Settings", icon: Settings, href: base + "/settings" },
+  { name: "Settings", icon: Settings, href:  "/dashboard/settings" },
 ];
 
 const ApplicantSidebar = () => {
@@ -84,8 +84,7 @@ const ApplicantSidebar = () => {
       </nav>
 
       <div className="absolute bottom-6 left-3 right-3 ">
-        {/* dark and light mode */}
-        <ThemeToggle />
+       
 
         <Button
           onClick={logoutUserAction}

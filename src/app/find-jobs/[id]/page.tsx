@@ -30,27 +30,33 @@ export default async function JobDetailsPage({
   params: { id: number };
 }) {
   const user = await getCurrentUser();
-  if (!user || user?.role !== "applicant") {
-    redirect("/login");
-  }
+  // if (!user || user?.role !== "applicant") {
+  //   redirect("/login");
+  // }
 
   const { id } = await params;
   const jobId = Number(id);
 
   const isApplied = await checkIfApplied(jobId);
   const { status, data: job } = await getJobIDDetails(jobId);
-if(!job)return redirect("/dashboard/find-jobs");
+
 
   if (status === "ERROR" || !job) {
-    redirect("/dashboard/jobs");
+    redirect("/jobs");
   }
   //get saved status
-  const saved = await prisma.savedJob.findMany({
+  const saved =async()=>{
+  const user = await getCurrentUser();
+if(!user){
+  redirect("/login");
+}
+await prisma.savedJob.findMany({
     where: {
-      userId: user.id,
+      userId:id,
       jobId: job.id,
     },
   });
+  } 
   
   const isSaved = saved.length > 0;
   //apply status
@@ -85,7 +91,7 @@ if(!job)return redirect("/dashboard/find-jobs");
       {/* STICKY TOP NAVIGATION */}
       <div className="sticky top-0 z-40 w-full  backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/dashboard/find-jobs">
+          <Link href="/find-jobs">
             <Button
               variant="ghost"
               className="gap-2 text-slate-600 dark:text-slate-400 hover:text-primary transition-all"

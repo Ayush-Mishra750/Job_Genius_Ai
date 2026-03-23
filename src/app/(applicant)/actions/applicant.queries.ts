@@ -48,22 +48,35 @@ export type ApplicantProfileType = NonNullable<
 
 
 export async function getAppliedJobsForApplicant(userId: number) {
-
   const applications = await prisma.jobApplication.findMany({
     where: {
       applicantId: userId,
     },
+       orderBy: {
+      appliedAt: "desc",
+    },
     include: {
       job: {
         include: {
-          employer: true, // left join employer
+          employer:{
+            select:{
+              name:true,
+              user:{
+                select:{
+                  avatarUrl:true,
+                }
+              }
+            }
+            
         },
+      
       },
     },
-    orderBy: {
-      appliedAt: "desc",
-    },
+   
+  }
+  
   });
 
   return applications;
 }
+

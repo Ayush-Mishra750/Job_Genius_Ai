@@ -111,7 +111,7 @@ const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
                     control={control}
                     render={({ field, fieldState }) => (
                       <div>
-                        <Label>Upload Logo *</Label>
+                        <Label className="pb-3">Upload Logo *</Label>
                         <ImageUpload
                           value={field.value}
                           onChange={field.onChange}

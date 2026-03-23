@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { JobFormData } from "../_components/job_form_schema";
 import { Prisma } from "@/generated/prisma/browser";
+import { redirect } from "next/navigation";
 
 export const createJobAction = async (data: JobFormData) => {
   try {
@@ -86,12 +87,18 @@ export const updateJobAction = async (
 
 
 export async function getJobs() {
-  return await prisma.job.findMany({
-    where: {
-
-      deletedAt: null,
-    },
-  })
+ const user=await getCurrentUser();
+ if(!user)redirect("/login");
+ const employerId=user.id;
+ const jobs = await prisma.job.findMany({
+  where: {
+    employerId: employerId, //  only this employer jobs
+  },
+  orderBy: {
+    createdAt: "desc",
+  },
+});
+return jobs;
 }
 
 

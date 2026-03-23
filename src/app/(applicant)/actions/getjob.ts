@@ -5,17 +5,36 @@ import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function getAllJobs() {
+export const  totaljob=async()=>{
   try {
     const currentUser = await getCurrentUser();
 
     if (!currentUser) {
-      return {
-        status: "ERROR",
-        message: "Unauthorized",
-        data: [],
-      };
+      return null;
     }
+    const data=await prisma.job.count();
+   
+    if(!data){
+      throw new Error("no job available");
+    }
+    return data;
+    
+  } catch (error:any) {
+    throw new Error("no jobs ",error)
+  }
+}
+
+export async function getAllJobs() {
+  try {
+    // const currentUser = await getCurrentUser();
+
+    // if (!currentUser) {
+    //   return {
+    //     status: "ERROR",
+    //     message: "Unauthorized",
+    //     data: [],
+    //   };
+    // }
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);

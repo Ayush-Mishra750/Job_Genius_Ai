@@ -96,7 +96,7 @@ export default function SavedJobCard({ job }: savedProps) {
 
         <CardFooter className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-100 dark:border-slate-800/50 mt-2">
           <Link
-            href={`/dashboard/find-jobs/${job.id}`}
+            href={`/find-jobs/${job.id}`}
             className="w-full sm:w-auto"
           >
             <Button 

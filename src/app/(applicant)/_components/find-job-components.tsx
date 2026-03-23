@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 export async function checkIfApplied(jobId: number) {
   const user = await getCurrentUser();
-
+     
   if (!user?.id) return false;
 
   const result = await prisma.jobApplication.findFirst({
@@ -21,14 +21,14 @@ export async function checkIfApplied(jobId: number) {
 
 export const getJobIDDetails = async (id: number) => {
   try {
-    const currentUser = await getCurrentUser();
+    // const currentUser = await getCurrentUser();
 
-    if (!currentUser) {
-      return {
-        status: "ERROR",
-        message: "Unauthorized",
-      };
-    }
+    // if (!currentUser) {
+    //   return {
+    //     status: "ERROR",
+    //     message: "Unauthorized",
+    //   };
+    // }
 
     const job = await prisma.job.findUnique({
       where: {

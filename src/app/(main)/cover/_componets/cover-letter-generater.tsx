@@ -1,0 +1,121 @@
+"use client"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { coverLetterSchema } from "@/lib/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { generateCoverLetter } from "../_actions/generate-cover-letter";
+
+const CoverLetterGenerator = () => {
+    const router=useRouter();
+
+    const {
+        register,
+        handleSubmit,
+        formState:{errors},
+        reset
+    }=useForm({
+        resolver:zodResolver(coverLetterSchema)
+    })
+ 
+
+const onSubmit = async (data:coverLetterSchema) => {
+  try {
+    const res = await generateCoverLetter(data);
+    
+  }
+//     toast.success("Cover letter generated successfully!");
+
+//     router.push(`/cover/${res.id}`);
+//     reset();
+//   } 
+  catch (error) {
+    // toast.error(error.message || "Failed to generate cover letter");
+  }
+};
+
+
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Job Details</CardTitle>
+          <CardDescription>
+            Provide information about the position you&apos;re applying for
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="companyName">Company Name</Label>
+                <Input id="companyName" placeholder="Enter company name"
+                  {...register("companyName")} 
+                  />
+                   {errors.companyName && (
+                  <p className="text-sm text-destructive">
+                    {errors.companyName.message}
+                  </p>
+                )}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="jobTitle">Job Title</Label>
+                <Input id="jobTitle" placeholder="Enter Job Title"
+                {...register("jobTitle")}
+                 />
+                {errors.jobTitle && (
+                  <p className="text-sm text-destructive">
+                    {errors.jobTitle.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="jobDescription">Job Description</Label>
+              <Textarea 
+              id="jobDescription"
+                placeholder="Paste the job description here"
+                className="h-32"
+                {...register("jobDescription")}
+              />
+               {errors.jobDescription && (
+                  <p className="text-sm text-destructive">
+                    {errors.jobDescription.message}
+                  </p>
+                )}
+            </div>
+
+            <div className="flex justify-end">
+                <Button type="submit" >
+                {/* {generating ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Generating...
+                  </>
+                ) : (
+                  "Generate Cover Letter"
+                )} */}
+                Generate Cover Letter
+                </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export default CoverLetterGenerator;
