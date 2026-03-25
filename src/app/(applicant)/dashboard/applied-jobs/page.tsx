@@ -11,6 +11,18 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { getAppliedJobsForApplicant } from "../../actions/applicant.queries";
+import { ApplicationStatus } from "../../../../../generated/prisma";
+
+const statusStyles: Record<ApplicationStatus, string> = {
+  pending: "bg-yellow-100 text-yellow-700",
+  shortlisted: "bg-blue-100 text-blue-700",
+  interview: "bg-green-100 text-green-700",
+  rejected: "bg-red-100 text-red-700",
+  hired:"bg-purple-200"
+};
+
+
+
 
 export default async function AppliedJobsPage() {
   // 1. Auth Check
@@ -47,7 +59,7 @@ export default async function AppliedJobsPage() {
             You haven&apos;t applied to any jobs yet. Start exploring!
           </p>
           <Button asChild>
-            <Link href="/dashboard/find-jobs">Browse Jobs</Link>
+            <Link href="/find-jobs">Browse Jobs</Link>
           </Button>
         </div>
       ) : (
@@ -56,7 +68,7 @@ export default async function AppliedJobsPage() {
           {applications.map((app) => {
             // Because we used SQL joins, the data is grouped by table alias!
             // const { JobApplication, job, employer } = app;
-            console.log(app);
+            // console.log(app);
              const {  job,  } = app;
              const employer = job?.employer ?? null;
 
@@ -84,10 +96,12 @@ export default async function AppliedJobsPage() {
                     {/* Applied Date Badge */}
                     <Badge
                       variant="secondary"
-                      className="flex items-center gap-1 bg-green-50 text-green-700 hover:bg-green-50"
+                     className={statusStyles[app.status]}
                     >
                       <CheckCircle2 className="w-3 h-3" />
-                      Applied
+                      {app.status }
+                      
+
                     </Badge>
                   </div>
 

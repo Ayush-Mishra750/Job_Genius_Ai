@@ -3,22 +3,19 @@
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { prisma } from "@/lib/prisma";
 import { coverLetterSchema } from "@/lib/schema";
-
 import { GoogleGenAI } from "@google/genai";
-
-
-
 
   const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
 
 
 export async function generateCoverLetter(data: coverLetterSchema) {
     const user = await getCurrentUser();
-    console.log(user)
+    // console.log(user)
 
     if (!user || user.role!=="applicant") {
       throw new Error("Unauthorized");
     }
+
     const applicant=await prisma.applicant.findUnique({
       where:{
         id:user?.id
@@ -31,6 +28,7 @@ export async function generateCoverLetter(data: coverLetterSchema) {
     if (!applicant) {
       throw new Error("user not found");
     }
+
   try {
     const prompt=`You are a professional career coach and expert resume writer.
 
@@ -86,21 +84,23 @@ const result = await ai.models.generateContent({
     model: "gemini-2.5-flash",
     contents:prompt,
   });
-  const content=  result.text?.trim();
-  // console.log(content);
-  //  const coverLetter = await prisma.coverLetter.create({
-  //     data: {
-  //       content,
-  //       jobDescription: data.jobDescription,
-  //       companyName: data.companyName,
-  //       jobTitle: data.jobTitle,
-  //       status: "completed",
-  //       userId: user.id,
-  //     },
-  //   });
 
+  const content=  result.text?.trim() || "";
+
+ 
+  const coverLetter=await prisma.coverLetter.create({
+    data:{
+      content ,
+      jobDescription:data.jobDescription,
+      companyName:data.companyName,
+      jobTitle:data.jobTitle,
+      status:"completed",
+      applicantId:user.id,
+    }
+  })
+  return coverLetter;
   } catch (error) {
-    //  console.error("Error generating cover letter:", error.message);
+     console.error("Error generating cover letter:", error);
     throw new Error("Failed to generate cover letter");
   }
   

@@ -23,6 +23,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import ApplicationStatusSelect from "../../_components/application-status";
+
+const statusOptions = ["PENDING", "SHORTLISTED", "ACCEPTED", "REJECTED"];
+
 const EmployerApplicantPage = async () => {
   const user = await getCurrentUser();
   if (!user || user.role !== "employer") redirect("/login");
@@ -111,7 +115,7 @@ const EmployerApplicantPage = async () => {
 
                     <TableCell>
                       <div>
-                        <p className="font-bold text-blue-500">Applied</p>
+                        <ApplicationStatusSelect appId={app.id} currentStatus={app.status}/>
                       </div>
                     </TableCell>
 

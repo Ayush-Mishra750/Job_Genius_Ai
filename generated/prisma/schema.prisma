@@ -70,6 +70,8 @@ model Applicant {
   user          User             @relation(fields: [id], references: [id], onDelete: Cascade)
   applications  JobApplication[]
   resumes       Resume[]
+  coverLetter   CoverLetter[]
+  assessments   Assessment[]
 }
 
 model Job {
@@ -99,15 +101,19 @@ model Job {
 }
 
 model JobApplication {
-  id          Int       @id @default(autoincrement())
+  id          Int               @id @default(autoincrement())
   jobId       Int
   applicantId Int
   resumeId    Int
   coverLetter String?
-  appliedAt   DateTime  @default(now())
-  applicant   Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
-  job         Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
-  resume      Resume    @relation(fields: [resumeId], references: [id])
+  status      ApplicationStatus @default(pending) //  NEW
+
+  appliedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt //  track changes
+
+  applicant Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  job       Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  resume    Resume    @relation(fields: [resumeId], references: [id])
 
   @@unique([jobId, applicantId])
 }
@@ -169,4 +175,36 @@ enum ApplicationStatus {
   interview
   rejected
   hired
+}
+
+//ai feature model 
+model CoverLetter {
+  id             Int       @id @default(autoincrement())
+  applicantId    Int
+  applicant      Applicant @relation(fields: [applicantId], references: [id])
+  content        String // Markdown content
+  jobDescription String?
+  companyName    String // Name of the company applying to
+  jobTitle       String // Position applying for
+  status         String    @default("draft") // draft, completed
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([applicantId])
+}
+
+model Assessment {
+  id             Int       @id @default(autoincrement())
+  applicantId    Int
+  applicant      Applicant @relation(fields: [applicantId], references: [id])
+  quizScore      Float // Overall quiz score
+  questions      Json[] // Array of {question, answer, userAnswer, isCorrect}
+  category       String // "Technical", "Behavioral", etc.
+  topic          String
+  difficulty     String?
+  improvementTip String? // AI-generated improvement tip
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([applicantId])
 }

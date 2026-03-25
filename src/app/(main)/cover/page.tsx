@@ -2,10 +2,13 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getCoverLetters } from "./_actions/getcover-letter";
+import CoverLetterList from "./_componets/cover-letter-list";
 
 
 export default async function CoverLetterPage() {
-//   const coverLetters = await getCoverLetters();
+  const coverLetters = await getCoverLetters();
+  // console.log(coverLetters)
 
   return (
     <div className="container px-5">
@@ -14,14 +17,14 @@ export default async function CoverLetterPage() {
           AI Cover Letter
         </h1>
         <Link href="/cover/new">
-          <Button>
+          <Button className="cursor-pointer">
             <Plus />
             Create New
           </Button>
         </Link>
       </div>
 
-      {/* <CoverLetterList coverLetters={coverLetters} /> */}
+      <CoverLetterList coverLetters={coverLetters} />
     </div>
   );
 }

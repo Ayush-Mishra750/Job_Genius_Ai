@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { generateCoverLetter } from "../_actions/generate-cover-letter";
+import { toast } from "sonner";
 
 const CoverLetterGenerator = () => {
     const router=useRouter();
@@ -24,7 +25,7 @@ const CoverLetterGenerator = () => {
     const {
         register,
         handleSubmit,
-        formState:{errors},
+        formState:{errors ,isLoading,isSubmitting},
         reset
     }=useForm({
         resolver:zodResolver(coverLetterSchema)
@@ -34,15 +35,15 @@ const CoverLetterGenerator = () => {
 const onSubmit = async (data:coverLetterSchema) => {
   try {
     const res = await generateCoverLetter(data);
-    
-  }
-//     toast.success("Cover letter generated successfully!");
+    // console.log(res);
+  
+    toast.success("Cover letter generated successfully!");
 
-//     router.push(`/cover/${res.id}`);
-//     reset();
-//   } 
+    router.push(`/cover/${res.id}`);
+    reset();
+  } 
   catch (error) {
-    // toast.error(error.message || "Failed to generate cover letter");
+    toast.error( "Failed to generate cover letter");
   }
 };
 
@@ -99,16 +100,16 @@ const onSubmit = async (data:coverLetterSchema) => {
             </div>
 
             <div className="flex justify-end">
-                <Button type="submit" >
-                {/* {generating ? (
+                <Button type="submit" className="cursor-pointer" >
+                {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Generating...
                   </>
                 ) : (
                   "Generate Cover Letter"
-                )} */}
-                Generate Cover Letter
+                )}
+             
                 </Button>
             </div>
           </form>

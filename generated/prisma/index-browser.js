@@ -204,7 +204,9 @@ exports.Prisma.JobApplicationScalarFieldEnum = {
   applicantId: 'applicantId',
   resumeId: 'resumeId',
   coverLetter: 'coverLetter',
-  appliedAt: 'appliedAt'
+  status: 'status',
+  appliedAt: 'appliedAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SavedJobScalarFieldEnum = {
@@ -222,6 +224,31 @@ exports.Prisma.ResumeScalarFieldEnum = {
   fileName: 'fileName',
   fileSize: 'fileSize',
   isPrimary: 'isPrimary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CoverLetterScalarFieldEnum = {
+  id: 'id',
+  applicantId: 'applicantId',
+  content: 'content',
+  jobDescription: 'jobDescription',
+  companyName: 'companyName',
+  jobTitle: 'jobTitle',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AssessmentScalarFieldEnum = {
+  id: 'id',
+  applicantId: 'applicantId',
+  quizScore: 'quizScore',
+  questions: 'questions',
+  category: 'category',
+  topic: 'topic',
+  difficulty: 'difficulty',
+  improvementTip: 'improvementTip',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -266,6 +293,14 @@ exports.EducationLevel = exports.$Enums.EducationLevel = {
   phd: 'phd'
 };
 
+exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
+  pending: 'pending',
+  shortlisted: 'shortlisted',
+  interview: 'interview',
+  rejected: 'rejected',
+  hired: 'hired'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
@@ -274,7 +309,9 @@ exports.Prisma.ModelName = {
   Job: 'Job',
   JobApplication: 'JobApplication',
   SavedJob: 'SavedJob',
-  Resume: 'Resume'
+  Resume: 'Resume',
+  CoverLetter: 'CoverLetter',
+  Assessment: 'Assessment'
 };
 
 /**
