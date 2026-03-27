@@ -50,3 +50,9 @@ generatedLetter update hota hai
 useEffect trigger hota hai
         ↓
 Toast + Redirect + Reset -->
+
+
+<!-- quiz generate flow 
+1. first we have to design the server action function where we have to generate the quiz by gemini using prompt 
+2. after  generating quiz we have to save those uiz into database 
+3.show into ui  -->
