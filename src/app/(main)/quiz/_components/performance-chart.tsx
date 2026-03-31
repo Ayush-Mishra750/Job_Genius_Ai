@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   Card,
   CardContent,
@@ -6,8 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { JsonValue } from "@prisma/client/runtime/client";
 import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import { useRouter } from "next/dist/client/components/navigation";
+// import React, { useEffect, useState } from "react";
 import {
   CartesianGrid,
   Line,
@@ -18,14 +21,31 @@ import {
   YAxis,
 } from "recharts";
 
-const CustomXTick = ({ x, y, payload }:any) => {
+type AssessmentResult = {
+  category: string;
+  topic: string;
+  difficulty: string | null;
+  id: number;
+  applicantId: number;
+  quizScore: number;
+  questions: JsonValue[];
+  answers: (string | null)[];
+  improvementTip: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+const CustomXTick = ({ x, y, payload }: any) => {
+ 
   const isMobile = window.innerWidth < 768;
+const { theme } = useTheme();
+
   return (
     <text
       x={x}
       y={y + (isMobile ? 8 : 16)}
       textAnchor="middle"
-      fill="hsl(var(--foreground))"
+      fill={theme === "dark" ? "#fff" : "#000"}
       fontSize={isMobile ? 8 : 16}
     >
       {payload.value}
@@ -33,14 +53,18 @@ const CustomXTick = ({ x, y, payload }:any) => {
   );
 };
 
-const CustomYTick = ({ x, y, payload }:any) => {
+const CustomYTick = ({ x, y, payload }: any) => {
+ 
+
   const isMobile = window.innerWidth < 768;
+const { theme } = useTheme();
+
   return (
     <text
       x={x}
       y={y}
       textAnchor="end"
-      fill="hsl(var(--foreground))"
+      fill={theme === "dark" ? "#fff" : "#000"}
       fontSize={isMobile ? 8 : 16}
     >
       {payload.value}%
@@ -48,18 +72,24 @@ const CustomYTick = ({ x, y, payload }:any) => {
   );
 };
 
-const PerformanceCharts = ({ assessments }:any) => {
-  const [chartData, setChartData] = useState([]);
+const PerformanceCharts = ({
+  assessments,
+}: {
+  assessments: AssessmentResult[] | null;
+}) => {
 
-  useEffect(() => {
-    if (assessments) {
-      const formattedData = assessments?.map((assessment) => ({
-        date: format(new Date(assessment.createdAt), "MMM dd"),
-        score: assessment.quizScore,
-      }));
-      setChartData(formattedData);
-    }
-  }, [assessments]);
+
+  const chartData = (assessments || [])
+    .slice()
+    .sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    )
+    .map((assessment) => ({
+      date: format(new Date(assessment.createdAt), "MMM dd"),
+      score: assessment.quizScore,
+    }));
+
 
   return (
     <Card>
@@ -72,7 +102,7 @@ const PerformanceCharts = ({ assessments }:any) => {
 
       <CardContent>
         <div>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height={400}>
             <LineChart
               data={chartData}
               margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
@@ -85,7 +115,7 @@ const PerformanceCharts = ({ assessments }:any) => {
                   if (active && payload?.length) {
                     return (
                       <div className="bg-background border rounded-lg p-2 shadow-md">
-                        <p className="text-sm font-medium text-primary">
+                        <p className="text-sm font-medium text-blue-500">
                           Score: {payload[0].value}%
                         </p>
                         <p className="text-xs text-muted-foreground">

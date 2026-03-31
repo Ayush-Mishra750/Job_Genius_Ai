@@ -203,6 +203,7 @@ model Assessment {
     applicant           Applicant     @relation(fields: [applicantId], references: [id])
   quizScore      Float // Overall quiz score
   questions      Json[] // Array of {question, answer, userAnswer, isCorrect}
+  answers        String[]
   category       String // "Technical", "Behavioral", etc.
    topic         String
   difficulty    String?

@@ -12853,6 +12853,7 @@ export namespace Prisma {
     applicantId: number
     quizScore: number
     questions: number
+    answers: number
     category: number
     topic: number
     difficulty: number
@@ -12904,6 +12905,7 @@ export namespace Prisma {
     applicantId?: true
     quizScore?: true
     questions?: true
+    answers?: true
     category?: true
     topic?: true
     difficulty?: true
@@ -13004,6 +13006,7 @@ export namespace Prisma {
     applicantId: number
     quizScore: number
     questions: JsonValue[]
+    answers: string[]
     category: string
     topic: string
     difficulty: string | null
@@ -13036,6 +13039,7 @@ export namespace Prisma {
     applicantId?: boolean
     quizScore?: boolean
     questions?: boolean
+    answers?: boolean
     category?: boolean
     topic?: boolean
     difficulty?: boolean
@@ -13050,6 +13054,7 @@ export namespace Prisma {
     applicantId?: boolean
     quizScore?: boolean
     questions?: boolean
+    answers?: boolean
     category?: boolean
     topic?: boolean
     difficulty?: boolean
@@ -13064,6 +13069,7 @@ export namespace Prisma {
     applicantId?: boolean
     quizScore?: boolean
     questions?: boolean
+    answers?: boolean
     category?: boolean
     topic?: boolean
     difficulty?: boolean
@@ -13078,6 +13084,7 @@ export namespace Prisma {
     applicantId?: boolean
     quizScore?: boolean
     questions?: boolean
+    answers?: boolean
     category?: boolean
     topic?: boolean
     difficulty?: boolean
@@ -13086,7 +13093,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type AssessmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicantId" | "quizScore" | "questions" | "category" | "topic" | "difficulty" | "improvementTip" | "createdAt" | "updatedAt", ExtArgs["result"]["assessment"]>
+  export type AssessmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicantId" | "quizScore" | "questions" | "answers" | "category" | "topic" | "difficulty" | "improvementTip" | "createdAt" | "updatedAt", ExtArgs["result"]["assessment"]>
   export type AssessmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     applicant?: boolean | ApplicantDefaultArgs<ExtArgs>
   }
@@ -13107,6 +13114,7 @@ export namespace Prisma {
       applicantId: number
       quizScore: number
       questions: Prisma.JsonValue[]
+      answers: string[]
       category: string
       topic: string
       difficulty: string | null
@@ -13541,6 +13549,7 @@ export namespace Prisma {
     readonly applicantId: FieldRef<"Assessment", 'Int'>
     readonly quizScore: FieldRef<"Assessment", 'Float'>
     readonly questions: FieldRef<"Assessment", 'Json[]'>
+    readonly answers: FieldRef<"Assessment", 'String[]'>
     readonly category: FieldRef<"Assessment", 'String'>
     readonly topic: FieldRef<"Assessment", 'String'>
     readonly difficulty: FieldRef<"Assessment", 'String'>
@@ -14127,6 +14136,7 @@ export namespace Prisma {
     applicantId: 'applicantId',
     quizScore: 'quizScore',
     questions: 'questions',
+    answers: 'answers',
     category: 'category',
     topic: 'topic',
     difficulty: 'difficulty',
@@ -15122,6 +15132,7 @@ export namespace Prisma {
     applicantId?: IntFilter<"Assessment"> | number
     quizScore?: FloatFilter<"Assessment"> | number
     questions?: JsonNullableListFilter<"Assessment">
+    answers?: StringNullableListFilter<"Assessment">
     category?: StringFilter<"Assessment"> | string
     topic?: StringFilter<"Assessment"> | string
     difficulty?: StringNullableFilter<"Assessment"> | string | null
@@ -15136,6 +15147,7 @@ export namespace Prisma {
     applicantId?: SortOrder
     quizScore?: SortOrder
     questions?: SortOrder
+    answers?: SortOrder
     category?: SortOrder
     topic?: SortOrder
     difficulty?: SortOrderInput | SortOrder
@@ -15153,6 +15165,7 @@ export namespace Prisma {
     applicantId?: IntFilter<"Assessment"> | number
     quizScore?: FloatFilter<"Assessment"> | number
     questions?: JsonNullableListFilter<"Assessment">
+    answers?: StringNullableListFilter<"Assessment">
     category?: StringFilter<"Assessment"> | string
     topic?: StringFilter<"Assessment"> | string
     difficulty?: StringNullableFilter<"Assessment"> | string | null
@@ -15167,6 +15180,7 @@ export namespace Prisma {
     applicantId?: SortOrder
     quizScore?: SortOrder
     questions?: SortOrder
+    answers?: SortOrder
     category?: SortOrder
     topic?: SortOrder
     difficulty?: SortOrderInput | SortOrder
@@ -15188,6 +15202,7 @@ export namespace Prisma {
     applicantId?: IntWithAggregatesFilter<"Assessment"> | number
     quizScore?: FloatWithAggregatesFilter<"Assessment"> | number
     questions?: JsonNullableListFilter<"Assessment">
+    answers?: StringNullableListFilter<"Assessment">
     category?: StringWithAggregatesFilter<"Assessment"> | string
     topic?: StringWithAggregatesFilter<"Assessment"> | string
     difficulty?: StringNullableWithAggregatesFilter<"Assessment"> | string | null
@@ -16058,6 +16073,7 @@ export namespace Prisma {
   export type AssessmentCreateInput = {
     quizScore: number
     questions?: AssessmentCreatequestionsInput | InputJsonValue[]
+    answers?: AssessmentCreateanswersInput | string[]
     category: string
     topic: string
     difficulty?: string | null
@@ -16072,6 +16088,7 @@ export namespace Prisma {
     applicantId: number
     quizScore: number
     questions?: AssessmentCreatequestionsInput | InputJsonValue[]
+    answers?: AssessmentCreateanswersInput | string[]
     category: string
     topic: string
     difficulty?: string | null
@@ -16083,6 +16100,7 @@ export namespace Prisma {
   export type AssessmentUpdateInput = {
     quizScore?: FloatFieldUpdateOperationsInput | number
     questions?: AssessmentUpdatequestionsInput | InputJsonValue[]
+    answers?: AssessmentUpdateanswersInput | string[]
     category?: StringFieldUpdateOperationsInput | string
     topic?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16097,6 +16115,7 @@ export namespace Prisma {
     applicantId?: IntFieldUpdateOperationsInput | number
     quizScore?: FloatFieldUpdateOperationsInput | number
     questions?: AssessmentUpdatequestionsInput | InputJsonValue[]
+    answers?: AssessmentUpdateanswersInput | string[]
     category?: StringFieldUpdateOperationsInput | string
     topic?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16110,6 +16129,7 @@ export namespace Prisma {
     applicantId: number
     quizScore: number
     questions?: AssessmentCreatequestionsInput | InputJsonValue[]
+    answers?: AssessmentCreateanswersInput | string[]
     category: string
     topic: string
     difficulty?: string | null
@@ -16121,6 +16141,7 @@ export namespace Prisma {
   export type AssessmentUpdateManyMutationInput = {
     quizScore?: FloatFieldUpdateOperationsInput | number
     questions?: AssessmentUpdatequestionsInput | InputJsonValue[]
+    answers?: AssessmentUpdateanswersInput | string[]
     category?: StringFieldUpdateOperationsInput | string
     topic?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16134,6 +16155,7 @@ export namespace Prisma {
     applicantId?: IntFieldUpdateOperationsInput | number
     quizScore?: FloatFieldUpdateOperationsInput | number
     questions?: AssessmentUpdatequestionsInput | InputJsonValue[]
+    answers?: AssessmentUpdateanswersInput | string[]
     category?: StringFieldUpdateOperationsInput | string
     topic?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17011,11 +17033,20 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type AssessmentCountOrderByAggregateInput = {
     id?: SortOrder
     applicantId?: SortOrder
     quizScore?: SortOrder
     questions?: SortOrder
+    answers?: SortOrder
     category?: SortOrder
     topic?: SortOrder
     difficulty?: SortOrder
@@ -17774,6 +17805,10 @@ export namespace Prisma {
     set: InputJsonValue[]
   }
 
+  export type AssessmentCreateanswersInput = {
+    set: string[]
+  }
+
   export type ApplicantCreateNestedOneWithoutAssessmentsInput = {
     create?: XOR<ApplicantCreateWithoutAssessmentsInput, ApplicantUncheckedCreateWithoutAssessmentsInput>
     connectOrCreate?: ApplicantCreateOrConnectWithoutAssessmentsInput
@@ -17791,6 +17826,11 @@ export namespace Prisma {
   export type AssessmentUpdatequestionsInput = {
     set?: InputJsonValue[]
     push?: InputJsonValue | InputJsonValue[]
+  }
+
+  export type AssessmentUpdateanswersInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type ApplicantUpdateOneRequiredWithoutAssessmentsNestedInput = {
@@ -18773,6 +18813,7 @@ export namespace Prisma {
   export type AssessmentCreateWithoutApplicantInput = {
     quizScore: number
     questions?: AssessmentCreatequestionsInput | InputJsonValue[]
+    answers?: AssessmentCreateanswersInput | string[]
     category: string
     topic: string
     difficulty?: string | null
@@ -18785,6 +18826,7 @@ export namespace Prisma {
     id?: number
     quizScore: number
     questions?: AssessmentCreatequestionsInput | InputJsonValue[]
+    answers?: AssessmentCreateanswersInput | string[]
     category: string
     topic: string
     difficulty?: string | null
@@ -18962,6 +19004,7 @@ export namespace Prisma {
     applicantId?: IntFilter<"Assessment"> | number
     quizScore?: FloatFilter<"Assessment"> | number
     questions?: JsonNullableListFilter<"Assessment">
+    answers?: StringNullableListFilter<"Assessment">
     category?: StringFilter<"Assessment"> | string
     topic?: StringFilter<"Assessment"> | string
     difficulty?: StringNullableFilter<"Assessment"> | string | null
@@ -20092,6 +20135,7 @@ export namespace Prisma {
     id?: number
     quizScore: number
     questions?: AssessmentCreatequestionsInput | InputJsonValue[]
+    answers?: AssessmentCreateanswersInput | string[]
     category: string
     topic: string
     difficulty?: string | null
@@ -20195,6 +20239,7 @@ export namespace Prisma {
   export type AssessmentUpdateWithoutApplicantInput = {
     quizScore?: FloatFieldUpdateOperationsInput | number
     questions?: AssessmentUpdatequestionsInput | InputJsonValue[]
+    answers?: AssessmentUpdateanswersInput | string[]
     category?: StringFieldUpdateOperationsInput | string
     topic?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20207,6 +20252,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     quizScore?: FloatFieldUpdateOperationsInput | number
     questions?: AssessmentUpdatequestionsInput | InputJsonValue[]
+    answers?: AssessmentUpdateanswersInput | string[]
     category?: StringFieldUpdateOperationsInput | string
     topic?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20219,6 +20265,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     quizScore?: FloatFieldUpdateOperationsInput | number
     questions?: AssessmentUpdatequestionsInput | InputJsonValue[]
+    answers?: AssessmentUpdateanswersInput | string[]
     category?: StringFieldUpdateOperationsInput | string
     topic?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null

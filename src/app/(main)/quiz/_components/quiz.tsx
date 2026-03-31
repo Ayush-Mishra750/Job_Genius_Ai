@@ -8,7 +8,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -31,6 +30,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { BarLoader } from "react-spinners";
 import QuizResult from "./quiz-result";
 import { JsonValue } from "@prisma/client/runtime/client";
+import QuizList from "./quiz-list";
 
 const difficulty = ["easy", "medium", "hard"];
 type Question = {
@@ -52,9 +52,6 @@ type AssessmentResult = {
   updatedAt: Date;
 };
 
-type ErrorResult = {
-  message: string;
-};
 
 const Quiz = () => {
   const [quizData, setQuizData] = useState<Question[]>([]);
@@ -62,18 +59,23 @@ const Quiz = () => {
   const [answers, setAnswers] = useState<(string | null)[]>([]);
   const [quiz, setQuiz] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
-   const [savingResult,setSavingResult]=useState(false);
-const [resultData,setResultData]=useState(false);
-const [result,setResult]=useState<AssessmentResult|null>(null);
- 
- console.log(resultData)
+  const [savingResult, setSavingResult] = useState(false);
+  const [resultData, setResultData] = useState(false);
+  const [result, setResult] = useState<AssessmentResult | null>(null);
+  const [formData, setFormData] = useState<QuizSchemaData>({
+    category: "",
+    topic: "",
+    difficulty: "",
+  });
 
-useEffect(()=>{
-setSavingResult(savingResult);
-},[savingResult])
+  // console.log(resultData);
 
- useEffect(() => {
-    const handleKeyDown = (event:any) => {
+  useEffect(() => {
+    setSavingResult(savingResult);
+  }, [savingResult]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: any) => {
       if (event.key === "Enter" && answers[currentQuestion]) {
         handleNext();
       }
@@ -87,7 +89,7 @@ setSavingResult(savingResult);
     register,
     handleSubmit,
     setValue,
-
+    
     formState: { errors, isLoading, isSubmitting },
     reset,
   } = useForm({
@@ -101,22 +103,23 @@ setSavingResult(savingResult);
     setLoading(true);
     try {
       const res = await generateQuiz(data);
-      console.log("res", res);
-
+      // console.log("res", res);
       toast.success("Quiz generated successfully!");
+      setFormData(data);
+
       setQuiz(true);
-      setQuizData(res); 
-      setResultData(res)
+      setQuizData(res);
+      setResultData(res);
       setAnswers(new Array(res.questions.length).fill(null));
       reset();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     } finally {
       setLoading(false);
     }
   };
 
-const startNewQuiz = () => {
+  const startNewQuiz = () => {
     setCurrentQuestion(0);
     setAnswers([]);
     setShowExplanation(false);
@@ -232,20 +235,26 @@ const startNewQuiz = () => {
 
   const finishQuiz = async () => {
     const score = calculateScore();
-  try {
-    console.log(quizData,answers,score)
-const result=  await saveQuizResult(quizData, answers, score);
-    toast.success("Quiz completed!");
-    setResultData(true);
-    setResult(result);
-  } catch (error) {
-    toast.error( "Failed to save quiz results");
-  }
-  finally{
-    setResultData(false);
-  }
-
+    try {
+      console.log(quizData, answers, score);
+      const result = await saveQuizResult(quizData, answers, score, formData.category, formData.topic, formData.difficulty);
+      toast.success("Quiz completed!");
+      setResultData(true);
+      setResult(result);
+    } catch (error) {
+      toast.error("Failed to save quiz results");
+    } finally {
+      setResultData(false);
+    }
   };
+
+  // if(false){
+  //    return (
+  //     <div className="mx-2">
+  //       <QuizList result={quizData} />
+  //     </div>
+  //   );
+  // }
 
   if (!resultData) {
     return (
@@ -263,7 +272,6 @@ const result=  await saveQuizResult(quizData, answers, score);
       finishQuiz();
     }
   };
-  
 
   const question = quizData[currentQuestion];
   // console.log("quz",quizData)
@@ -280,7 +288,8 @@ const result=  await saveQuizResult(quizData, answers, score);
         <RadioGroup
           onValueChange={handleAnswer}
           value={answers[currentQuestion]}
-          className="space-y-2">
+          className="space-y-2"
+        >
           {question.options.map((option, index) => (
             <div key={index} className="flex items-center space-x-2">
               <RadioGroupItem value={option} id={`option-${index}`} />
@@ -293,7 +302,8 @@ const result=  await saveQuizResult(quizData, answers, score);
         <Button
           className="w-full"
           onClick={handleNext}
-          disabled={!answers[currentQuestion] || savingResult}>
+          disabled={!answers[currentQuestion] || savingResult}
+        >
           {savingResult && <Loader2 className="size-4 animate-spin" />}
           {currentQuestion < quizData.length - 1
             ? "Next Question"
@@ -305,7 +315,8 @@ const result=  await saveQuizResult(quizData, answers, score);
             className="w-full"
             onClick={() => setShowExplanation(true)}
             variant="outline"
-            disabled={!answers[currentQuestion]}>
+            disabled={!answers[currentQuestion]}
+          >
             Show Explanation
           </Button>
         )}
@@ -317,7 +328,7 @@ const result=  await saveQuizResult(quizData, answers, score);
         )}
       </CardFooter>
     </Card>
-  )
+  );
 };
 
 export default Quiz;

@@ -245,6 +245,7 @@ exports.Prisma.AssessmentScalarFieldEnum = {
   applicantId: 'applicantId',
   quizScore: 'quizScore',
   questions: 'questions',
+  answers: 'answers',
   category: 'category',
   topic: 'topic',
   difficulty: 'difficulty',

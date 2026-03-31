@@ -3,6 +3,7 @@ import { getAssessments } from './_actions/quiz'
 import StatsCards from './_components/stats-cards'
 import PerformanceCharts from './_components/performance-chart'
 import QuizList from './_components/quiz-list'
+import AllQuiz from './_components/all-quiz'
 
 
 const InterviewPrepPage =async () => {
@@ -16,7 +17,7 @@ const InterviewPrepPage =async () => {
       <div className='space-y-6'>
           <StatsCards assessments={assessments} />
         <PerformanceCharts assessments={assessments} />
-        <QuizList assessments={assessments} />
+        <AllQuiz assessments={assessments} />
       </div>
     </div>
   )

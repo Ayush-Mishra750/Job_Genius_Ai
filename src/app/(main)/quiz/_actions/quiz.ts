@@ -3,7 +3,8 @@ import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { prisma } from "@/lib/prisma";
 import {  QuizSchemaData } from "@/lib/schema";
 import { GoogleGenAI } from "@google/genai";
-import { JsonValue } from "@prisma/client/runtime/client";
+// import { JsonValue } from "@prisma/client/runtime/client";
+// import { ca } from "zod/v4/locales";
 
   const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
 
@@ -14,7 +15,7 @@ const user=await getCurrentUser();
 if(!user ||user.role!='applicant'){
     throw new Error("user not found");
 }
-
+  
 
   const prompt = `
    Generate the 10 quiz on the bases of  their ${category} ,${topic} and ${difficulty}.
@@ -38,16 +39,7 @@ Create a quiz with questions that reflect real interview patterns, inspired by p
 
   try {
 
-    await prisma.assessment.create({
-     
-    data:{
-        applicantId:user.id,
-        category:category,
-        topic:topic,
-        difficulty:difficulty,
-        quizScore:0,
-    }
-})
+   
     const result = await ai.models.generateContent({
    
     model: "gemini-2.5-flash",
@@ -86,10 +78,10 @@ export async function getAssessments() {
   try {
     const assessments = await prisma.assessment.findMany({
       where: {
-        id: user.id,
+        applicantId: user.id,
       },
       orderBy: {
-        createdAt: "asc",
+        createdAt: "desc",
       },
     });
 
@@ -106,9 +98,9 @@ export type Question = {
   explanation: string;
 };
 export type SaveQuizResultInput = {
-  quizData: Question[];              // ✅ from state
-  answers: (string | null)[];        // ✅ from state
-  score: number;                    // ✅ calculated
+  quizData: Question[];              
+  answers: (string | null)[];        
+  score: number;                    
   category: string;
   topic: string;
   difficulty: string;
@@ -117,24 +109,25 @@ export type SaveQuizResultInput = {
 export async function saveQuizResult(
   quizData: Question[],
   answers: (string | null)[],
-  score: number
+  score: number,
+  category: string,
+  topic: string,
+  difficulty: string
 ) {
   const user= await getCurrentUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user|| user.role!="applicant") throw new Error("Unauthorized");
 
-  const data = await prisma.assessment.findUnique({
-    where: { id: user.id },
-  });
+ 
 
-  if (!data) throw new Error("User not found");
+  // if (!data) throw new Error("User not found");
 
-  console.log("questions",quizData)
-  console.log("answers",answers)
-  console.log("score",score)
+  // console.log("questions",quizData)
+  // console.log("answers",answers)
+  // console.log("score",score)
 
 
   const questionResults = quizData.map((q, index) => ({
-    question: q,
+    question: q.question,
     answer: q.correctAnswer,
     userAnswer: answers[index],
     isCorrect: q.correctAnswer === answers[index],
@@ -155,7 +148,7 @@ export async function saveQuizResult(
       .join("\n\n");
 
     const improvementPrompt = `
-      The user got the following ${data.category} and ${data.topic} interview questions wrong:
+      The user got the following ${category} and ${topic} interview questions wrong:
 
       ${wrongQuestionsText}
 
@@ -180,28 +173,30 @@ export async function saveQuizResult(
   }
 
   try {
-    const assessment = await prisma.assessment.update({
-      where: {
-        id: user.id,
+    const assessment = await prisma.assessment.create({
+  data: {
+    quizScore: score,
+    questions: questionResults,
+    category: category || "Unknown",
+    topic: topic || "Unknown",
+    difficulty: difficulty || "Unknown",
+    answers: answers as string[], // Store user answers separately for easier analysis
+    improvementTip:
+      improvementTip || "Great job! Keep practicing to improve even more.",
+
+    applicant: {
+      connect: {
+        id: user.id, // ✅ THIS FIXES ERROR
       },
-      data: {
-        quizScore: score,
-        questions: questionResults,
-        category: data.category || "Unknown",
-        topic: data.topic || "Unknown",
-        difficulty: data.difficulty || "Unknown",
-        improvementTip: improvementTip || "Great job! Keep practicing to improve even more.",
-      
-      },
-    });
+    },
+  },
+});
 
     return assessment;
   } catch (error) {
     console.error("Error saving quiz result:", error);
     throw new Error("Failed to save quiz result");
-    return {
-      message:"Failed to save quiz result",
-    }
+    
   }
 }
 

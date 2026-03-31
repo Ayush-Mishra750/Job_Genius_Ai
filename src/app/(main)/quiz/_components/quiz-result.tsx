@@ -6,8 +6,6 @@ import { CardContent, CardFooter } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { JsonValue } from "@prisma/client/runtime/client";
 import { Question } from "../_actions/quiz";
-// import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
-// import { prisma } from "@/lib/prisma";
 import { useEffect } from "react";
 
 type AssessmentResult = {
@@ -23,9 +21,7 @@ type AssessmentResult = {
   updatedAt: Date;
 };
 
-type ErrorResult = {
-  message: string;
-};
+
 
 export default function QuizResult({
   result,
@@ -37,16 +33,7 @@ export default function QuizResult({
   resultData: AssessmentResult  | null;
 }) {
   if (!result) return null;
-  // const getAssessment = async () => {
-  //   const user = await getCurrentUser();
-  //   if (!user) throw new Error("Unauthorized");
-  //   const data = await prisma.assessment.findUnique({
-  //     where: {
-  //       id: user.id,
-  //     },
-  //   });
-  //   return data;
-  // };
+   console.log(answers);
 
   return (
     <div className="mx-auto">
