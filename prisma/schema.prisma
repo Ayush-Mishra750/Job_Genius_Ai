@@ -72,8 +72,7 @@ model Applicant {
   resumes       Resume[]
   coverLetter    CoverLetter[]
   assessments    Assessment[]
-
-
+  interview      Interview[]
 }
 
 model Job {
@@ -207,6 +206,20 @@ model Assessment {
   category       String // "Technical", "Behavioral", etc.
    topic         String
   difficulty    String?
+  improvementTip String? // AI-generated improvement tip
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([applicantId])
+}
+model Interview {
+  id             Int      @id @default(autoincrement())
+  applicantId         Int
+     applicant           Applicant     @relation(fields: [applicantId], references: [id])
+
+  interviewScore Float // Overall interview score
+  questions      Json[] // Array of {question, answer, userAnswer, isCorrect}
+  category       String // "Technical", "Behavioral", etc.
   improvementTip String? // AI-generated improvement tip
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt

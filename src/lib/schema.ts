@@ -23,3 +23,20 @@ export const QuizSchema=z.object({
 })
 
 export type QuizSchemaData=z.infer<typeof QuizSchema>;
+
+export const interviewSchema = z.object({
+  position: z.string().min(1, "Job position is required"),
+  description: z.string().min(1, "Job description is required"),
+  experience: z
+    .string()
+    .transform((val) => parseInt(val, 10))
+    .pipe(
+      z
+        .number()
+        .min(0, "Experience must be at least 0 years")
+        .max(50, "Experience cannot exceed 50 years")
+    ),
+  techStack: z.string().min(1, "Tech stack is required"),
+});
+
+export type MockSchemaData=z.infer<typeof interviewSchema>

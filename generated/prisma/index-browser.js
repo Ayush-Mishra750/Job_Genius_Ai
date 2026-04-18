@@ -254,6 +254,17 @@ exports.Prisma.AssessmentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.InterviewScalarFieldEnum = {
+  id: 'id',
+  applicantId: 'applicantId',
+  interviewScore: 'interviewScore',
+  questions: 'questions',
+  category: 'category',
+  improvementTip: 'improvementTip',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -312,7 +323,8 @@ exports.Prisma.ModelName = {
   SavedJob: 'SavedJob',
   Resume: 'Resume',
   CoverLetter: 'CoverLetter',
-  Assessment: 'Assessment'
+  Assessment: 'Assessment',
+  Interview: 'Interview'
 };
 
 /**
