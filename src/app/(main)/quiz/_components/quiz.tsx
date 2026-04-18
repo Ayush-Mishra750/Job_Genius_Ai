@@ -236,7 +236,7 @@ const Quiz = () => {
   const finishQuiz = async () => {
     const score = calculateScore();
     try {
-      console.log(quizData, answers, score);
+    
       const result = await saveQuizResult(quizData, answers, score, formData.category, formData.topic, formData.difficulty);
       toast.success("Quiz completed!");
       setResultData(true);

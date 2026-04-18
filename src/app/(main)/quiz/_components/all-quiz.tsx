@@ -42,7 +42,7 @@ const AllQuiz = ({ assessments }: { assessments: AssessmentResult[] }) => {
 
   return (
     <>
-      <Card>
+      <Card className="m-2">
         <CardHeader>
           <div className="flex justify-between items-center">
             <div>
@@ -56,7 +56,7 @@ const AllQuiz = ({ assessments }: { assessments: AssessmentResult[] }) => {
 
             <Button
               onClick={() => router.push("/quiz/mock")}
-              className="w-48 h-10"
+              className="w-48 h-10 cursor-pointer"
             >
               Start New Quiz
             </Button>

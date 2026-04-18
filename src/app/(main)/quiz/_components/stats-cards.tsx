@@ -29,8 +29,8 @@ const StatsCards = ({assessments}:any) => {
   };
 
   return (
-    <div className='grid md:grid-cols-3 gap-3'>
-        <Card>
+    <div className='grid md:grid-cols-3 gap-3 '>
+        <Card className='ml-2'>
              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Average Score</CardTitle>
           <Trophy className="h-4 w-4 text-muted-foreground" />
@@ -55,7 +55,7 @@ const StatsCards = ({assessments}:any) => {
           <p className="text-xs text-muted-foreground">Total questions</p>
         </CardContent>
       </Card>
-       <Card>
+       <Card className='mr-2'>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Latest Score</CardTitle>
           <Target className="h-4 w-4 text-muted-foreground" />

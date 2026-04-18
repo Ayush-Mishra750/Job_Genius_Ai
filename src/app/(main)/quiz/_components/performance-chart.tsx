@@ -9,8 +9,7 @@ import {
 import { JsonValue } from "@prisma/client/runtime/client";
 import { format } from "date-fns";
 import { useTheme } from "next-themes";
-import { useRouter } from "next/dist/client/components/navigation";
-// import React, { useEffect, useState } from "react";
+
 import {
   CartesianGrid,
   Line,
@@ -92,7 +91,7 @@ const PerformanceCharts = ({
 
 
   return (
-    <Card>
+    <Card className="m-2">
       <CardHeader>
         <CardTitle className="text-3xl md:text-4xl">
           Performance Trend

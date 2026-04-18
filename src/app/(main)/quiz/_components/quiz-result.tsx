@@ -33,7 +33,7 @@ export default function QuizResult({
   resultData: AssessmentResult  | null;
 }) {
   if (!result) return null;
-   console.log(answers);
+  //  console.log(answers);
 
   return (
     <div className="mx-auto">
