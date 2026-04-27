@@ -1,299 +1,214 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Briefcase,
-  Clock,
-  IndianRupee,
-  MapPin,
-  ArrowLeft,
-  Calendar,
-  Share2,
-  Building2,
-} from "lucide-react";
-import { redirect } from "next/navigation";
+import SaveJobButton from "@/components/general/savedbutton";
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import {
   checkIfApplied,
   getJobIDDetails,
 } from "@/app/(applicant)/_components/find-job-components";
-import { prisma } from "@/lib/prisma";
-import SaveJobButton from "@/components/general/savedbutton";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { formatJobDescription } from "@/app/(applicant)/_utils/json-to-text";
 import { ApplyJobModal } from "@/app/(applicant)/_utils/apply-job-modal";
-
+import { prisma } from "@/lib/prisma";
+import { ArrowLeft, Building2, Clock, IndianRupee, MapPin } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import type { ReactNode } from "react";
 
 export default async function JobDetailsPage({
   params,
 }: {
-  params: { id: number };
+  params: Promise<{ id: string }>;
 }) {
   const user = await getCurrentUser();
-  // if (!user || user?.role !== "applicant") {
-  //   redirect("/login");
-  // }
-
   const { id } = await params;
   const jobId = Number(id);
 
-  const isApplied = await checkIfApplied(jobId);
-  const { status, data: job } = await getJobIDDetails(jobId);
-
-
-  if (status === "ERROR" || !job) {
-    redirect("/jobs");
+  if (!Number.isFinite(jobId)) {
+    redirect("/find-jobs");
   }
-  //get saved status
-  const saved =async()=>{
-  const user = await getCurrentUser();
-if(!user){
-  redirect("/login");
-}
-await prisma.savedJob.findMany({
-    where: {
-      userId:id,
-      jobId: job.id,
-    },
-  });
-  } 
-  
-  const isSaved = saved.length > 0;
-  //apply status
-  let hasApplied = false;
-  let userResumes:{id:number ,fileName:string}[]=[];
 
- if (user) {
-  // Check if user already applied
-  const existingApplication = await prisma.jobApplication.findFirst({
-    where: {
-      jobId: jobId,
-      applicantId: user.id,
-    },
-  });
+  const { status, data: job } = await getJobIDDetails(jobId);
+  if (status === "ERROR" || !job) {
+    redirect("/find-jobs");
+  }
 
-   hasApplied = !!existingApplication;
+  const isApplied = user ? await checkIfApplied(jobId) : false;
 
-  // Fetch resumes for dropdown
-   userResumes = await prisma.resume.findMany({
-    where: {
-      applicantId: user.id,
-    },
-    select: {
-      id: true,
-      fileName: true,
-    },
-  });
-}
-  // console.log(job.description)
+  const savedJob = user
+    ? await prisma.savedJob.findFirst({
+      where: {
+        userId: user.id,
+        jobId: job.id,
+      },
+      select: { id: true },
+    })
+    : null;
+
+  const isSaved = Boolean(savedJob);
+
+  const userResumes = user
+    ? await prisma.resume.findMany({
+      where: { applicantId: user.id },
+      select: {
+        id: true,
+        fileName: true,
+      },
+    })
+    : [];
+
   return (
-    <div className="min-h-screen ">
-      {/* STICKY TOP NAVIGATION */}
-      <div className="sticky top-0 z-40 w-full  backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-[#121212] dark:text-slate-100">
+      <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur dark:border-slate-800 dark:bg-[#121212]">
+        <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/find-jobs">
             <Button
               variant="ghost"
-              className="gap-2 text-slate-600 dark:text-slate-400 hover:text-primary transition-all"
+              className="gap-2 text-slate-700 hover:text-primary dark:text-slate-300"
             >
               <ArrowLeft size={18} />
-              <span className="font-medium hidden sm:inline">Back to Jobs</span>
+              <span className="hidden font-medium sm:inline">Back to Jobs</span>
             </Button>
           </Link>
 
-          <div className="flex items-center gap-3">
-            <Button variant="outline" size="icon" className="rounded-full">
-              <Share2 size={16} />
-            </Button>
-
-            <SaveJobButton jobId={job.id} initialSaved={isSaved} />
-          </div>
+          <SaveJobButton jobId={job.id} initialSaved={isSaved} />
         </div>
-      </div>
+      </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* LEFT: MAIN CONTENT (8 Columns) */}
-          <div className="lg:col-span-8 space-y-8">
-            {/* HERO SECTION */}
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 text-primary font-medium">
-                <Building2 size={20} />
-                <span className="tracking-wide uppercase text-xs">
-                  {"Verified Employer"}
-                </span>
-              </div>
-
-              <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight">
-                {job.title}
-              </h1>
-
-              <div className="flex flex-wrap gap-2">
-                <Badge
-                  variant="secondary"
-                  className="bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border-none px-3 py-1"
-                >
-                  {job.jobType}
-                </Badge>
-                <Badge
-                  variant="outline"
-                  className="border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 px-3 py-1"
-                >
-                  {job.workType}
-                </Badge>
-                <Badge className="bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border-none px-3 py-1">
-                  {job.jobLevel}
-                </Badge>
-              </div>
+      <main className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-12 lg:px-8">
+        <section className="space-y-6 lg:col-span-8">
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
+              <Building2 size={16} />
+              Verified Employer
             </div>
 
-            {/* DESCRIPTION CARD */}
-            <Card className="border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-              <CardContent className="p-6 sm:p-10">
-                <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6 flex items-center gap-2">
-                  <span className="w-1.5 h-6 bg-primary rounded-full" />
-                  Detailed Description
-                </h2>
-                <section>
-                  <h3 className="font-semibold text-lg mb-4">
-                    Job Description
-                  </h3>
+            <h1 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-5xl">
+              {job.title}
+            </h1>
 
-                  <div
-                    className="prose max-w-none break-words"
-                    dangerouslySetInnerHTML={{
-                      __html: formatJobDescription(job.description),
-                    }}
-                  />
-                </section>
-              </CardContent>
-            </Card>
-
-            {/* SKILLS CARD */}
-            {job.tags && (
-              <Card className="border-slate-200 dark:border-slate-800  shadow-sm">
-                <CardContent className="p-6 sm:p-10">
-                  <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">
-                    Skills & Tech Stack
-                  </h2>
-                  <div className="flex flex-wrap gap-3">
-                    {job.tags.split(",").map((tag: string) => (
-                      <div
-                        key={tag}
-                        className=" text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl text-sm font-medium border border-transparent hover:border-primary/30 transition-all"
-                      >
-                        <Badge className="bg-blue-300"> {tag.trim()}</Badge>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge className="bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300">
+                {job.jobType}
+              </Badge>
+              <Badge variant="outline" className="dark:border-slate-700 dark:text-slate-300">
+                {job.workType}
+              </Badge>
+              <Badge className="bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+                {job.jobLevel}
+              </Badge>
+            </div>
           </div>
 
-          {/* RIGHT: SIDEBAR (4 Columns) */}
-          <aside className="lg:col-span-4 space-y-6">
-            <Card className="border-slate-200 dark:border-slate-800  sticky top-24 shadow-lg overflow-hidden">
-              <div className="h-1.5 bg-primary w-full" />
-              <CardContent className="p-6 space-y-8">
-                <div className="space-y-6">
-                  <h3 className="font-bold text-slate-900 dark:text-slate-100 uppercase text-xs tracking-widest">
-                    Job Overview
-                  </h3>
+          <Card className="border-slate-200 shadow-sm dark:border-slate-800 dark:bg-[#121212]">
+            <CardContent className="p-5 sm:p-8 lg:p-10">
+              <h2 className="mb-5 flex items-center gap-2 text-xl font-bold">
+                <span className="h-6 w-1.5 rounded-full bg-primary" />
+                Detailed Description
+              </h2>
+              <div
+                className="prose prose-sm max-w-none break-words prose-headings:text-slate-900 prose-p:text-slate-700 prose-li:text-slate-700 dark:prose-invert sm:prose-base lg:prose-lg"
+                dangerouslySetInnerHTML={{
+                  __html: formatJobDescription(job.description),
+                }}
+              />
+            </CardContent>
+          </Card>
 
-                  <div className="space-y-5">
-                    <div className="flex items-start gap-4">
-                      <div className="p-2 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 rounded-lg">
-                        <IndianRupee size={20} />
-                      </div>
-                      <div>
-                        <p className="text-xs text-slate-500 font-medium">
-                          Salary Range
-                        </p>
-                        <p className="text-sm font-bold text-slate-900 dark:text-slate-200">
-                          {job.minSalary?.toLocaleString()} -{" "}
-                          {job.maxSalary?.toLocaleString()}
-                          <span className="text-[10px] ml-1 opacity-60">
-                            / {job.salaryPeriod}
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="p-2 bg-blue-50 dark:bg-blue-500/10 text-blue-600 rounded-lg">
-                        <MapPin size={20} />
-                      </div>
-                      <div>
-                        <p className="text-xs text-slate-500 font-medium">
-                          Location
-                        </p>
-                        <p className="text-sm font-bold text-slate-900 dark:text-slate-200">
-                          {job.location}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="p-2 bg-purple-50 dark:bg-purple-500/10 text-purple-600 rounded-lg">
-                        <Clock size={20} />
-                      </div>
-                      <div>
-                        <p className="text-xs text-slate-500 font-medium">
-                          Job Type
-                        </p>
-                        <p className="text-sm font-bold text-slate-900 dark:text-slate-200">
-                          {job.jobType}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* <div className="pt-6 border-t dark:border-slate-800">
-                  <ApplyJob jobId={id} isApplied={hasApplied} />
-                  <p className="text-[11px] text-center text-slate-400 mt-4 px-4 leading-tight">
-                    By applying, you agree to share your profile with Recuritor
-                    .
-                  </p>
-                </div> */}
-                <div className="flex gap-3 w-full md:w-auto mt-4 md:mt-0">
-                  {
-                    user?(
-                      <ApplyJobModal jobId={job.id} jobTitle={job.title} hasApplied={hasApplied} resumes={userResumes} />
-                    ):(
-                        <Button
-                        size="lg"
-                        className="w-full md:mx-auto font-semibold"
-                        asChild
-                      >
-                        <Link href="/login">Login to Apply</Link>
-                        </Button>
-                    )
-                  }
-
-                </div>
-                <div className="flex justify-between text-xs text-slate-500">
-                  <span className="flex items-center gap-1">
-                    <Calendar size={12} /> Posted
-                  </span>
-                  <span className="font-medium">
-                    {new Date(job.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
-                <div className="flex justify-between text-xs text-slate-500">
-                  <span className="flex items-center gap-1">
-                    <Clock size={12} /> Updated
-                  </span>
-                  <span className="font-medium">
-                    {new Date(job.updatedAt).toLocaleDateString()}
-                  </span>
+          {job.tags ? (
+            <Card className="border-slate-200 shadow-sm dark:border-slate-800 dark:bg-[#121212]">
+              <CardContent className="p-5 sm:p-8 lg:p-10">
+                <h2 className="mb-5 text-xl font-bold">Skills & Tech Stack</h2>
+                <div className="flex flex-wrap gap-2.5">
+                  {job.tags.split(",").map((tag) => (
+                    <Badge
+                      key={tag}
+                      className="rounded-md bg-blue-100 px-3 py-1 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300"
+                    >
+                      {tag.trim()}
+                    </Badge>
+                  ))}
                 </div>
               </CardContent>
             </Card>
-          </aside>
-        </div>
+          ) : null}
+        </section>
+
+        <aside className="space-y-6 lg:col-span-4">
+          <Card className="overflow-hidden border-slate-200 shadow-lg dark:border-slate-800 dark:bg-[#121212] lg:sticky lg:top-24">
+            <div className="h-1.5 w-full bg-primary" />
+            <CardContent className="space-y-5 p-6">
+              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:bg-[#121212]">
+                Job Overview
+              </h3>
+
+              <InfoRow
+                icon={<IndianRupee size={18} className="text-primary" />}
+                label="Salary"
+                value={`${job.minSalary?.toLocaleString() ?? "Not specified"} - ${job.maxSalary?.toLocaleString() ?? "Not specified"}`}
+              />
+
+              <InfoRow
+                icon={<MapPin size={18} className="text-primary" />}
+                label="Location"
+                value={job.location || "Remote / Flexible"}
+              />
+
+              <InfoRow
+                icon={<Clock size={18} className="text-primary" />}
+                label="Job Type"
+                value={job.jobType}
+              />
+
+              <div className="pt-2">
+                {user ? (
+                  <ApplyJobModal
+                    jobId={job.id}
+                    jobTitle={job.title}
+                    hasApplied={isApplied}
+                    resumes={userResumes}
+                  />
+                ) : (
+                  <Button asChild className="w-full">
+                    <Link href="/login">Login to Apply</Link>
+                  </Button>
+                )}
+              </div>
+
+              <div className="space-y-1 border-t border-slate-200 pt-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+                <div className="flex justify-between gap-4">
+                  <span>Posted</span>
+                  <span>{new Date(job.createdAt).toLocaleDateString()}</span>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <span>Updated</span>
+                  <span>{new Date(job.updatedAt).toLocaleDateString()}</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </aside>
       </main>
+    </div>
+  );
+}
+
+function InfoRow({
+  icon,
+  label,
+  value,
+}: {
+  icon: ReactNode;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="flex items-start gap-3">
+      <div className="mt-0.5">{icon}</div>
+      <div>
+        <p className="text-xs text-slate-500 dark:text-slate-400">{label}</p>
+        <p className="font-semibold text-slate-900 dark:text-slate-100">{value}</p>
+      </div>
     </div>
   );
 }

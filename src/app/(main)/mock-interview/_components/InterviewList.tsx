@@ -17,12 +17,33 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { InterviewResult } from "./InterviewResult";
 
-// import InterviewResult from "./interview-result";
+// import { Interview } from "../../../../../generated/prisma";
 
-export default function InterviewList({ interviews }) {
+type Question = {
+  question: string;
+  correctAnswer: string;
+  explanation: string;
+};
+
+interface Interview {
+  id: number;
+  applicantId: number;
+  interviewScore: number;
+  questions: Question[];
+  category: string;
+  improvementTip: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+type StatsCardsProps = {
+  interviews: Interview[];
+};
+
+export default function InterviewList({ interviews }: StatsCardsProps) {
   const router = useRouter();
-  const [selectedInterview, setSelectedInterview] = useState(null);
+  const [selectedInterview, setSelectedInterview] = useState<Interview | null>(null);
 
   return (
     <>
@@ -39,18 +60,22 @@ export default function InterviewList({ interviews }) {
             </div>
             <Button
               onClick={() => {
-                router.push("/interview/mock");
+                router.push("/mock-interview/mock");
               }}
-              className=" w-48 h-10">
+              className=" w-48 h-10 cursor-pointer">
               Start New Interview
             </Button>
           </div>
         </CardHeader>
         <CardContent>
-          {/* <div className="space-y-4">
+          <div className="space-y-4">
             {interviews
               ?.slice()
-              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+              .sort(
+  (a, b) =>
+    new Date(b.createdAt).getTime() -
+    new Date(a.createdAt).getTime()
+)
               .map((interview, i) => (
                 <Card
                   key={interview.id}
@@ -78,7 +103,7 @@ export default function InterviewList({ interviews }) {
                   )}
                 </Card>
               ))}
-          </div> */}
+          </div>
         </CardContent>
       </Card>
 
@@ -89,11 +114,11 @@ export default function InterviewList({ interviews }) {
           <DialogHeader>
             <DialogTitle></DialogTitle>
           </DialogHeader>
-          {/* <InterviewResult
+          <InterviewResult
             result={selectedInterview}
             hideStartNew
-            onStartNew={() => router.push("/interview/mock")}
-          /> */}
+            onStartNew={() => router.push("/mock-interview/mock")}
+          /> 
         </DialogContent>
       </Dialog>
     </>

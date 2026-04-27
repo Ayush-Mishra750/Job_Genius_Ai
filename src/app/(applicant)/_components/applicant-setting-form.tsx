@@ -8,7 +8,6 @@ import {
   Flag,
   Briefcase,
   Globe,
-  UploadCloud,
   Loader,
   Mail,
   Phone,
@@ -43,11 +42,31 @@ import Tiptap from "@/components/richTextEditor/text-editor";
 import { ResumeUpload } from "./resume-upload";
 import { ApplicantProfileType } from "../actions/applicant.queries";
 
+// ── ChatGPT-style dark palette helpers ──────────────────────────────────────
+// bg: #212121  |  card: #2f2f2f  |  input: #404040
+// text: #ececec |  muted: #8e8ea0 |  border: rgba(255,255,255,0.1)
+
+const cardCls =
+  "border border-slate-200 dark:border-white/10 bg-white dark:bg-[#2f2f2f] shadow-sm";
+
+const cardTitleCls = "text-slate-800 dark:text-[#ececec] text-base font-semibold";
+
+const cardDescCls = "text-slate-500 dark:text-[#8e8ea0] text-sm";
+
+const labelCls = "text-slate-700 dark:text-[#ececec] text-sm font-medium";
+
+const inputCls =
+  "bg-white dark:bg-[#404040] border-slate-200 dark:border-white/10 text-slate-800 dark:text-[#ececec] placeholder:text-slate-400 dark:placeholder:text-[#8e8ea0] focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400";
+
+const iconCls = "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-[#8e8ea0]";
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 interface ApplicantSettingsFormProps {
-  initialData: ApplicantProfileType|null;
+  initialData: ApplicantProfileType | null;
 }
+
 const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
-// console.log(initialData)
   const {
     register,
     handleSubmit,
@@ -77,8 +96,6 @@ const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
   });
 
   const onSubmit = async (data: ApplicantSettingsSchema) => {
-    // console.log("Saving Data:", data);
-
     try {
       const res = await createApplicantProfile(data);
       if (res.status === "SUCCESS") {
@@ -93,179 +110,160 @@ const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto py-8">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Basic Information</CardTitle>
-            <CardDescription>
+    <div className="max-w-4xl mx-auto space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+
+        {/* ── Basic Information ── */}
+        <Card className={cardCls}>
+          <CardHeader className="pb-4">
+            <CardTitle className={cardTitleCls}>Basic Information</CardTitle>
+            <CardDescription className={cardDescCls}>
               This is how employers will see you.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="flex items-center gap-6 mb-6">
-              <div>
-                <div className="text-center space-y-1">
-                  <Controller
-                    name="avatarUrl"
-                    control={control}
-                    render={({ field, fieldState }) => (
-                      <div>
-                        <Label className="pb-3">Upload Logo *</Label>
-                        <ImageUpload
-                          value={field.value}
-                          onChange={field.onChange}
-                          className={cn(
-                            fieldState.error &&
-                              "ring-1 ring-destructive/50 rounded-full",
-                            "h-34 w-34",
-                          )}
-                        />
-                        {fieldState.error && (
-                          <p className="text-sm text-destructive">
-                            {fieldState.error.message}
-                          </p>
-                        )}
-                      </div>
+
+            {/* Avatar upload */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+              <Controller
+                name="avatarUrl"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <div className="space-y-1">
+                    <Label className={labelCls}>Profile Photo</Label>
+                    <ImageUpload
+                      value={field.value}
+                      onChange={field.onChange}
+                      className={cn(
+                        fieldState.error && "ring-1 ring-destructive/50 rounded-full",
+                        "h-24 w-24"
+                      )}
+                    />
+                    {fieldState.error && (
+                      <p className="text-sm text-destructive">{fieldState.error.message}</p>
                     )}
-                  />
-                </div>
-              </div>
-              <div className="text-sm text-muted-foreground">
-                <p>Max file size is 5MB. Minimum dimension: 150x150</p>
-                <p>Suitable files are .jpg and .png</p>
-              </div>
+                  </div>
+                )}
+              />
+              <p className="text-xs text-slate-400 dark:text-[#8e8ea0] leading-relaxed">
+                Max 5 MB · JPG or PNG · Min 150×150 px
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+            {/* Fields grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+              {/* Full Name */}
+              <div className="space-y-1.5">
+                <Label htmlFor="name" className={labelCls}>Full Name</Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <User className={iconCls} />
                   <Input
                     {...register("name")}
                     placeholder="John Doe"
-                    className={`pl-10 ${errors.name ? "border-destructive focus-visible:ring-destructive" : ""}`}
+                    className={cn("pl-10", inputCls, errors.name && "border-destructive focus-visible:ring-destructive")}
                   />
                 </div>
-                {errors.name && (
-                  <p className="text-sm text-destructive">
-                    {errors.name.message}
-                  </p>
-                )}
+                {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+              {/* Email (read-only) */}
+              <div className="space-y-1.5">
+                <Label htmlFor="email" className={labelCls}>Email</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Mail className={iconCls} />
                   <Input
                     {...register("email")}
                     placeholder="john@example.com"
-                    className="pl-10 bg-gray-50"
+                    className={cn(
+                      "pl-10 cursor-not-allowed opacity-60",
+                      "bg-slate-100 dark:bg-[#333333] border-slate-200 dark:border-white/10",
+                      "text-slate-500 dark:text-[#8e8ea0]"
+                    )}
                     readOnly
                   />
                 </div>
-                {errors.email && (
-                  <p className="text-sm text-destructive">
-                    {errors.email.message}
-                  </p>
-                )}
+                {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="phoneNumber">Phone</Label>
+              {/* Phone */}
+              <div className="space-y-1.5">
+                <Label htmlFor="phoneNumber" className={labelCls}>Phone</Label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Phone className={iconCls} />
                   <Input
                     {...register("phoneNumber")}
                     placeholder="+1 234 567 890"
-                    className={`pl-10 ${errors.phoneNumber ? "border-destructive focus-visible:ring-destructive" : ""}`}
+                    className={cn("pl-10", inputCls, errors.phoneNumber && "border-destructive focus-visible:ring-destructive")}
                   />
                 </div>
-                {errors.phoneNumber && (
-                  <p className="text-sm text-destructive">
-                    {errors.phoneNumber.message}
-                  </p>
-                )}
+                {errors.phoneNumber && <p className="text-xs text-destructive">{errors.phoneNumber.message}</p>}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="location">Location</Label>
+              {/* Location */}
+              <div className="space-y-1.5">
+                <Label htmlFor="location" className={labelCls}>Location</Label>
                 <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <MapPin className={iconCls} />
                   <Input
                     {...register("location")}
                     placeholder="New York, USA"
-                    className={`pl-10 ${errors.location ? "border-destructive focus-visible:ring-destructive" : ""}`}
+                    className={cn("pl-10", inputCls, errors.location && "border-destructive focus-visible:ring-destructive")}
                   />
                 </div>
-                {errors.location && (
-                  <p className="text-sm text-destructive">
-                    {errors.location.message}
-                  </p>
-                )}
+                {errors.location && <p className="text-xs text-destructive">{errors.location.message}</p>}
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Personal Details</CardTitle>
+        {/* ── Personal Details ── */}
+        <Card className={cardCls}>
+          <CardHeader className="pb-4">
+            <CardTitle className={cardTitleCls}>Personal Details</CardTitle>
           </CardHeader>
-          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label>Date of Birth</Label>
+          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+            {/* DOB */}
+            <div className="space-y-1.5">
+              <Label className={labelCls}>Date of Birth</Label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Calendar className={iconCls} />
                 <Input
                   type="date"
                   {...register("dateOfBirth")}
-                  className={`pl-10 ${errors.dateOfBirth ? "border-destructive focus-visible:ring-destructive" : ""}`}
+                  className={cn("pl-10", inputCls, errors.dateOfBirth && "border-destructive focus-visible:ring-destructive")}
                 />
               </div>
-              {errors.dateOfBirth && (
-                <p className="text-sm text-destructive">
-                  {errors.dateOfBirth.message}
-                </p>
-              )}
+              {errors.dateOfBirth && <p className="text-xs text-destructive">{errors.dateOfBirth.message}</p>}
             </div>
 
-            <div className="space-y-2">
-              <Label>Nationality</Label>
+            {/* Nationality */}
+            <div className="space-y-1.5">
+              <Label className={labelCls}>Nationality</Label>
               <div className="relative">
-                <Flag className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Flag className={iconCls} />
                 <Input
                   {...register("nationality")}
                   placeholder="American"
-                  className={`pl-10 ${errors.nationality ? "border-destructive focus-visible:ring-destructive" : ""}`}
+                  className={cn("pl-10", inputCls, errors.nationality && "border-destructive focus-visible:ring-destructive")}
                 />
               </div>
-              {errors.nationality && (
-                <p className="text-sm text-destructive">
-                  {errors.nationality.message}
-                </p>
-              )}
+              {errors.nationality && <p className="text-xs text-destructive">{errors.nationality.message}</p>}
             </div>
 
-            <div className="space-y-2">
-              <Label>Gender</Label>
+            {/* Gender */}
+            <div className="space-y-1.5">
+              <Label className={labelCls}>Gender</Label>
               <Controller
                 name="gender"
                 control={control}
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger
-                      className={
-                        errors.gender
-                          ? "border-destructive focus:ring-destructive"
-                          : ""
-                      }
-                    >
+                    <SelectTrigger className={cn(inputCls, errors.gender && "border-destructive focus:ring-destructive")}>
                       <SelectValue placeholder="Select Gender" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-white dark:bg-[#2f2f2f] border-slate-200 dark:border-white/10">
                       <SelectItem value="male">Male</SelectItem>
                       <SelectItem value="female">Female</SelectItem>
                       <SelectItem value="other">Other</SelectItem>
@@ -273,30 +271,21 @@ const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
                   </Select>
                 )}
               />
-              {errors.gender && (
-                <p className="text-sm text-destructive">
-                  {errors.gender.message}
-                </p>
-              )}
+              {errors.gender && <p className="text-xs text-destructive">{errors.gender.message}</p>}
             </div>
 
-            <div className="space-y-2">
-              <Label>Marital Status</Label>
+            {/* Marital Status */}
+            <div className="space-y-1.5">
+              <Label className={labelCls}>Marital Status</Label>
               <Controller
                 name="maritalStatus"
                 control={control}
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger
-                      className={
-                        errors.maritalStatus
-                          ? "border-destructive focus:ring-destructive"
-                          : ""
-                      }
-                    >
+                    <SelectTrigger className={cn(inputCls, errors.maritalStatus && "border-destructive focus:ring-destructive")}>
                       <SelectValue placeholder="Select Status" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-white dark:bg-[#2f2f2f] border-slate-200 dark:border-white/10">
                       <SelectItem value="single">Single</SelectItem>
                       <SelectItem value="married">Married</SelectItem>
                       <SelectItem value="divorced">Divorced</SelectItem>
@@ -304,121 +293,96 @@ const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
                   </Select>
                 )}
               />
-              {errors.maritalStatus && (
-                <p className="text-sm text-destructive">
-                  {errors.maritalStatus.message}
-                </p>
-              )}
+              {errors.maritalStatus && <p className="text-xs text-destructive">{errors.maritalStatus.message}</p>}
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Professional Profile</CardTitle>
-            <CardDescription>
+        {/* ── Professional Profile ── */}
+        <Card className={cardCls}>
+          <CardHeader className="pb-4">
+            <CardTitle className={cardTitleCls}>Professional Profile</CardTitle>
+            <CardDescription className={cardDescCls}>
               Highlight your skills and experience.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label>Highest Education</Label>
+          <CardContent className="space-y-5">
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+              {/* Education */}
+              <div className="space-y-1.5">
+                <Label className={labelCls}>Highest Education</Label>
                 <Controller
                   name="education"
                   control={control}
                   render={({ field }) => (
                     <Select onValueChange={field.onChange} value={field.value}>
-                      <SelectTrigger
-                        className={
-                          errors.education
-                            ? "border-destructive focus:ring-destructive"
-                            : ""
-                        }
-                      >
+                      <SelectTrigger className={cn(inputCls, errors.education && "border-destructive focus:ring-destructive")}>
                         <SelectValue placeholder="Select Education" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-white dark:bg-[#2f2f2f] border-slate-200 dark:border-white/10">
                         <SelectItem value="none">None</SelectItem>
                         <SelectItem value="high school">High School</SelectItem>
-                        <SelectItem value="undergraduate">
-                          Undergraduate
-                        </SelectItem>
+                        <SelectItem value="undergraduate">Undergraduate</SelectItem>
                         <SelectItem value="masters">Masters</SelectItem>
                         <SelectItem value="phd">PhD</SelectItem>
                       </SelectContent>
                     </Select>
                   )}
                 />
-                {errors.education && (
-                  <p className="text-sm text-destructive">
-                    {errors.education.message}
-                  </p>
-                )}
+                {errors.education && <p className="text-xs text-destructive">{errors.education.message}</p>}
               </div>
 
-              <div className="space-y-2">
-                <Label>Experience</Label>
+              {/* Experience */}
+              <div className="space-y-1.5">
+                <Label className={labelCls}>Experience</Label>
                 <div className="relative">
-                  <Briefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Briefcase className={iconCls} />
                   <Input
                     {...register("experience")}
                     placeholder="e.g. 5 Years"
-                    className={`pl-10 ${errors.experience ? "border-destructive focus-visible:ring-destructive" : ""}`}
+                    className={cn("pl-10", inputCls, errors.experience && "border-destructive focus-visible:ring-destructive")}
                   />
                 </div>
-                {errors.experience && (
-                  <p className="text-sm text-destructive">
-                    {errors.experience.message}
-                  </p>
-                )}
+                {errors.experience && <p className="text-xs text-destructive">{errors.experience.message}</p>}
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label>Portfolio Website</Label>
+            {/* Portfolio */}
+            <div className="space-y-1.5">
+              <Label className={labelCls}>Portfolio Website</Label>
               <div className="relative">
-                <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Globe className={iconCls} />
                 <Input
                   {...register("websiteUrl")}
-                  placeholder="https://..."
-                  className={`pl-10 ${errors.websiteUrl ? "border-destructive focus-visible:ring-destructive" : ""}`}
+                  placeholder="https://yourportfolio.com"
+                  className={cn("pl-10", inputCls, errors.websiteUrl && "border-destructive focus-visible:ring-destructive")}
                 />
               </div>
-              {errors.websiteUrl && (
-                <p className="text-sm text-destructive">
-                  {errors.websiteUrl.message}
-                </p>
+              {errors.websiteUrl && <p className="text-xs text-destructive">{errors.websiteUrl.message}</p>}
+            </div>
+
+            {/* Biography */}
+            <Controller
+              name="biography"
+              control={control}
+              render={({ field, fieldState }) => (
+                <div className="space-y-1.5">
+                  <Label className={labelCls}>Biography</Label>
+                  <Tiptap content={field.value} onChange={field.onChange} />
+                  {fieldState.error && (
+                    <p className="text-xs text-destructive">{fieldState.error.message}</p>
+                  )}
+                </div>
               )}
-            </div>
+            />
 
-            <div className="space-y-2">
-              <Controller
-                name="biography"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <div className="space-y-2">
-                    <Label>Biography </Label>
-                    <Tiptap content={field.value} onChange={field.onChange} />
+            <Separator className="bg-slate-100 dark:bg-white/10" />
 
-                    {fieldState.error && (
-                      <p className="text-sm text-destructive">
-                        {fieldState.error.message}
-                      </p>
-                    )}
-                  </div>
-                )}
-              />
-            </div>
-
-            <Separator />
-
-          
-
-            {/* --- RESUME UPLOAD --- */}
-            <div className="space-y-4">
-              <Label className="text-base">Your Cv/Resume</Label>
-
+            {/* Resume Upload */}
+            <div className="space-y-1.5">
+              <Label className={cn(labelCls, "text-base")}>CV / Resume</Label>
               <Controller
                 name="resumeUrl"
                 control={control}
@@ -427,22 +391,13 @@ const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
                     <ResumeUpload
                       value={field.value}
                       onChange={(url, name, size) => {
-                        // We update BOTH fields in React Hook Form when upload finishes
                         field.onChange(url);
-                        setValue("resumeName", name, {
-                          shouldDirty: true,
-                          shouldValidate: true,
-                        });
-                        setValue("resumeSize", size, {
-                          shouldDirty: true,
-                          shouldValidate: true,
-                        });
+                        setValue("resumeName", name, { shouldDirty: true, shouldValidate: true });
+                        setValue("resumeSize", size, { shouldDirty: true, shouldValidate: true });
                       }}
                     />
                     {fieldState.error && (
-                      <p className="text-sm text-destructive mt-2">
-                        {fieldState.error.message}
-                      </p>
+                      <p className="text-xs text-destructive mt-2">{fieldState.error.message}</p>
                     )}
                   </div>
                 )}
@@ -451,21 +406,25 @@ const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
           </CardContent>
         </Card>
 
-        {/* Footer Actions */}
-        <div className="flex items-center gap-4">
+        {/* ── Footer Actions ── */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 pt-1 pb-6">
           <Button
             type="submit"
-            disabled={isSubmitting}
-            className="min-w-[150px]"
+            disabled={isSubmitting || !isDirty}
+            className="min-w-[150px] bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-semibold rounded-xl transition-all duration-200 disabled:opacity-40"
           >
             {isSubmitting && <Loader className="w-4 h-4 mr-2 animate-spin" />}
             {isSubmitting ? "Saving..." : "Save Changes"}
           </Button>
 
           {!isDirty && (
-            <p className="text-sm text-muted-foreground">No changes to save</p>
+            <p className="text-sm text-slate-400 dark:text-[#8e8ea0]">No unsaved changes</p>
+          )}
+          {isDirty && !isSubmitting && (
+            <p className="text-sm text-amber-600 dark:text-amber-400 font-medium">You have unsaved changes</p>
           )}
         </div>
+
       </form>
     </div>
   );

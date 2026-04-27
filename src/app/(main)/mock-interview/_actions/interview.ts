@@ -194,3 +194,29 @@ const totalScore = evaluatedAnswers.reduce((sum, q) => sum + q.score, 0);
     throw new Error("Failed to save interview result");
   }
 }
+
+
+export async function getInterviews() {
+  const  user  = await getCurrentUser();
+  if (!user) throw new Error("Unauthorized");
+
+ 
+
+  if (!user) throw new Error("User not found");
+
+  try {
+    const interviews = await prisma.interview.findMany({
+      where: {
+        applicantId: user.id,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    return interviews;
+  } catch (error) {
+    console.error("Error fetching interviews:", error);
+    throw new Error("Failed to fetch interviews");
+  }
+}

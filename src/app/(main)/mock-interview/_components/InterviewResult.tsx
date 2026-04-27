@@ -59,7 +59,7 @@ export const InterviewResult: React.FC<InterviewResultProps> = ({
               key={index}
               className="border rounded-lg p-4 space-y-2 bg-background">
               <div className="flex items-start justify-between gap-2">
-                <p className="font-medium">{q.question}</p>
+              {index + 1}. <p className="font-medium">{q.question}</p>
                 {q.isCorrect ? (
                   <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
                 ) : (

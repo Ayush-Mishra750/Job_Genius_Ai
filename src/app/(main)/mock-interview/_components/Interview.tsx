@@ -8,13 +8,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { interviewSchema, MockSchemaData } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { generateInterview, saveInterviewResult } from "../_actions/interview";
 import SpeechRecorder from "./SpeechRecoder";
 import { InterviewResult } from "./InterviewResult";
 import { Volume2 } from "lucide-react";
+import SpeakButton from "./speech-text";
 
 
 type Question = {
@@ -33,13 +34,13 @@ type QuestionResult = {
 type InterviewResultType = {
   interviewScore: number;
   improvementTip?: string | null;
- questions: QuestionResult[];
+  questions: QuestionResult[];
 };
 
 
 const Interview = () => {
   const [interviewStarted, setInterviewStarted] = useState(false);
- const [interviewData, setInterviewData] = useState<Question[]>([]);
+  const [interviewData, setInterviewData] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -62,11 +63,33 @@ const Interview = () => {
       setInterviewStarted(true);
       setInterviewData(interview);
       setGeneratingInterview(true);
-    } catch (error:unknown) {
+    } catch (error: unknown) {
       toast.error((error as Error).message || "Failed to generate interview");
     }
   };
+  const speakText = (text: string) => {
+    if (!("speechSynthesis" in window)) {
+      alert("Your browser does not support TTS");
+      return;
+    }
 
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    utterance.lang = "en-US";
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+  };
+  useEffect(() => {
+    if (interviewData?.[currentQuestion]?.question) {
+      speakText(interviewData[currentQuestion].question);
+    }
+  }, [currentQuestion, interviewData]);
+  const stopSpeech = () => {
+    window.speechSynthesis.cancel();
+  };
   const handleNext = () => {
     if (!interviewData) return;
 
@@ -77,25 +100,25 @@ const Interview = () => {
     }
   };
 
-   const finishInterview = async () => {
+  const finishInterview = async () => {
     if (!interviewData) return;
 
     setIsSubmitting(true);
     try {
-    const result =  await saveInterviewResult(interviewData, answers);
+      const result = await saveInterviewResult(interviewData, answers);
       toast.success("Interview completed!");
-     setResultData({
-  interviewScore: result.interviewScore,
-  improvementTip: result.improvementTip,
-  questions: (result.questions as QuestionResult[]) ?? [],
-});
-    } catch (error:unknown) {
+      setResultData({
+        interviewScore: result.interviewScore,
+        improvementTip: result.improvementTip,
+        questions: (result.questions as QuestionResult[]) ?? [],
+      });
+    } catch (error: unknown) {
       toast.error((error as Error).message || "Failed to save interview results");
       setIsSubmitting(false);
     }
   };
 
-   if (resultData) {
+  if (resultData) {
     return (
       <InterviewResult
         result={resultData}
@@ -107,26 +130,13 @@ const Interview = () => {
       />
     );
   }
-  const speakText = (text: string) => {
-  if (!("speechSynthesis" in window)) {
-    alert("Your browser does not support TTS");
-    return;
-  }
 
-  const utterance = new SpeechSynthesisUtterance(text);
 
-  // Optional settings
-  utterance.rate = 1; // speed (0.5 - 2)
-  utterance.pitch = 1; // tone
-  utterance.lang = "en-US"; // language
 
-  window.speechSynthesis.cancel(); // stop previous speech
-  window.speechSynthesis.speak(utterance);
-};
 
   if (!interviewStarted) {
     return (
-      <Card className="m-4  ">
+      <Card className="m-10">
         <CardHeader>
           <CardTitle>Enter Job Details</CardTitle>
         </CardHeader>
@@ -191,7 +201,7 @@ const Interview = () => {
       </Card>
     );
   }
-   if (!interviewData) {
+  if (!interviewData) {
     return (
       <div className="flex justify-center items-center h-40">
         <Loader2 className="animate-spin" />
@@ -200,7 +210,7 @@ const Interview = () => {
   }
   // interview page
   return (
-    <Card className="space-y-4">
+    <Card className="space-y-4 m-4">
       <CardHeader>
         <CardTitle className="text-center">
           Question :-{currentQuestion + 1} of {interviewData?.length}
@@ -208,35 +218,38 @@ const Interview = () => {
       </CardHeader>
 
       <CardContent className="space-y-4">
-               <div className="relative w-full max-w-md mx-auto">
-  {/* Glow Background */}
-  <div className="absolute -inset-1 bg-gradient-to-r from-primary/40 to-purple-500/40 blur-lg opacity-70 rounded-2xl"></div>
+        <div className="relative w-full max-w-md mx-auto">
+          {/* Glow Background */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-primary/40 to-purple-500/40 blur-lg opacity-70 rounded-2xl"></div>
 
-  {/* Webcam Container */}
-  <div className="relative bg-background rounded-2xl overflow-hidden border shadow-xl">
-    
-    {/* Header */}
-    <div className="flex items-center justify-between px-3 py-2 bg-muted/50 backdrop-blur-sm">
-      <span className="text-sm font-medium">Live Interview</span>
-      <span className="flex items-center gap-1 text-xs text-green-500">
-        <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-        Recording
-      </span>
-    </div>
+          {/* Webcam Container */}
+          <div className="relative bg-background rounded-2xl overflow-hidden border shadow-xl">
 
-    {/* Webcam */}
-    <Webcam className="w-full aspect-video object-cover" />
+            {/* Header */}
+            <div className="flex items-center justify-between px-3 py-2 bg-muted/50 backdrop-blur-sm">
+              <span className="text-sm font-medium">Live Interview</span>
+              <span className="flex items-center gap-1 text-xs text-green-500">
 
-    {/* Overlay Gradient */}
-    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
-  </div>
-</div>
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                Recording
+              </span>
+            </div>
+
+            {/* Webcam */}
+            <Webcam className=" aspect-video object-cover" />
+
+            {/* Overlay Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+          </div>
+        </div>
 
 
         <p className="text-lg font-medium">
           {interviewData?.[currentQuestion]?.question}
         </p>
-
+        {/* <SpeakButton text={interviewData[currentQuestion]?.question} /> */}
+        <button onClick={() => speakText(interviewData[currentQuestion]?.question)}>▶️ start</button>
+        <button onClick={stopSpeech}>⏹️stop</button>
         <SpeechRecorder
           key={currentQuestion}
           onAnswer={(answer) => {

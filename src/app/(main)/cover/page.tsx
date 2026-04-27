@@ -8,7 +8,7 @@ import CoverLetterList from "./_componets/cover-letter-list";
 
 export default async function CoverLetterPage() {
   const coverLetters = await getCoverLetters();
-  // console.log(coverLetters)
+
 
   return (
     <div className="container px-5">

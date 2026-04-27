@@ -54,7 +54,7 @@ const LoginForm: React.FC = () => {
           <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
             <UserCheck className="w-8 h-8 text-primary-foreground" />
           </div>
-          <CardTitle className="text-2xl">Join Job Genius AI </CardTitle>
+          <CardTitle className="text-2xl">Join CareerHive </CardTitle>
           <CardDescription>Login to get started</CardDescription>
         </CardHeader>
 
@@ -71,9 +71,8 @@ const LoginForm: React.FC = () => {
                   placeholder="Enter your email"
                   required
                   {...register("email")}
-                  className={`pl-10 ${
-                    errors.email ? "border-destructive" : ""
-                  }`}
+                  className={`pl-10 ${errors.email ? "border-destructive" : ""
+                    }`}
                 />
               </div>
               {errors.email && (
@@ -94,9 +93,8 @@ const LoginForm: React.FC = () => {
                   placeholder="Create a strong password"
                   required
                   {...register("password")}
-                  className={`pl-10 ${
-                    errors.password ? "border-destructive" : ""
-                  }`}
+                  className={`pl-10 ${errors.password ? "border-destructive" : ""
+                    }`}
                 />
 
                 <Button

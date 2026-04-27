@@ -69,11 +69,16 @@ export function UnsaveButton({ jobId }: { jobId: number }) {
     <Button
       onClick={handleUnsave}
       disabled={isPending}
-      className="text-lg cursor-pointer"
+      variant="ghost"
+      className="w-full justify-center gap-2 rounded-xl
+        bg-red-50 hover:bg-red-100
+        dark:bg-red-950 dark:hover:bg-red-900
+        text-red-600 dark:text-red-300
+        border border-red-200 dark:border-red-700
+        font-semibold text-sm transition-all duration-200 disabled:opacity-50 cursor-pointer"
     >
+      <Bookmark className="w-3.5 h-3.5 shrink-0" />
       {isPending ? "Removing..." : "Unsave"}
     </Button>
   );
 }
-
-

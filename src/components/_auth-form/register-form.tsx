@@ -55,13 +55,14 @@ const RegistrationForm = () => {
     if (result.status === "SUCCESS") {
       if (data.role === "employer") {
         toast.success(result.message);
-        router.push("/employer-dashboard");}
-      else{ 
+        router.push("/employer-dashboard");
+      }
+      else {
         toast.success(result.message);
         router.push("/dashboard");
       }
     }
-    
+
   };
 
   return (
@@ -71,7 +72,7 @@ const RegistrationForm = () => {
           <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
             <UserCheck className="w-8 h-8 text-primary-foreground" />
           </div>
-          <CardTitle className="text-2xl">Join Job Genius AI</CardTitle>
+          <CardTitle className="text-2xl">Join CareerHive</CardTitle>
           <CardDescription>Create your account to get started</CardDescription>
         </CardHeader>
 
@@ -104,9 +105,8 @@ const RegistrationForm = () => {
                   placeholder="Choose a username"
                   required
                   {...register("userName")}
-                  className={`pl-10 ${
-                    errors.userName ? "border-destructive" : ""
-                  }`}
+                  className={`pl-10 ${errors.userName ? "border-destructive" : ""
+                    }`}
                 />
               </div>
               {errors.userName && (
