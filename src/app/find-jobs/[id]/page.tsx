@@ -157,7 +157,7 @@ export default async function JobDetailsPage({
               <InfoRow
                 icon={<Clock size={18} className="text-primary" />}
                 label="Job Type"
-                value={job.jobType}
+                value={job.jobType || "Not specified "}
               />
 
               <div className="pt-2">
