@@ -10,15 +10,15 @@ export const getEmployerApplications = async (employerId: number) => {
           employerId: employerId,
         },
       },
-
       include: {
         job: true,
-
-        applicant: true,
-
+        applicant: {
+          include: {
+            user: true,
+          },
+        },
         resume: true,
       },
-
       orderBy: {
         appliedAt: "desc",
       },
@@ -26,7 +26,7 @@ export const getEmployerApplications = async (employerId: number) => {
 
     return applications || [];
   } catch (error) {
-    console.log("error occur in job applications");
+    console.log("error occur in job applications", error);
     return [];
   }
 };

@@ -14,7 +14,7 @@ import {
   GraduationCap,
   Loader,
   MapPin,
-  
+  Sparkles,
 } from "lucide-react";
 import {
   Select,
@@ -109,9 +109,9 @@ const JobForm = ({initialData,isEditMode}:JobPostFormProps) => {
   };
 
   return (
-    <Card className="w-full" >
-      <CardContent>
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
+    <Card className="border-none bg-transparent shadow-none" >
+      <CardContent className="p-0">
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8">
          
              {/* job title */}
           <div className="space-y-2 ">
@@ -131,345 +131,240 @@ const JobForm = ({initialData,isEditMode}:JobPostFormProps) => {
             )}
           </div>
                
-          <div className="grid gap-6 md:grid-cols-3 space-y-5 md:space-y-0">
-            <div className="space-y-2">
-              <Label htmlFor="jobType">Job Type *</Label>
-              <Controller
-                name="jobType"
-                control={control}
-                render={({ field }) => (
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger
-                        id="jobType"
-                        className={cn(
-                          "pl-10 w-full",
-                          errors.jobType && "border-destructive"
-                        )}
-                      >
-                        <SelectValue placeholder="Select job type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {JOB_TYPE.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
-              />
-              {errors.jobType && (
-                <p className="text-sm text-destructive">
-                  {errors.root?.message}
-                </p>
-              )}
-            </div>
+          {/* Classification Section */}
+          <div className="space-y-4">
+            <Label className="text-base font-bold text-foreground/80">Job Classification</Label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="jobType" className="text-xs font-semibold">Job Type *</Label>
+                <Controller
+                  name="jobType"
+                  control={control}
+                  render={({ field }) => (
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                      <Select value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger id="jobType" className={cn("pl-10 w-full rounded-xl", errors.jobType && "border-destructive")}>
+                          <SelectValue placeholder="Select job type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {JOB_TYPE.map((type) => (
+                            <SelectItem key={type} value={type}>{type}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
+                />
+                {errors.jobType && <p className="text-[10px] text-destructive font-medium italic">{errors.root?.message}</p>}
+              </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="workType">Work Type *</Label>
-              <Controller
-                name="workType"
-                control={control}
-                render={({ field }) => (
-                  <div className="relative">
-                    <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger
-                        id="workType"
-                        className={cn(
-                          "pl-10 w-full",
-                          errors.workType && "border-destructive"
-                        )}
-                      >
-                        <SelectValue placeholder="Select work type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {WORK_TYPE.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
-              />
-              {errors.workType && (
-                <p className="text-sm text-destructive">
-                                {errors.root?.message}
+              <div className="space-y-2">
+                <Label htmlFor="workType" className="text-xs font-semibold">Work Type *</Label>
+                <Controller
+                  name="workType"
+                  control={control}
+                  render={({ field }) => (
+                    <div className="relative">
+                      <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                      <Select value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger id="workType" className={cn("pl-10 w-full rounded-xl", errors.workType && "border-destructive")}>
+                          <SelectValue placeholder="Select work type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {WORK_TYPE.map((type) => (
+                            <SelectItem key={type} value={type}>{type}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
+                />
+                {errors.workType && <p className="text-[10px] text-destructive font-medium italic">{errors.root?.message}</p>}
+              </div>
 
-                </p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="jobLevel">Job Level *</Label>
-              <Controller
-                name="jobLevel"
-                control={control}
-                render={({ field }) => (
-                  <div className="relative">
-                    <Award className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger
-                        id="jobLevel"
-                        className={cn(
-                          "pl-10 w-full",
-                          errors.jobLevel && "border-destructive"
-                        )}
-                      >
-                        <SelectValue placeholder="Select job level" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {JOB_LEVEL.map((level) => (
-                          <SelectItem key={level} value={level}>
-                            {level}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
-              />
-              {errors.jobLevel && (
-                <p className="text-sm text-destructive">
-                                   {errors.root?.message}
-
-                </p>
-              )}
+              <div className="space-y-2">
+                <Label htmlFor="jobLevel" className="text-xs font-semibold">Job Level *</Label>
+                <Controller
+                  name="jobLevel"
+                  control={control}
+                  render={({ field }) => (
+                    <div className="relative">
+                      <Award className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                      <Select value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger id="jobLevel" className={cn("pl-10 w-full rounded-xl", errors.jobLevel && "border-destructive")}>
+                          <SelectValue placeholder="Select job level" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {JOB_LEVEL.map((level) => (
+                            <SelectItem key={level} value={level}>{level}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
+                />
+                {errors.jobLevel && <p className="text-[10px] text-destructive font-medium italic">{errors.root?.message}</p>}
+              </div>
             </div>
           </div>
 
-              {/* Location and Tags */}
-              <div className="grid grid-cols-2 md:grid-cols-2 gap-3">
-             <div className="space-y-2">
-              <Label htmlFor="location">Location (Optional)*</Label>
+          {/* Location and Tags Section */}
+          <div className="space-y-4">
+            <Label className="text-base font-bold text-foreground/80">Location & Search</Label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="location" className="text-xs font-semibold">Location (Optional)</Label>
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input id="location" type="text" placeholder="e.g., Pune, Bangalore" className="pl-10 rounded-xl" {...register("location")} />
+                </div>
+                {errors.location && <p className="text-[10px] text-destructive font-medium italic">{errors.root?.message}</p>}
+              </div>
 
-              <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  id="location"
-                  type="text"
-                  placeholder="e.g., Pune, Bangalore"
-                  className="pl-10"
-                  {...register("location")}
-                    aria-invalid={!!errors.location}
-                />
+              <div className="space-y-2">
+                <Label htmlFor="tags" className="text-xs font-semibold">Tags (Optional)</Label>
+                <div className="relative">
+                  <Sparkles className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input id="tags" type="text" placeholder="e.g., React, TypeScript, Node.js" className="pl-10 rounded-xl" {...register("tags")} />
+                </div>
+                {errors.tags && <p className="text-[10px] text-destructive font-medium italic">{errors.root?.message}</p>}
               </div>
             </div>
-            {errors.location && (
-              <p className="text-sm text-destructive">
-                                  {errors.root?.message}
+          </div>
 
-              </p>
-            )}
-
-            <div className="space-y-2">
-              <Label htmlFor="location">Tags (Optional)*</Label>
-
-              <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  id="tags"
-                  type="text"
-                   placeholder="e.g., React, TypeScript, Node.js"
-                  className="pl-10"
-                  {...register("tags")}
-                    aria-invalid={!!errors.tags}
+          {/* Additional Details Section */}
+          <div className="space-y-4">
+            <Label className="text-base font-bold text-foreground/80">Additional Requirements</Label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="minEducation" className="text-xs font-semibold">Minimum Education (Optional)</Label>
+                <Controller
+                  name="minEducation"
+                  control={control}
+                  render={({ field }) => (
+                    <div className="relative">
+                      <GraduationCap className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                      <Select value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger id="minEducation" className={cn("pl-10 w-full rounded-xl", errors.minEducation && "border-destructive")}>
+                          <SelectValue placeholder="Select education level" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {MIN_EDUCATION.map((level) => (
+                            <SelectItem key={level} value={level}>{level}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
                 />
               </div>
-            </div>
-            {errors.tags && (
-              <p className="text-sm text-destructive">
-                                 {errors.root?.message}
 
-              </p>
-            )}
+              <div className="space-y-2">
+                <Label htmlFor="expiresAt" className="text-xs font-semibold">Expiry Date *</Label>
+                <div className="relative">
+                  <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input id="expiresAt" type="date" className={cn("pl-10 rounded-xl", errors.expiresAt && "border-destructive")} {...register("expiresAt")} required />
+                </div>
+                {errors.expiresAt && <p className="text-[10px] text-destructive font-medium italic">{errors.root?.message}</p>}
+              </div>
+            </div>
           </div>
           
-          {/* min salary | max salary | currency | period */}
-          <div className="grid grid-cols-4 md:grid-cols-4 gap-2">
-            <div className="space-y-2">
-              <Label htmlFor="location">Min Salary (Optional)*</Label>
-
-              <div className="relative">
-                <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  id="minSalary"
-                  type="text"
-                  inputMode="numeric"
-                  placeholder="e.g., 50000"
-                  className="pl-10"
-                  {...register("minSalary")}
-                    aria-invalid={!!errors.minSalary}
-                    />
-              </div>
-            </div>
-            {errors.minSalary && (
-              <p className="text-sm text-destructive">
-                               {errors.root?.message}
-
-              </p>
-            )}
-
-                  
-            
-            <div className="space-y-2">
-              <Label htmlFor="maxSalary">Max Salary (Optional)*</Label>
-
-              <div className="relative">
-                <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  id="maxSalary"
-                  type="text"
-                  placeholder="e.g., 80000"
-                  className="pl-10"
-                  {...register("maxSalary")}
-                    aria-invalid={!!errors.maxSalary}
-
-                />
-              </div>
-            </div>
-            {errors.maxSalary && (
-              <p className="text-sm text-destructive">
-                                 {errors.root?.message}
-
-              </p>
-            )}
-
-             <div className="space-y-2">
-              <Label htmlFor="salaryCurrency">Currency</Label>
-              <Controller
-                name="salaryCurrency"
-                control={control}
-                render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger
-                      id="salaryCurrency"
-                      className={cn(
-                        "w-full",
-                        errors.salaryCurrency && "border-destructive"
-                      )}
-                    >
-                      <SelectValue placeholder="Currency" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {SALARY_CURRENCY.map((currency) => (
-                        <SelectItem key={currency} value={currency}>
-                          {currency}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+          {/* Salary Section: min salary | max salary | currency | period */}
+          <div className="space-y-4">
+            <Label className="text-base font-bold text-foreground/80">Salary & Compensation</Label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="minSalary" className="text-xs font-semibold">Min Salary</Label>
+                <div className="relative">
+                  <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    id="minSalary"
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="e.g., 50000"
+                    className={cn("pl-10 rounded-xl", errors.minSalary && "border-destructive")}
+                    {...register("minSalary")}
+                  />
+                </div>
+                {errors.minSalary && (
+                  <p className="text-[10px] text-destructive font-medium italic">{errors.root?.message}</p>
                 )}
-              />
-              {errors.salaryCurrency && (
-                <p className="text-sm text-destructive">
-                                   {errors.root?.message}
+              </div>
 
-                </p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="salaryPeriod">Period</Label>
-              <Controller
-                name="salaryPeriod"
-                control={control}
-                render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger
-                      id="salaryPeriod"
-                      className={cn(
-                        "w-full",
-                        errors.salaryPeriod && "border-destructive"
-                      )}
-                    >
-                      <SelectValue placeholder="Period" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {SALARY_PERIOD.map((period) => (
-                        <SelectItem key={period} value={period}>
-                          {period}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+              <div className="space-y-2">
+                <Label htmlFor="maxSalary" className="text-xs font-semibold">Max Salary</Label>
+                <div className="relative">
+                  <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    id="maxSalary"
+                    type="text"
+                    placeholder="e.g., 80000"
+                    className={cn("pl-10 rounded-xl", errors.maxSalary && "border-destructive")}
+                    {...register("maxSalary")}
+                  />
+                </div>
+                {errors.maxSalary && (
+                  <p className="text-[10px] text-destructive font-medium italic">{errors.root?.message}</p>
                 )}
-              />
-              {errors.salaryPeriod && (
-                <p className="text-sm text-destructive">
-                                   {errors.root?.message}
+              </div>
 
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* minimum education || expiry date */}
-              <div className="grid grid-cols-2 md:grid-cols-2 gap-3">
-             <div className="space-y-2">
-              <Label htmlFor="minEducation">Minimum Education (Optional)</Label>
-              <Controller
-                name="minEducation"
-                control={control}
-                render={({ field }) => (
-                  <div className="relative">
-                    <GraduationCap className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+              <div className="space-y-2">
+                <Label htmlFor="salaryCurrency" className="text-xs font-semibold">Currency</Label>
+                <Controller
+                  name="salaryCurrency"
+                  control={control}
+                  render={({ field }) => (
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger
-                        id="minEducation"
-                        className={cn(
-                          "pl-10 w-full",
-                          errors.minEducation && "border-destructive"
-                        )}
+                        id="salaryCurrency"
+                        className={cn("w-full rounded-xl", errors.salaryCurrency && "border-destructive")}
                       >
-                        <SelectValue placeholder="Select education level" />
+                        <SelectValue placeholder="Currency" />
                       </SelectTrigger>
                       <SelectContent>
-                        {MIN_EDUCATION.map((level) => (
-                          <SelectItem key={level} value={level}>
-                            {level}
+                        {SALARY_CURRENCY.map((currency) => (
+                          <SelectItem key={currency} value={currency}>
+                            {currency}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
-                  </div>
-                )}
-              />
-              {errors.minEducation && (
-                <p className="text-sm text-destructive">
-                                   {errors.root?.message}
-
-                </p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="expiresAt">Expiry Date (Optional)</Label>
-              <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  id="expiresAt"
-                  type="date"
-                  className={cn(
-                    "pl-10",
-                    errors.expiresAt && "border-destructive"
                   )}
-                  {...register("expiresAt")}
-                  aria-invalid={!!errors.expiresAt}
-                  required
                 />
+                {errors.salaryCurrency && (
+                  <p className="text-[10px] text-destructive font-medium italic">{errors.root?.message}</p>
+                )}
               </div>
-              {errors.expiresAt && (
-                <p className="text-sm text-destructive">
-                                  {errors.root?.message}
 
-                </p>
-              )}
+              <div className="space-y-2">
+                <Label htmlFor="salaryPeriod" className="text-xs font-semibold">Period</Label>
+                <Controller
+                  name="salaryPeriod"
+                  control={control}
+                  render={({ field }) => (
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger
+                        id="salaryPeriod"
+                        className={cn("w-full rounded-xl", errors.salaryPeriod && "border-destructive")}
+                      >
+                        <SelectValue placeholder="Period" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {SALARY_PERIOD.map((period) => (
+                          <SelectItem key={period} value={period}>
+                            {period}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+                {errors.salaryPeriod && (
+                  <p className="text-[10px] text-destructive font-medium italic">{errors.root?.message}</p>
+                )}
+              </div>
             </div>
           </div>
            
@@ -517,9 +412,9 @@ const JobForm = ({initialData,isEditMode}:JobPostFormProps) => {
           {/* When you run const { control } = useForm(), you create a specific instance of a form. The <Controller /> component is isolated; it doesn't know which form it belongs to. Passing control={control} connects this specific input to that specific useForm hook. */}
           {/* Organization Type and Team Size - Two columns */}
          
-          <div className="flex items-center gap-4 pt-4">
-            <Button type="submit">
-              {isSubmitting && <Loader className="w-4 h-4 animate-spin" />}
+          <div className="flex items-center gap-4 pt-8">
+            <Button type="submit" size="lg" className="h-12 px-10 rounded-xl font-bold shadow-lg shadow-primary/20">
+              {isSubmitting && <Loader className="w-4 h-4 animate-spin mr-2" />}
 
             {
               isEditMode
@@ -533,7 +428,7 @@ const JobForm = ({initialData,isEditMode}:JobPostFormProps) => {
             </Button>
 
             {!isDirty && (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm font-medium text-muted-foreground italic">
                 No changes to save
               </p>
             )}
