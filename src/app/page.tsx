@@ -314,7 +314,7 @@ export default async function HomePage() {
                       </div>
 
                       {/* CTA */}
-                      <Link href={`/jobs/${app.id}`}>
+                      <Link href={`/find-jobs/${app.id}`}>
                         <Button
                           className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-md shadow-blue-500/20 transition-all duration-200 hover:scale-[1.02] gap-2"
                         >

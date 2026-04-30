@@ -4,6 +4,8 @@ import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { JobFormData } from "../_components/job_form_schema";
 import { Prisma } from "@/generated/prisma/browser";
 import { redirect } from "next/navigation";
+import { getSubscription } from "./subscription";
+
 
 export const createJobAction = async (data: JobFormData) => {
   try {
@@ -12,6 +14,24 @@ console.log(currentUser)
     if (!currentUser || currentUser.role !== "employer") {
       return { status: "ERROR", message: "Unauthorized" };
     }
+
+    // Check job limit
+    const subscription = await getSubscription();
+    if (!subscription) {
+      return { status: "ERROR", message: "Subscription not found" };
+    }
+
+    const jobCount = await prisma.job.count({
+      where: { employerId: currentUser.id, deletedAt: null },
+    });
+
+    if (subscription.jobLimit !== -1 && jobCount >= subscription.jobLimit) {
+      return { 
+        status: "ERROR", 
+        message: "You have reached your job posting limit. Please upgrade your plan." 
+      };
+    }
+
 
     await prisma.job.create({
       data: {

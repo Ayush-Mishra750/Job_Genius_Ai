@@ -39,6 +39,8 @@ import {
 } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import ApplicationStatusSelect from "../../_components/application-status";
+import AIEvaluationButton from "../../_components/ai-evaluation-button";
+
 
 const EmployerApplicantPage = async () => {
   const user = await getCurrentUser();
@@ -142,7 +144,14 @@ const EmployerApplicantPage = async () => {
                     ) : (
                       <Button disabled variant="outline" className="flex-1 rounded-2xl h-12 font-bold border-dashed">No Resume</Button>
                     )}
+                    {app.resume?.fileUrl && (
+                      <AIEvaluationButton 
+                        applicationId={app.id} 
+                        candidateName={app.applicant.user.name} 
+                      />
+                    )}
                     {app.coverLetter && <CoverLetterDialog app={app} isMobile />}
+
                   </div>
                 </CardContent>
               </Card>
@@ -215,9 +224,16 @@ const EmployerApplicantPage = async () => {
 
                     <TableCell className="text-right pr-8">
                       <div className="flex items-center justify-end gap-3">
+                        {app.resume?.fileUrl && (
+                          <AIEvaluationButton 
+                            applicationId={app.id} 
+                            candidateName={app.applicant.user.name} 
+                          />
+                        )}
                         {app.coverLetter && (
                           <CoverLetterDialog app={app} />
                         )}
+
 
                         {app.resume?.fileUrl ? (
                           <Button
@@ -254,7 +270,7 @@ function StatCard({ label, count, icon, color }: { label: string, count: number,
     <div className="rounded-3xl border border-border/50 bg-white dark:bg-card/40 dark:backdrop-blur-xl p-5 shadow-lg shadow-black/[0.02] space-y-3">
       <div className="flex items-center justify-between">
         <div className={`p-2 rounded-xl bg-muted/50 ${color}`}>
-          {React.cloneElement(icon as React.ReactElement, { className: "w-5 h-5" })}
+          {React.cloneElement(icon as React.ReactElement<{ className?: string }>, { className: "w-5 h-5" })}
         </div>
         <span className="text-2xl font-black tracking-tight">{count}</span>
       </div>

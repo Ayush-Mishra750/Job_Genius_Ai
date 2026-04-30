@@ -5,6 +5,8 @@ import { EmployerProfileCompletionStatus } from "../_components/employer-profile
 import { getEmployerDashboardStats } from "../_actions/dashboard-stats";
 import { RecentApplications } from "../_components/recent-applications";
 import { JobActivityChart } from "../_components/job-activity-chart";
+import SubscriptionStatusCard from "../_components/subscription-status-card";
+
 
 const EmployerDashboard = async () => {
   const user = await getCurrentUser();
@@ -45,6 +47,10 @@ const EmployerDashboard = async () => {
       <div className="lg:hidden">
         <EmployerProfileCompletionStatus />
       </div>
+
+      {/* Subscription Status Widget */}
+      <SubscriptionStatusCard />
+
 
       {/* Stats Overview */}
       <section className="space-y-4">

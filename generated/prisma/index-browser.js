@@ -265,6 +265,34 @@ exports.Prisma.InterviewScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  employerId: 'employerId',
+  planName: 'planName',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  jobLimit: 'jobLimit',
+  aiCredits: 'aiCredits',
+  aiCreditsUsed: 'aiCreditsUsed',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AIEvaluationScalarFieldEnum = {
+  id: 'id',
+  matchScore: 'matchScore',
+  summary: 'summary',
+  recommendation: 'recommendation',
+  matchedSkills: 'matchedSkills',
+  missingSkills: 'missingSkills',
+  experienceMatch: 'experienceMatch',
+  applicationId: 'applicationId',
+  employerId: 'employerId',
+  jobId: 'jobId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -324,7 +352,9 @@ exports.Prisma.ModelName = {
   Resume: 'Resume',
   CoverLetter: 'CoverLetter',
   Assessment: 'Assessment',
-  Interview: 'Interview'
+  Interview: 'Interview',
+  Subscription: 'Subscription',
+  AIEvaluation: 'AIEvaluation'
 };
 
 /**

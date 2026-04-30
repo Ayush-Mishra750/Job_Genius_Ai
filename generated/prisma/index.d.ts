@@ -68,6 +68,16 @@ export type Assessment = $Result.DefaultSelection<Prisma.$AssessmentPayload>
  * 
  */
 export type Interview = $Result.DefaultSelection<Prisma.$InterviewPayload>
+/**
+ * Model Subscription
+ * 
+ */
+export type Subscription = $Result.DefaultSelection<Prisma.$SubscriptionPayload>
+/**
+ * Model AIEvaluation
+ * 
+ */
+export type AIEvaluation = $Result.DefaultSelection<Prisma.$AIEvaluationPayload>
 
 /**
  * Enums
@@ -373,6 +383,26 @@ export class PrismaClient<
     * ```
     */
   get interview(): Prisma.InterviewDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subscription`: Exposes CRUD operations for the **Subscription** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Subscriptions
+    * const subscriptions = await prisma.subscription.findMany()
+    * ```
+    */
+  get subscription(): Prisma.SubscriptionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.aIEvaluation`: Exposes CRUD operations for the **AIEvaluation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AIEvaluations
+    * const aIEvaluations = await prisma.aIEvaluation.findMany()
+    * ```
+    */
+  get aIEvaluation(): Prisma.AIEvaluationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -817,7 +847,9 @@ export namespace Prisma {
     Resume: 'Resume',
     CoverLetter: 'CoverLetter',
     Assessment: 'Assessment',
-    Interview: 'Interview'
+    Interview: 'Interview',
+    Subscription: 'Subscription',
+    AIEvaluation: 'AIEvaluation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -833,7 +865,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "employer" | "applicant" | "job" | "jobApplication" | "savedJob" | "resume" | "coverLetter" | "assessment" | "interview"
+      modelProps: "user" | "session" | "employer" | "applicant" | "job" | "jobApplication" | "savedJob" | "resume" | "coverLetter" | "assessment" | "interview" | "subscription" | "aIEvaluation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1651,6 +1683,154 @@ export namespace Prisma {
           }
         }
       }
+      Subscription: {
+        payload: Prisma.$SubscriptionPayload<ExtArgs>
+        fields: Prisma.SubscriptionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SubscriptionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SubscriptionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          findFirst: {
+            args: Prisma.SubscriptionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SubscriptionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          findMany: {
+            args: Prisma.SubscriptionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          create: {
+            args: Prisma.SubscriptionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          createMany: {
+            args: Prisma.SubscriptionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SubscriptionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          delete: {
+            args: Prisma.SubscriptionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          update: {
+            args: Prisma.SubscriptionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          deleteMany: {
+            args: Prisma.SubscriptionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SubscriptionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SubscriptionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          upsert: {
+            args: Prisma.SubscriptionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          aggregate: {
+            args: Prisma.SubscriptionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubscription>
+          }
+          groupBy: {
+            args: Prisma.SubscriptionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SubscriptionCountArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionCountAggregateOutputType> | number
+          }
+        }
+      }
+      AIEvaluation: {
+        payload: Prisma.$AIEvaluationPayload<ExtArgs>
+        fields: Prisma.AIEvaluationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AIEvaluationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIEvaluationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AIEvaluationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIEvaluationPayload>
+          }
+          findFirst: {
+            args: Prisma.AIEvaluationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIEvaluationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AIEvaluationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIEvaluationPayload>
+          }
+          findMany: {
+            args: Prisma.AIEvaluationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIEvaluationPayload>[]
+          }
+          create: {
+            args: Prisma.AIEvaluationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIEvaluationPayload>
+          }
+          createMany: {
+            args: Prisma.AIEvaluationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AIEvaluationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIEvaluationPayload>[]
+          }
+          delete: {
+            args: Prisma.AIEvaluationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIEvaluationPayload>
+          }
+          update: {
+            args: Prisma.AIEvaluationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIEvaluationPayload>
+          }
+          deleteMany: {
+            args: Prisma.AIEvaluationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AIEvaluationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AIEvaluationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIEvaluationPayload>[]
+          }
+          upsert: {
+            args: Prisma.AIEvaluationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIEvaluationPayload>
+          }
+          aggregate: {
+            args: Prisma.AIEvaluationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAIEvaluation>
+          }
+          groupBy: {
+            args: Prisma.AIEvaluationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AIEvaluationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AIEvaluationCountArgs<ExtArgs>
+            result: $Utils.Optional<AIEvaluationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1770,6 +1950,8 @@ export namespace Prisma {
     coverLetter?: CoverLetterOmit
     assessment?: AssessmentOmit
     interview?: InterviewOmit
+    subscription?: SubscriptionOmit
+    aIEvaluation?: AIEvaluationOmit
   }
 
   /* Types for Logging */
@@ -4692,6 +4874,7 @@ export namespace Prisma {
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     jobs?: boolean | Employer$jobsArgs<ExtArgs>
+    subscription?: boolean | Employer$subscriptionArgs<ExtArgs>
     _count?: boolean | EmployerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employer"]>
 
@@ -4746,6 +4929,7 @@ export namespace Prisma {
   export type EmployerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     jobs?: boolean | Employer$jobsArgs<ExtArgs>
+    subscription?: boolean | Employer$subscriptionArgs<ExtArgs>
     _count?: boolean | EmployerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EmployerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4760,6 +4944,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       jobs: Prisma.$JobPayload<ExtArgs>[]
+      subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5170,6 +5355,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     jobs<T extends Employer$jobsArgs<ExtArgs> = {}>(args?: Subset<T, Employer$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    subscription<T extends Employer$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, Employer$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5628,6 +5814,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: JobScalarFieldEnum | JobScalarFieldEnum[]
+  }
+
+  /**
+   * Employer.subscription
+   */
+  export type Employer$subscriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    where?: SubscriptionWhereInput
   }
 
   /**
@@ -8581,6 +8786,7 @@ export namespace Prisma {
     applicant?: boolean | ApplicantDefaultArgs<ExtArgs>
     job?: boolean | JobDefaultArgs<ExtArgs>
     resume?: boolean | ResumeDefaultArgs<ExtArgs>
+    aiEvaluation?: boolean | JobApplication$aiEvaluationArgs<ExtArgs>
   }, ExtArgs["result"]["jobApplication"]>
 
   export type JobApplicationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8627,6 +8833,7 @@ export namespace Prisma {
     applicant?: boolean | ApplicantDefaultArgs<ExtArgs>
     job?: boolean | JobDefaultArgs<ExtArgs>
     resume?: boolean | ResumeDefaultArgs<ExtArgs>
+    aiEvaluation?: boolean | JobApplication$aiEvaluationArgs<ExtArgs>
   }
   export type JobApplicationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     applicant?: boolean | ApplicantDefaultArgs<ExtArgs>
@@ -8645,6 +8852,7 @@ export namespace Prisma {
       applicant: Prisma.$ApplicantPayload<ExtArgs>
       job: Prisma.$JobPayload<ExtArgs>
       resume: Prisma.$ResumePayload<ExtArgs>
+      aiEvaluation: Prisma.$AIEvaluationPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -9052,6 +9260,7 @@ export namespace Prisma {
     applicant<T extends ApplicantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ApplicantDefaultArgs<ExtArgs>>): Prisma__ApplicantClient<$Result.GetResult<Prisma.$ApplicantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     job<T extends JobDefaultArgs<ExtArgs> = {}>(args?: Subset<T, JobDefaultArgs<ExtArgs>>): Prisma__JobClient<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     resume<T extends ResumeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ResumeDefaultArgs<ExtArgs>>): Prisma__ResumeClient<$Result.GetResult<Prisma.$ResumePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    aiEvaluation<T extends JobApplication$aiEvaluationArgs<ExtArgs> = {}>(args?: Subset<T, JobApplication$aiEvaluationArgs<ExtArgs>>): Prisma__AIEvaluationClient<$Result.GetResult<Prisma.$AIEvaluationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9482,6 +9691,25 @@ export namespace Prisma {
      * Limit how many JobApplications to delete.
      */
     limit?: number
+  }
+
+  /**
+   * JobApplication.aiEvaluation
+   */
+  export type JobApplication$aiEvaluationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationInclude<ExtArgs> | null
+    where?: AIEvaluationWhereInput
   }
 
   /**
@@ -15234,6 +15462,2370 @@ export namespace Prisma {
 
 
   /**
+   * Model Subscription
+   */
+
+  export type AggregateSubscription = {
+    _count: SubscriptionCountAggregateOutputType | null
+    _avg: SubscriptionAvgAggregateOutputType | null
+    _sum: SubscriptionSumAggregateOutputType | null
+    _min: SubscriptionMinAggregateOutputType | null
+    _max: SubscriptionMaxAggregateOutputType | null
+  }
+
+  export type SubscriptionAvgAggregateOutputType = {
+    id: number | null
+    employerId: number | null
+    jobLimit: number | null
+    aiCredits: number | null
+    aiCreditsUsed: number | null
+  }
+
+  export type SubscriptionSumAggregateOutputType = {
+    id: number | null
+    employerId: number | null
+    jobLimit: number | null
+    aiCredits: number | null
+    aiCreditsUsed: number | null
+  }
+
+  export type SubscriptionMinAggregateOutputType = {
+    id: number | null
+    employerId: number | null
+    planName: string | null
+    startDate: Date | null
+    endDate: Date | null
+    jobLimit: number | null
+    aiCredits: number | null
+    aiCreditsUsed: number | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SubscriptionMaxAggregateOutputType = {
+    id: number | null
+    employerId: number | null
+    planName: string | null
+    startDate: Date | null
+    endDate: Date | null
+    jobLimit: number | null
+    aiCredits: number | null
+    aiCreditsUsed: number | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SubscriptionCountAggregateOutputType = {
+    id: number
+    employerId: number
+    planName: number
+    startDate: number
+    endDate: number
+    jobLimit: number
+    aiCredits: number
+    aiCreditsUsed: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SubscriptionAvgAggregateInputType = {
+    id?: true
+    employerId?: true
+    jobLimit?: true
+    aiCredits?: true
+    aiCreditsUsed?: true
+  }
+
+  export type SubscriptionSumAggregateInputType = {
+    id?: true
+    employerId?: true
+    jobLimit?: true
+    aiCredits?: true
+    aiCreditsUsed?: true
+  }
+
+  export type SubscriptionMinAggregateInputType = {
+    id?: true
+    employerId?: true
+    planName?: true
+    startDate?: true
+    endDate?: true
+    jobLimit?: true
+    aiCredits?: true
+    aiCreditsUsed?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SubscriptionMaxAggregateInputType = {
+    id?: true
+    employerId?: true
+    planName?: true
+    startDate?: true
+    endDate?: true
+    jobLimit?: true
+    aiCredits?: true
+    aiCreditsUsed?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SubscriptionCountAggregateInputType = {
+    id?: true
+    employerId?: true
+    planName?: true
+    startDate?: true
+    endDate?: true
+    jobLimit?: true
+    aiCredits?: true
+    aiCreditsUsed?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SubscriptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subscription to aggregate.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Subscriptions
+    **/
+    _count?: true | SubscriptionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SubscriptionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SubscriptionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubscriptionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubscriptionMaxAggregateInputType
+  }
+
+  export type GetSubscriptionAggregateType<T extends SubscriptionAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubscription]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubscription[P]>
+      : GetScalarType<T[P], AggregateSubscription[P]>
+  }
+
+
+
+
+  export type SubscriptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubscriptionWhereInput
+    orderBy?: SubscriptionOrderByWithAggregationInput | SubscriptionOrderByWithAggregationInput[]
+    by: SubscriptionScalarFieldEnum[] | SubscriptionScalarFieldEnum
+    having?: SubscriptionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubscriptionCountAggregateInputType | true
+    _avg?: SubscriptionAvgAggregateInputType
+    _sum?: SubscriptionSumAggregateInputType
+    _min?: SubscriptionMinAggregateInputType
+    _max?: SubscriptionMaxAggregateInputType
+  }
+
+  export type SubscriptionGroupByOutputType = {
+    id: number
+    employerId: number
+    planName: string
+    startDate: Date
+    endDate: Date | null
+    jobLimit: number
+    aiCredits: number
+    aiCreditsUsed: number
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: SubscriptionCountAggregateOutputType | null
+    _avg: SubscriptionAvgAggregateOutputType | null
+    _sum: SubscriptionSumAggregateOutputType | null
+    _min: SubscriptionMinAggregateOutputType | null
+    _max: SubscriptionMaxAggregateOutputType | null
+  }
+
+  type GetSubscriptionGroupByPayload<T extends SubscriptionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubscriptionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubscriptionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
+            : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SubscriptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employerId?: boolean
+    planName?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    jobLimit?: boolean
+    aiCredits?: boolean
+    aiCreditsUsed?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employer?: boolean | EmployerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subscription"]>
+
+  export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employerId?: boolean
+    planName?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    jobLimit?: boolean
+    aiCredits?: boolean
+    aiCreditsUsed?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employer?: boolean | EmployerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subscription"]>
+
+  export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employerId?: boolean
+    planName?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    jobLimit?: boolean
+    aiCredits?: boolean
+    aiCreditsUsed?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employer?: boolean | EmployerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subscription"]>
+
+  export type SubscriptionSelectScalar = {
+    id?: boolean
+    employerId?: boolean
+    planName?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    jobLimit?: boolean
+    aiCredits?: boolean
+    aiCreditsUsed?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employerId" | "planName" | "startDate" | "endDate" | "jobLimit" | "aiCredits" | "aiCreditsUsed" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
+  export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employer?: boolean | EmployerDefaultArgs<ExtArgs>
+  }
+  export type SubscriptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employer?: boolean | EmployerDefaultArgs<ExtArgs>
+  }
+  export type SubscriptionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employer?: boolean | EmployerDefaultArgs<ExtArgs>
+  }
+
+  export type $SubscriptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Subscription"
+    objects: {
+      employer: Prisma.$EmployerPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      employerId: number
+      planName: string
+      startDate: Date
+      endDate: Date | null
+      jobLimit: number
+      aiCredits: number
+      aiCreditsUsed: number
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["subscription"]>
+    composites: {}
+  }
+
+  type SubscriptionGetPayload<S extends boolean | null | undefined | SubscriptionDefaultArgs> = $Result.GetResult<Prisma.$SubscriptionPayload, S>
+
+  type SubscriptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SubscriptionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SubscriptionCountAggregateInputType | true
+    }
+
+  export interface SubscriptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Subscription'], meta: { name: 'Subscription' } }
+    /**
+     * Find zero or one Subscription that matches the filter.
+     * @param {SubscriptionFindUniqueArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SubscriptionFindUniqueArgs>(args: SelectSubset<T, SubscriptionFindUniqueArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Subscription that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SubscriptionFindUniqueOrThrowArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SubscriptionFindUniqueOrThrowArgs>(args: SelectSubset<T, SubscriptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subscription that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindFirstArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SubscriptionFindFirstArgs>(args?: SelectSubset<T, SubscriptionFindFirstArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subscription that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindFirstOrThrowArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SubscriptionFindFirstOrThrowArgs>(args?: SelectSubset<T, SubscriptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Subscriptions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Subscriptions
+     * const subscriptions = await prisma.subscription.findMany()
+     * 
+     * // Get first 10 Subscriptions
+     * const subscriptions = await prisma.subscription.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SubscriptionFindManyArgs>(args?: SelectSubset<T, SubscriptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Subscription.
+     * @param {SubscriptionCreateArgs} args - Arguments to create a Subscription.
+     * @example
+     * // Create one Subscription
+     * const Subscription = await prisma.subscription.create({
+     *   data: {
+     *     // ... data to create a Subscription
+     *   }
+     * })
+     * 
+     */
+    create<T extends SubscriptionCreateArgs>(args: SelectSubset<T, SubscriptionCreateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Subscriptions.
+     * @param {SubscriptionCreateManyArgs} args - Arguments to create many Subscriptions.
+     * @example
+     * // Create many Subscriptions
+     * const subscription = await prisma.subscription.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SubscriptionCreateManyArgs>(args?: SelectSubset<T, SubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Subscriptions and returns the data saved in the database.
+     * @param {SubscriptionCreateManyAndReturnArgs} args - Arguments to create many Subscriptions.
+     * @example
+     * // Create many Subscriptions
+     * const subscription = await prisma.subscription.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Subscriptions and only return the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SubscriptionCreateManyAndReturnArgs>(args?: SelectSubset<T, SubscriptionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Subscription.
+     * @param {SubscriptionDeleteArgs} args - Arguments to delete one Subscription.
+     * @example
+     * // Delete one Subscription
+     * const Subscription = await prisma.subscription.delete({
+     *   where: {
+     *     // ... filter to delete one Subscription
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SubscriptionDeleteArgs>(args: SelectSubset<T, SubscriptionDeleteArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Subscription.
+     * @param {SubscriptionUpdateArgs} args - Arguments to update one Subscription.
+     * @example
+     * // Update one Subscription
+     * const subscription = await prisma.subscription.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SubscriptionUpdateArgs>(args: SelectSubset<T, SubscriptionUpdateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Subscriptions.
+     * @param {SubscriptionDeleteManyArgs} args - Arguments to filter Subscriptions to delete.
+     * @example
+     * // Delete a few Subscriptions
+     * const { count } = await prisma.subscription.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SubscriptionDeleteManyArgs>(args?: SelectSubset<T, SubscriptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Subscriptions
+     * const subscription = await prisma.subscription.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SubscriptionUpdateManyArgs>(args: SelectSubset<T, SubscriptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subscriptions and returns the data updated in the database.
+     * @param {SubscriptionUpdateManyAndReturnArgs} args - Arguments to update many Subscriptions.
+     * @example
+     * // Update many Subscriptions
+     * const subscription = await prisma.subscription.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Subscriptions and only return the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SubscriptionUpdateManyAndReturnArgs>(args: SelectSubset<T, SubscriptionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Subscription.
+     * @param {SubscriptionUpsertArgs} args - Arguments to update or create a Subscription.
+     * @example
+     * // Update or create a Subscription
+     * const subscription = await prisma.subscription.upsert({
+     *   create: {
+     *     // ... data to create a Subscription
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Subscription we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SubscriptionUpsertArgs>(args: SelectSubset<T, SubscriptionUpsertArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Subscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionCountArgs} args - Arguments to filter Subscriptions to count.
+     * @example
+     * // Count the number of Subscriptions
+     * const count = await prisma.subscription.count({
+     *   where: {
+     *     // ... the filter for the Subscriptions we want to count
+     *   }
+     * })
+    **/
+    count<T extends SubscriptionCountArgs>(
+      args?: Subset<T, SubscriptionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubscriptionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Subscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubscriptionAggregateArgs>(args: Subset<T, SubscriptionAggregateArgs>): Prisma.PrismaPromise<GetSubscriptionAggregateType<T>>
+
+    /**
+     * Group by Subscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SubscriptionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SubscriptionGroupByArgs['orderBy'] }
+        : { orderBy?: SubscriptionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SubscriptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubscriptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Subscription model
+   */
+  readonly fields: SubscriptionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Subscription.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SubscriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    employer<T extends EmployerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployerDefaultArgs<ExtArgs>>): Prisma__EmployerClient<$Result.GetResult<Prisma.$EmployerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Subscription model
+   */
+  interface SubscriptionFieldRefs {
+    readonly id: FieldRef<"Subscription", 'Int'>
+    readonly employerId: FieldRef<"Subscription", 'Int'>
+    readonly planName: FieldRef<"Subscription", 'String'>
+    readonly startDate: FieldRef<"Subscription", 'DateTime'>
+    readonly endDate: FieldRef<"Subscription", 'DateTime'>
+    readonly jobLimit: FieldRef<"Subscription", 'Int'>
+    readonly aiCredits: FieldRef<"Subscription", 'Int'>
+    readonly aiCreditsUsed: FieldRef<"Subscription", 'Int'>
+    readonly isActive: FieldRef<"Subscription", 'Boolean'>
+    readonly createdAt: FieldRef<"Subscription", 'DateTime'>
+    readonly updatedAt: FieldRef<"Subscription", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Subscription findUnique
+   */
+  export type SubscriptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription findUniqueOrThrow
+   */
+  export type SubscriptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription findFirst
+   */
+  export type SubscriptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subscriptions.
+     */
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription findFirstOrThrow
+   */
+  export type SubscriptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subscriptions.
+     */
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription findMany
+   */
+  export type SubscriptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscriptions to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription create
+   */
+  export type SubscriptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Subscription.
+     */
+    data: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
+  }
+
+  /**
+   * Subscription createMany
+   */
+  export type SubscriptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Subscriptions.
+     */
+    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Subscription createManyAndReturn
+   */
+  export type SubscriptionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * The data used to create many Subscriptions.
+     */
+    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Subscription update
+   */
+  export type SubscriptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Subscription.
+     */
+    data: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
+    /**
+     * Choose, which Subscription to update.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription updateMany
+   */
+  export type SubscriptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Subscriptions.
+     */
+    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which Subscriptions to update
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subscription updateManyAndReturn
+   */
+  export type SubscriptionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * The data used to update Subscriptions.
+     */
+    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which Subscriptions to update
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Subscription upsert
+   */
+  export type SubscriptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Subscription to update in case it exists.
+     */
+    where: SubscriptionWhereUniqueInput
+    /**
+     * In case the Subscription found by the `where` argument doesn't exist, create a new Subscription with this data.
+     */
+    create: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
+    /**
+     * In case the Subscription was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
+  }
+
+  /**
+   * Subscription delete
+   */
+  export type SubscriptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter which Subscription to delete.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription deleteMany
+   */
+  export type SubscriptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subscriptions to delete
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subscription without action
+   */
+  export type SubscriptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AIEvaluation
+   */
+
+  export type AggregateAIEvaluation = {
+    _count: AIEvaluationCountAggregateOutputType | null
+    _avg: AIEvaluationAvgAggregateOutputType | null
+    _sum: AIEvaluationSumAggregateOutputType | null
+    _min: AIEvaluationMinAggregateOutputType | null
+    _max: AIEvaluationMaxAggregateOutputType | null
+  }
+
+  export type AIEvaluationAvgAggregateOutputType = {
+    id: number | null
+    matchScore: number | null
+    applicationId: number | null
+    employerId: number | null
+    jobId: number | null
+  }
+
+  export type AIEvaluationSumAggregateOutputType = {
+    id: number | null
+    matchScore: number | null
+    applicationId: number | null
+    employerId: number | null
+    jobId: number | null
+  }
+
+  export type AIEvaluationMinAggregateOutputType = {
+    id: number | null
+    matchScore: number | null
+    summary: string | null
+    recommendation: string | null
+    experienceMatch: string | null
+    applicationId: number | null
+    employerId: number | null
+    jobId: number | null
+    createdAt: Date | null
+  }
+
+  export type AIEvaluationMaxAggregateOutputType = {
+    id: number | null
+    matchScore: number | null
+    summary: string | null
+    recommendation: string | null
+    experienceMatch: string | null
+    applicationId: number | null
+    employerId: number | null
+    jobId: number | null
+    createdAt: Date | null
+  }
+
+  export type AIEvaluationCountAggregateOutputType = {
+    id: number
+    matchScore: number
+    summary: number
+    recommendation: number
+    matchedSkills: number
+    missingSkills: number
+    experienceMatch: number
+    applicationId: number
+    employerId: number
+    jobId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AIEvaluationAvgAggregateInputType = {
+    id?: true
+    matchScore?: true
+    applicationId?: true
+    employerId?: true
+    jobId?: true
+  }
+
+  export type AIEvaluationSumAggregateInputType = {
+    id?: true
+    matchScore?: true
+    applicationId?: true
+    employerId?: true
+    jobId?: true
+  }
+
+  export type AIEvaluationMinAggregateInputType = {
+    id?: true
+    matchScore?: true
+    summary?: true
+    recommendation?: true
+    experienceMatch?: true
+    applicationId?: true
+    employerId?: true
+    jobId?: true
+    createdAt?: true
+  }
+
+  export type AIEvaluationMaxAggregateInputType = {
+    id?: true
+    matchScore?: true
+    summary?: true
+    recommendation?: true
+    experienceMatch?: true
+    applicationId?: true
+    employerId?: true
+    jobId?: true
+    createdAt?: true
+  }
+
+  export type AIEvaluationCountAggregateInputType = {
+    id?: true
+    matchScore?: true
+    summary?: true
+    recommendation?: true
+    matchedSkills?: true
+    missingSkills?: true
+    experienceMatch?: true
+    applicationId?: true
+    employerId?: true
+    jobId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AIEvaluationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIEvaluation to aggregate.
+     */
+    where?: AIEvaluationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIEvaluations to fetch.
+     */
+    orderBy?: AIEvaluationOrderByWithRelationInput | AIEvaluationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AIEvaluationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIEvaluations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIEvaluations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AIEvaluations
+    **/
+    _count?: true | AIEvaluationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AIEvaluationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AIEvaluationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AIEvaluationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AIEvaluationMaxAggregateInputType
+  }
+
+  export type GetAIEvaluationAggregateType<T extends AIEvaluationAggregateArgs> = {
+        [P in keyof T & keyof AggregateAIEvaluation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAIEvaluation[P]>
+      : GetScalarType<T[P], AggregateAIEvaluation[P]>
+  }
+
+
+
+
+  export type AIEvaluationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIEvaluationWhereInput
+    orderBy?: AIEvaluationOrderByWithAggregationInput | AIEvaluationOrderByWithAggregationInput[]
+    by: AIEvaluationScalarFieldEnum[] | AIEvaluationScalarFieldEnum
+    having?: AIEvaluationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AIEvaluationCountAggregateInputType | true
+    _avg?: AIEvaluationAvgAggregateInputType
+    _sum?: AIEvaluationSumAggregateInputType
+    _min?: AIEvaluationMinAggregateInputType
+    _max?: AIEvaluationMaxAggregateInputType
+  }
+
+  export type AIEvaluationGroupByOutputType = {
+    id: number
+    matchScore: number
+    summary: string
+    recommendation: string
+    matchedSkills: string[]
+    missingSkills: string[]
+    experienceMatch: string
+    applicationId: number
+    employerId: number
+    jobId: number
+    createdAt: Date
+    _count: AIEvaluationCountAggregateOutputType | null
+    _avg: AIEvaluationAvgAggregateOutputType | null
+    _sum: AIEvaluationSumAggregateOutputType | null
+    _min: AIEvaluationMinAggregateOutputType | null
+    _max: AIEvaluationMaxAggregateOutputType | null
+  }
+
+  type GetAIEvaluationGroupByPayload<T extends AIEvaluationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AIEvaluationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AIEvaluationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AIEvaluationGroupByOutputType[P]>
+            : GetScalarType<T[P], AIEvaluationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AIEvaluationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    matchScore?: boolean
+    summary?: boolean
+    recommendation?: boolean
+    matchedSkills?: boolean
+    missingSkills?: boolean
+    experienceMatch?: boolean
+    applicationId?: boolean
+    employerId?: boolean
+    jobId?: boolean
+    createdAt?: boolean
+    application?: boolean | JobApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIEvaluation"]>
+
+  export type AIEvaluationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    matchScore?: boolean
+    summary?: boolean
+    recommendation?: boolean
+    matchedSkills?: boolean
+    missingSkills?: boolean
+    experienceMatch?: boolean
+    applicationId?: boolean
+    employerId?: boolean
+    jobId?: boolean
+    createdAt?: boolean
+    application?: boolean | JobApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIEvaluation"]>
+
+  export type AIEvaluationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    matchScore?: boolean
+    summary?: boolean
+    recommendation?: boolean
+    matchedSkills?: boolean
+    missingSkills?: boolean
+    experienceMatch?: boolean
+    applicationId?: boolean
+    employerId?: boolean
+    jobId?: boolean
+    createdAt?: boolean
+    application?: boolean | JobApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aIEvaluation"]>
+
+  export type AIEvaluationSelectScalar = {
+    id?: boolean
+    matchScore?: boolean
+    summary?: boolean
+    recommendation?: boolean
+    matchedSkills?: boolean
+    missingSkills?: boolean
+    experienceMatch?: boolean
+    applicationId?: boolean
+    employerId?: boolean
+    jobId?: boolean
+    createdAt?: boolean
+  }
+
+  export type AIEvaluationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "matchScore" | "summary" | "recommendation" | "matchedSkills" | "missingSkills" | "experienceMatch" | "applicationId" | "employerId" | "jobId" | "createdAt", ExtArgs["result"]["aIEvaluation"]>
+  export type AIEvaluationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | JobApplicationDefaultArgs<ExtArgs>
+  }
+  export type AIEvaluationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | JobApplicationDefaultArgs<ExtArgs>
+  }
+  export type AIEvaluationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | JobApplicationDefaultArgs<ExtArgs>
+  }
+
+  export type $AIEvaluationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AIEvaluation"
+    objects: {
+      application: Prisma.$JobApplicationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      matchScore: number
+      summary: string
+      recommendation: string
+      matchedSkills: string[]
+      missingSkills: string[]
+      experienceMatch: string
+      applicationId: number
+      employerId: number
+      jobId: number
+      createdAt: Date
+    }, ExtArgs["result"]["aIEvaluation"]>
+    composites: {}
+  }
+
+  type AIEvaluationGetPayload<S extends boolean | null | undefined | AIEvaluationDefaultArgs> = $Result.GetResult<Prisma.$AIEvaluationPayload, S>
+
+  type AIEvaluationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AIEvaluationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AIEvaluationCountAggregateInputType | true
+    }
+
+  export interface AIEvaluationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AIEvaluation'], meta: { name: 'AIEvaluation' } }
+    /**
+     * Find zero or one AIEvaluation that matches the filter.
+     * @param {AIEvaluationFindUniqueArgs} args - Arguments to find a AIEvaluation
+     * @example
+     * // Get one AIEvaluation
+     * const aIEvaluation = await prisma.aIEvaluation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AIEvaluationFindUniqueArgs>(args: SelectSubset<T, AIEvaluationFindUniqueArgs<ExtArgs>>): Prisma__AIEvaluationClient<$Result.GetResult<Prisma.$AIEvaluationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AIEvaluation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AIEvaluationFindUniqueOrThrowArgs} args - Arguments to find a AIEvaluation
+     * @example
+     * // Get one AIEvaluation
+     * const aIEvaluation = await prisma.aIEvaluation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AIEvaluationFindUniqueOrThrowArgs>(args: SelectSubset<T, AIEvaluationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AIEvaluationClient<$Result.GetResult<Prisma.$AIEvaluationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AIEvaluation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIEvaluationFindFirstArgs} args - Arguments to find a AIEvaluation
+     * @example
+     * // Get one AIEvaluation
+     * const aIEvaluation = await prisma.aIEvaluation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AIEvaluationFindFirstArgs>(args?: SelectSubset<T, AIEvaluationFindFirstArgs<ExtArgs>>): Prisma__AIEvaluationClient<$Result.GetResult<Prisma.$AIEvaluationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AIEvaluation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIEvaluationFindFirstOrThrowArgs} args - Arguments to find a AIEvaluation
+     * @example
+     * // Get one AIEvaluation
+     * const aIEvaluation = await prisma.aIEvaluation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AIEvaluationFindFirstOrThrowArgs>(args?: SelectSubset<T, AIEvaluationFindFirstOrThrowArgs<ExtArgs>>): Prisma__AIEvaluationClient<$Result.GetResult<Prisma.$AIEvaluationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AIEvaluations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIEvaluationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AIEvaluations
+     * const aIEvaluations = await prisma.aIEvaluation.findMany()
+     * 
+     * // Get first 10 AIEvaluations
+     * const aIEvaluations = await prisma.aIEvaluation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aIEvaluationWithIdOnly = await prisma.aIEvaluation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AIEvaluationFindManyArgs>(args?: SelectSubset<T, AIEvaluationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIEvaluationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AIEvaluation.
+     * @param {AIEvaluationCreateArgs} args - Arguments to create a AIEvaluation.
+     * @example
+     * // Create one AIEvaluation
+     * const AIEvaluation = await prisma.aIEvaluation.create({
+     *   data: {
+     *     // ... data to create a AIEvaluation
+     *   }
+     * })
+     * 
+     */
+    create<T extends AIEvaluationCreateArgs>(args: SelectSubset<T, AIEvaluationCreateArgs<ExtArgs>>): Prisma__AIEvaluationClient<$Result.GetResult<Prisma.$AIEvaluationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AIEvaluations.
+     * @param {AIEvaluationCreateManyArgs} args - Arguments to create many AIEvaluations.
+     * @example
+     * // Create many AIEvaluations
+     * const aIEvaluation = await prisma.aIEvaluation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AIEvaluationCreateManyArgs>(args?: SelectSubset<T, AIEvaluationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AIEvaluations and returns the data saved in the database.
+     * @param {AIEvaluationCreateManyAndReturnArgs} args - Arguments to create many AIEvaluations.
+     * @example
+     * // Create many AIEvaluations
+     * const aIEvaluation = await prisma.aIEvaluation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AIEvaluations and only return the `id`
+     * const aIEvaluationWithIdOnly = await prisma.aIEvaluation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AIEvaluationCreateManyAndReturnArgs>(args?: SelectSubset<T, AIEvaluationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIEvaluationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AIEvaluation.
+     * @param {AIEvaluationDeleteArgs} args - Arguments to delete one AIEvaluation.
+     * @example
+     * // Delete one AIEvaluation
+     * const AIEvaluation = await prisma.aIEvaluation.delete({
+     *   where: {
+     *     // ... filter to delete one AIEvaluation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AIEvaluationDeleteArgs>(args: SelectSubset<T, AIEvaluationDeleteArgs<ExtArgs>>): Prisma__AIEvaluationClient<$Result.GetResult<Prisma.$AIEvaluationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AIEvaluation.
+     * @param {AIEvaluationUpdateArgs} args - Arguments to update one AIEvaluation.
+     * @example
+     * // Update one AIEvaluation
+     * const aIEvaluation = await prisma.aIEvaluation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AIEvaluationUpdateArgs>(args: SelectSubset<T, AIEvaluationUpdateArgs<ExtArgs>>): Prisma__AIEvaluationClient<$Result.GetResult<Prisma.$AIEvaluationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AIEvaluations.
+     * @param {AIEvaluationDeleteManyArgs} args - Arguments to filter AIEvaluations to delete.
+     * @example
+     * // Delete a few AIEvaluations
+     * const { count } = await prisma.aIEvaluation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AIEvaluationDeleteManyArgs>(args?: SelectSubset<T, AIEvaluationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIEvaluations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIEvaluationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AIEvaluations
+     * const aIEvaluation = await prisma.aIEvaluation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AIEvaluationUpdateManyArgs>(args: SelectSubset<T, AIEvaluationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIEvaluations and returns the data updated in the database.
+     * @param {AIEvaluationUpdateManyAndReturnArgs} args - Arguments to update many AIEvaluations.
+     * @example
+     * // Update many AIEvaluations
+     * const aIEvaluation = await prisma.aIEvaluation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AIEvaluations and only return the `id`
+     * const aIEvaluationWithIdOnly = await prisma.aIEvaluation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AIEvaluationUpdateManyAndReturnArgs>(args: SelectSubset<T, AIEvaluationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIEvaluationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AIEvaluation.
+     * @param {AIEvaluationUpsertArgs} args - Arguments to update or create a AIEvaluation.
+     * @example
+     * // Update or create a AIEvaluation
+     * const aIEvaluation = await prisma.aIEvaluation.upsert({
+     *   create: {
+     *     // ... data to create a AIEvaluation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AIEvaluation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AIEvaluationUpsertArgs>(args: SelectSubset<T, AIEvaluationUpsertArgs<ExtArgs>>): Prisma__AIEvaluationClient<$Result.GetResult<Prisma.$AIEvaluationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AIEvaluations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIEvaluationCountArgs} args - Arguments to filter AIEvaluations to count.
+     * @example
+     * // Count the number of AIEvaluations
+     * const count = await prisma.aIEvaluation.count({
+     *   where: {
+     *     // ... the filter for the AIEvaluations we want to count
+     *   }
+     * })
+    **/
+    count<T extends AIEvaluationCountArgs>(
+      args?: Subset<T, AIEvaluationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AIEvaluationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AIEvaluation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIEvaluationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AIEvaluationAggregateArgs>(args: Subset<T, AIEvaluationAggregateArgs>): Prisma.PrismaPromise<GetAIEvaluationAggregateType<T>>
+
+    /**
+     * Group by AIEvaluation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIEvaluationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AIEvaluationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AIEvaluationGroupByArgs['orderBy'] }
+        : { orderBy?: AIEvaluationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AIEvaluationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAIEvaluationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AIEvaluation model
+   */
+  readonly fields: AIEvaluationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AIEvaluation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AIEvaluationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    application<T extends JobApplicationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, JobApplicationDefaultArgs<ExtArgs>>): Prisma__JobApplicationClient<$Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AIEvaluation model
+   */
+  interface AIEvaluationFieldRefs {
+    readonly id: FieldRef<"AIEvaluation", 'Int'>
+    readonly matchScore: FieldRef<"AIEvaluation", 'Int'>
+    readonly summary: FieldRef<"AIEvaluation", 'String'>
+    readonly recommendation: FieldRef<"AIEvaluation", 'String'>
+    readonly matchedSkills: FieldRef<"AIEvaluation", 'String[]'>
+    readonly missingSkills: FieldRef<"AIEvaluation", 'String[]'>
+    readonly experienceMatch: FieldRef<"AIEvaluation", 'String'>
+    readonly applicationId: FieldRef<"AIEvaluation", 'Int'>
+    readonly employerId: FieldRef<"AIEvaluation", 'Int'>
+    readonly jobId: FieldRef<"AIEvaluation", 'Int'>
+    readonly createdAt: FieldRef<"AIEvaluation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AIEvaluation findUnique
+   */
+  export type AIEvaluationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationInclude<ExtArgs> | null
+    /**
+     * Filter, which AIEvaluation to fetch.
+     */
+    where: AIEvaluationWhereUniqueInput
+  }
+
+  /**
+   * AIEvaluation findUniqueOrThrow
+   */
+  export type AIEvaluationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationInclude<ExtArgs> | null
+    /**
+     * Filter, which AIEvaluation to fetch.
+     */
+    where: AIEvaluationWhereUniqueInput
+  }
+
+  /**
+   * AIEvaluation findFirst
+   */
+  export type AIEvaluationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationInclude<ExtArgs> | null
+    /**
+     * Filter, which AIEvaluation to fetch.
+     */
+    where?: AIEvaluationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIEvaluations to fetch.
+     */
+    orderBy?: AIEvaluationOrderByWithRelationInput | AIEvaluationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIEvaluations.
+     */
+    cursor?: AIEvaluationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIEvaluations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIEvaluations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIEvaluations.
+     */
+    distinct?: AIEvaluationScalarFieldEnum | AIEvaluationScalarFieldEnum[]
+  }
+
+  /**
+   * AIEvaluation findFirstOrThrow
+   */
+  export type AIEvaluationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationInclude<ExtArgs> | null
+    /**
+     * Filter, which AIEvaluation to fetch.
+     */
+    where?: AIEvaluationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIEvaluations to fetch.
+     */
+    orderBy?: AIEvaluationOrderByWithRelationInput | AIEvaluationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIEvaluations.
+     */
+    cursor?: AIEvaluationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIEvaluations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIEvaluations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIEvaluations.
+     */
+    distinct?: AIEvaluationScalarFieldEnum | AIEvaluationScalarFieldEnum[]
+  }
+
+  /**
+   * AIEvaluation findMany
+   */
+  export type AIEvaluationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationInclude<ExtArgs> | null
+    /**
+     * Filter, which AIEvaluations to fetch.
+     */
+    where?: AIEvaluationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIEvaluations to fetch.
+     */
+    orderBy?: AIEvaluationOrderByWithRelationInput | AIEvaluationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AIEvaluations.
+     */
+    cursor?: AIEvaluationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIEvaluations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIEvaluations.
+     */
+    skip?: number
+    distinct?: AIEvaluationScalarFieldEnum | AIEvaluationScalarFieldEnum[]
+  }
+
+  /**
+   * AIEvaluation create
+   */
+  export type AIEvaluationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AIEvaluation.
+     */
+    data: XOR<AIEvaluationCreateInput, AIEvaluationUncheckedCreateInput>
+  }
+
+  /**
+   * AIEvaluation createMany
+   */
+  export type AIEvaluationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AIEvaluations.
+     */
+    data: AIEvaluationCreateManyInput | AIEvaluationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AIEvaluation createManyAndReturn
+   */
+  export type AIEvaluationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * The data used to create many AIEvaluations.
+     */
+    data: AIEvaluationCreateManyInput | AIEvaluationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIEvaluation update
+   */
+  export type AIEvaluationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AIEvaluation.
+     */
+    data: XOR<AIEvaluationUpdateInput, AIEvaluationUncheckedUpdateInput>
+    /**
+     * Choose, which AIEvaluation to update.
+     */
+    where: AIEvaluationWhereUniqueInput
+  }
+
+  /**
+   * AIEvaluation updateMany
+   */
+  export type AIEvaluationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AIEvaluations.
+     */
+    data: XOR<AIEvaluationUpdateManyMutationInput, AIEvaluationUncheckedUpdateManyInput>
+    /**
+     * Filter which AIEvaluations to update
+     */
+    where?: AIEvaluationWhereInput
+    /**
+     * Limit how many AIEvaluations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AIEvaluation updateManyAndReturn
+   */
+  export type AIEvaluationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * The data used to update AIEvaluations.
+     */
+    data: XOR<AIEvaluationUpdateManyMutationInput, AIEvaluationUncheckedUpdateManyInput>
+    /**
+     * Filter which AIEvaluations to update
+     */
+    where?: AIEvaluationWhereInput
+    /**
+     * Limit how many AIEvaluations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIEvaluation upsert
+   */
+  export type AIEvaluationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AIEvaluation to update in case it exists.
+     */
+    where: AIEvaluationWhereUniqueInput
+    /**
+     * In case the AIEvaluation found by the `where` argument doesn't exist, create a new AIEvaluation with this data.
+     */
+    create: XOR<AIEvaluationCreateInput, AIEvaluationUncheckedCreateInput>
+    /**
+     * In case the AIEvaluation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AIEvaluationUpdateInput, AIEvaluationUncheckedUpdateInput>
+  }
+
+  /**
+   * AIEvaluation delete
+   */
+  export type AIEvaluationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationInclude<ExtArgs> | null
+    /**
+     * Filter which AIEvaluation to delete.
+     */
+    where: AIEvaluationWhereUniqueInput
+  }
+
+  /**
+   * AIEvaluation deleteMany
+   */
+  export type AIEvaluationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIEvaluations to delete
+     */
+    where?: AIEvaluationWhereInput
+    /**
+     * Limit how many AIEvaluations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AIEvaluation without action
+   */
+  export type AIEvaluationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIEvaluation
+     */
+    select?: AIEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIEvaluation
+     */
+    omit?: AIEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIEvaluationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -15423,6 +18015,40 @@ export namespace Prisma {
   };
 
   export type InterviewScalarFieldEnum = (typeof InterviewScalarFieldEnum)[keyof typeof InterviewScalarFieldEnum]
+
+
+  export const SubscriptionScalarFieldEnum: {
+    id: 'id',
+    employerId: 'employerId',
+    planName: 'planName',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    jobLimit: 'jobLimit',
+    aiCredits: 'aiCredits',
+    aiCreditsUsed: 'aiCreditsUsed',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
+
+
+  export const AIEvaluationScalarFieldEnum: {
+    id: 'id',
+    matchScore: 'matchScore',
+    summary: 'summary',
+    recommendation: 'recommendation',
+    matchedSkills: 'matchedSkills',
+    missingSkills: 'missingSkills',
+    experienceMatch: 'experienceMatch',
+    applicationId: 'applicationId',
+    employerId: 'employerId',
+    jobId: 'jobId',
+    createdAt: 'createdAt'
+  };
+
+  export type AIEvaluationScalarFieldEnum = (typeof AIEvaluationScalarFieldEnum)[keyof typeof AIEvaluationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -15785,6 +18411,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Employer"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     jobs?: JobListRelationFilter
+    subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
   }
 
   export type EmployerOrderByWithRelationInput = {
@@ -15802,6 +18429,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     jobs?: JobOrderByRelationAggregateInput
+    subscription?: SubscriptionOrderByWithRelationInput
   }
 
   export type EmployerWhereUniqueInput = Prisma.AtLeast<{
@@ -15822,6 +18450,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Employer"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     jobs?: JobListRelationFilter
+    subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
   }, "id">
 
   export type EmployerOrderByWithAggregationInput = {
@@ -16127,6 +18756,7 @@ export namespace Prisma {
     applicant?: XOR<ApplicantScalarRelationFilter, ApplicantWhereInput>
     job?: XOR<JobScalarRelationFilter, JobWhereInput>
     resume?: XOR<ResumeScalarRelationFilter, ResumeWhereInput>
+    aiEvaluation?: XOR<AIEvaluationNullableScalarRelationFilter, AIEvaluationWhereInput> | null
   }
 
   export type JobApplicationOrderByWithRelationInput = {
@@ -16141,6 +18771,7 @@ export namespace Prisma {
     applicant?: ApplicantOrderByWithRelationInput
     job?: JobOrderByWithRelationInput
     resume?: ResumeOrderByWithRelationInput
+    aiEvaluation?: AIEvaluationOrderByWithRelationInput
   }
 
   export type JobApplicationWhereUniqueInput = Prisma.AtLeast<{
@@ -16159,6 +18790,7 @@ export namespace Prisma {
     applicant?: XOR<ApplicantScalarRelationFilter, ApplicantWhereInput>
     job?: XOR<JobScalarRelationFilter, JobWhereInput>
     resume?: XOR<ResumeScalarRelationFilter, ResumeWhereInput>
+    aiEvaluation?: XOR<AIEvaluationNullableScalarRelationFilter, AIEvaluationWhereInput> | null
   }, "id" | "jobId_applicantId">
 
   export type JobApplicationOrderByWithAggregationInput = {
@@ -16563,6 +19195,180 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Interview"> | Date | string
   }
 
+  export type SubscriptionWhereInput = {
+    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    OR?: SubscriptionWhereInput[]
+    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    id?: IntFilter<"Subscription"> | number
+    employerId?: IntFilter<"Subscription"> | number
+    planName?: StringFilter<"Subscription"> | string
+    startDate?: DateTimeFilter<"Subscription"> | Date | string
+    endDate?: DateTimeNullableFilter<"Subscription"> | Date | string | null
+    jobLimit?: IntFilter<"Subscription"> | number
+    aiCredits?: IntFilter<"Subscription"> | number
+    aiCreditsUsed?: IntFilter<"Subscription"> | number
+    isActive?: BoolFilter<"Subscription"> | boolean
+    createdAt?: DateTimeFilter<"Subscription"> | Date | string
+    updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+    employer?: XOR<EmployerScalarRelationFilter, EmployerWhereInput>
+  }
+
+  export type SubscriptionOrderByWithRelationInput = {
+    id?: SortOrder
+    employerId?: SortOrder
+    planName?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrderInput | SortOrder
+    jobLimit?: SortOrder
+    aiCredits?: SortOrder
+    aiCreditsUsed?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    employer?: EmployerOrderByWithRelationInput
+  }
+
+  export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    employerId?: number
+    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    OR?: SubscriptionWhereInput[]
+    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    planName?: StringFilter<"Subscription"> | string
+    startDate?: DateTimeFilter<"Subscription"> | Date | string
+    endDate?: DateTimeNullableFilter<"Subscription"> | Date | string | null
+    jobLimit?: IntFilter<"Subscription"> | number
+    aiCredits?: IntFilter<"Subscription"> | number
+    aiCreditsUsed?: IntFilter<"Subscription"> | number
+    isActive?: BoolFilter<"Subscription"> | boolean
+    createdAt?: DateTimeFilter<"Subscription"> | Date | string
+    updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+    employer?: XOR<EmployerScalarRelationFilter, EmployerWhereInput>
+  }, "id" | "employerId">
+
+  export type SubscriptionOrderByWithAggregationInput = {
+    id?: SortOrder
+    employerId?: SortOrder
+    planName?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrderInput | SortOrder
+    jobLimit?: SortOrder
+    aiCredits?: SortOrder
+    aiCreditsUsed?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SubscriptionCountOrderByAggregateInput
+    _avg?: SubscriptionAvgOrderByAggregateInput
+    _max?: SubscriptionMaxOrderByAggregateInput
+    _min?: SubscriptionMinOrderByAggregateInput
+    _sum?: SubscriptionSumOrderByAggregateInput
+  }
+
+  export type SubscriptionScalarWhereWithAggregatesInput = {
+    AND?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
+    OR?: SubscriptionScalarWhereWithAggregatesInput[]
+    NOT?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Subscription"> | number
+    employerId?: IntWithAggregatesFilter<"Subscription"> | number
+    planName?: StringWithAggregatesFilter<"Subscription"> | string
+    startDate?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+    endDate?: DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
+    jobLimit?: IntWithAggregatesFilter<"Subscription"> | number
+    aiCredits?: IntWithAggregatesFilter<"Subscription"> | number
+    aiCreditsUsed?: IntWithAggregatesFilter<"Subscription"> | number
+    isActive?: BoolWithAggregatesFilter<"Subscription"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+  }
+
+  export type AIEvaluationWhereInput = {
+    AND?: AIEvaluationWhereInput | AIEvaluationWhereInput[]
+    OR?: AIEvaluationWhereInput[]
+    NOT?: AIEvaluationWhereInput | AIEvaluationWhereInput[]
+    id?: IntFilter<"AIEvaluation"> | number
+    matchScore?: IntFilter<"AIEvaluation"> | number
+    summary?: StringFilter<"AIEvaluation"> | string
+    recommendation?: StringFilter<"AIEvaluation"> | string
+    matchedSkills?: StringNullableListFilter<"AIEvaluation">
+    missingSkills?: StringNullableListFilter<"AIEvaluation">
+    experienceMatch?: StringFilter<"AIEvaluation"> | string
+    applicationId?: IntFilter<"AIEvaluation"> | number
+    employerId?: IntFilter<"AIEvaluation"> | number
+    jobId?: IntFilter<"AIEvaluation"> | number
+    createdAt?: DateTimeFilter<"AIEvaluation"> | Date | string
+    application?: XOR<JobApplicationScalarRelationFilter, JobApplicationWhereInput>
+  }
+
+  export type AIEvaluationOrderByWithRelationInput = {
+    id?: SortOrder
+    matchScore?: SortOrder
+    summary?: SortOrder
+    recommendation?: SortOrder
+    matchedSkills?: SortOrder
+    missingSkills?: SortOrder
+    experienceMatch?: SortOrder
+    applicationId?: SortOrder
+    employerId?: SortOrder
+    jobId?: SortOrder
+    createdAt?: SortOrder
+    application?: JobApplicationOrderByWithRelationInput
+  }
+
+  export type AIEvaluationWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    applicationId?: number
+    AND?: AIEvaluationWhereInput | AIEvaluationWhereInput[]
+    OR?: AIEvaluationWhereInput[]
+    NOT?: AIEvaluationWhereInput | AIEvaluationWhereInput[]
+    matchScore?: IntFilter<"AIEvaluation"> | number
+    summary?: StringFilter<"AIEvaluation"> | string
+    recommendation?: StringFilter<"AIEvaluation"> | string
+    matchedSkills?: StringNullableListFilter<"AIEvaluation">
+    missingSkills?: StringNullableListFilter<"AIEvaluation">
+    experienceMatch?: StringFilter<"AIEvaluation"> | string
+    employerId?: IntFilter<"AIEvaluation"> | number
+    jobId?: IntFilter<"AIEvaluation"> | number
+    createdAt?: DateTimeFilter<"AIEvaluation"> | Date | string
+    application?: XOR<JobApplicationScalarRelationFilter, JobApplicationWhereInput>
+  }, "id" | "applicationId">
+
+  export type AIEvaluationOrderByWithAggregationInput = {
+    id?: SortOrder
+    matchScore?: SortOrder
+    summary?: SortOrder
+    recommendation?: SortOrder
+    matchedSkills?: SortOrder
+    missingSkills?: SortOrder
+    experienceMatch?: SortOrder
+    applicationId?: SortOrder
+    employerId?: SortOrder
+    jobId?: SortOrder
+    createdAt?: SortOrder
+    _count?: AIEvaluationCountOrderByAggregateInput
+    _avg?: AIEvaluationAvgOrderByAggregateInput
+    _max?: AIEvaluationMaxOrderByAggregateInput
+    _min?: AIEvaluationMinOrderByAggregateInput
+    _sum?: AIEvaluationSumOrderByAggregateInput
+  }
+
+  export type AIEvaluationScalarWhereWithAggregatesInput = {
+    AND?: AIEvaluationScalarWhereWithAggregatesInput | AIEvaluationScalarWhereWithAggregatesInput[]
+    OR?: AIEvaluationScalarWhereWithAggregatesInput[]
+    NOT?: AIEvaluationScalarWhereWithAggregatesInput | AIEvaluationScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"AIEvaluation"> | number
+    matchScore?: IntWithAggregatesFilter<"AIEvaluation"> | number
+    summary?: StringWithAggregatesFilter<"AIEvaluation"> | string
+    recommendation?: StringWithAggregatesFilter<"AIEvaluation"> | string
+    matchedSkills?: StringNullableListFilter<"AIEvaluation">
+    missingSkills?: StringNullableListFilter<"AIEvaluation">
+    experienceMatch?: StringWithAggregatesFilter<"AIEvaluation"> | string
+    applicationId?: IntWithAggregatesFilter<"AIEvaluation"> | number
+    employerId?: IntWithAggregatesFilter<"AIEvaluation"> | number
+    jobId?: IntWithAggregatesFilter<"AIEvaluation"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"AIEvaluation"> | Date | string
+  }
+
   export type UserCreateInput = {
     name: string
     userName: string
@@ -16757,6 +19563,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutEmployerInput
     jobs?: JobCreateNestedManyWithoutEmployerInput
+    subscription?: SubscriptionCreateNestedOneWithoutEmployerInput
   }
 
   export type EmployerUncheckedCreateInput = {
@@ -16773,6 +19580,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: JobUncheckedCreateNestedManyWithoutEmployerInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutEmployerInput
   }
 
   export type EmployerUpdateInput = {
@@ -16789,6 +19597,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutEmployerNestedInput
     jobs?: JobUpdateManyWithoutEmployerNestedInput
+    subscription?: SubscriptionUpdateOneWithoutEmployerNestedInput
   }
 
   export type EmployerUncheckedUpdateInput = {
@@ -16805,6 +19614,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: JobUncheckedUpdateManyWithoutEmployerNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutEmployerNestedInput
   }
 
   export type EmployerCreateManyInput = {
@@ -17155,6 +19965,7 @@ export namespace Prisma {
     applicant: ApplicantCreateNestedOneWithoutApplicationsInput
     job: JobCreateNestedOneWithoutApplicationsInput
     resume: ResumeCreateNestedOneWithoutApplicationsInput
+    aiEvaluation?: AIEvaluationCreateNestedOneWithoutApplicationInput
   }
 
   export type JobApplicationUncheckedCreateInput = {
@@ -17166,6 +19977,7 @@ export namespace Prisma {
     status?: $Enums.ApplicationStatus
     appliedAt?: Date | string
     updatedAt?: Date | string
+    aiEvaluation?: AIEvaluationUncheckedCreateNestedOneWithoutApplicationInput
   }
 
   export type JobApplicationUpdateInput = {
@@ -17176,6 +19988,7 @@ export namespace Prisma {
     applicant?: ApplicantUpdateOneRequiredWithoutApplicationsNestedInput
     job?: JobUpdateOneRequiredWithoutApplicationsNestedInput
     resume?: ResumeUpdateOneRequiredWithoutApplicationsNestedInput
+    aiEvaluation?: AIEvaluationUpdateOneWithoutApplicationNestedInput
   }
 
   export type JobApplicationUncheckedUpdateInput = {
@@ -17187,6 +20000,7 @@ export namespace Prisma {
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiEvaluation?: AIEvaluationUncheckedUpdateOneWithoutApplicationNestedInput
   }
 
   export type JobApplicationCreateManyInput = {
@@ -17593,6 +20407,194 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SubscriptionCreateInput = {
+    planName: string
+    startDate?: Date | string
+    endDate?: Date | string | null
+    jobLimit?: number
+    aiCredits?: number
+    aiCreditsUsed?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employer: EmployerCreateNestedOneWithoutSubscriptionInput
+  }
+
+  export type SubscriptionUncheckedCreateInput = {
+    id?: number
+    employerId: number
+    planName: string
+    startDate?: Date | string
+    endDate?: Date | string | null
+    jobLimit?: number
+    aiCredits?: number
+    aiCreditsUsed?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubscriptionUpdateInput = {
+    planName?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jobLimit?: IntFieldUpdateOperationsInput | number
+    aiCredits?: IntFieldUpdateOperationsInput | number
+    aiCreditsUsed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employer?: EmployerUpdateOneRequiredWithoutSubscriptionNestedInput
+  }
+
+  export type SubscriptionUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    employerId?: IntFieldUpdateOperationsInput | number
+    planName?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jobLimit?: IntFieldUpdateOperationsInput | number
+    aiCredits?: IntFieldUpdateOperationsInput | number
+    aiCreditsUsed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionCreateManyInput = {
+    id?: number
+    employerId: number
+    planName: string
+    startDate?: Date | string
+    endDate?: Date | string | null
+    jobLimit?: number
+    aiCredits?: number
+    aiCreditsUsed?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubscriptionUpdateManyMutationInput = {
+    planName?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jobLimit?: IntFieldUpdateOperationsInput | number
+    aiCredits?: IntFieldUpdateOperationsInput | number
+    aiCreditsUsed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    employerId?: IntFieldUpdateOperationsInput | number
+    planName?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jobLimit?: IntFieldUpdateOperationsInput | number
+    aiCredits?: IntFieldUpdateOperationsInput | number
+    aiCreditsUsed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIEvaluationCreateInput = {
+    matchScore: number
+    summary: string
+    recommendation: string
+    matchedSkills?: AIEvaluationCreatematchedSkillsInput | string[]
+    missingSkills?: AIEvaluationCreatemissingSkillsInput | string[]
+    experienceMatch: string
+    employerId: number
+    jobId: number
+    createdAt?: Date | string
+    application: JobApplicationCreateNestedOneWithoutAiEvaluationInput
+  }
+
+  export type AIEvaluationUncheckedCreateInput = {
+    id?: number
+    matchScore: number
+    summary: string
+    recommendation: string
+    matchedSkills?: AIEvaluationCreatematchedSkillsInput | string[]
+    missingSkills?: AIEvaluationCreatemissingSkillsInput | string[]
+    experienceMatch: string
+    applicationId: number
+    employerId: number
+    jobId: number
+    createdAt?: Date | string
+  }
+
+  export type AIEvaluationUpdateInput = {
+    matchScore?: IntFieldUpdateOperationsInput | number
+    summary?: StringFieldUpdateOperationsInput | string
+    recommendation?: StringFieldUpdateOperationsInput | string
+    matchedSkills?: AIEvaluationUpdatematchedSkillsInput | string[]
+    missingSkills?: AIEvaluationUpdatemissingSkillsInput | string[]
+    experienceMatch?: StringFieldUpdateOperationsInput | string
+    employerId?: IntFieldUpdateOperationsInput | number
+    jobId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    application?: JobApplicationUpdateOneRequiredWithoutAiEvaluationNestedInput
+  }
+
+  export type AIEvaluationUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    matchScore?: IntFieldUpdateOperationsInput | number
+    summary?: StringFieldUpdateOperationsInput | string
+    recommendation?: StringFieldUpdateOperationsInput | string
+    matchedSkills?: AIEvaluationUpdatematchedSkillsInput | string[]
+    missingSkills?: AIEvaluationUpdatemissingSkillsInput | string[]
+    experienceMatch?: StringFieldUpdateOperationsInput | string
+    applicationId?: IntFieldUpdateOperationsInput | number
+    employerId?: IntFieldUpdateOperationsInput | number
+    jobId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIEvaluationCreateManyInput = {
+    id?: number
+    matchScore: number
+    summary: string
+    recommendation: string
+    matchedSkills?: AIEvaluationCreatematchedSkillsInput | string[]
+    missingSkills?: AIEvaluationCreatemissingSkillsInput | string[]
+    experienceMatch: string
+    applicationId: number
+    employerId: number
+    jobId: number
+    createdAt?: Date | string
+  }
+
+  export type AIEvaluationUpdateManyMutationInput = {
+    matchScore?: IntFieldUpdateOperationsInput | number
+    summary?: StringFieldUpdateOperationsInput | string
+    recommendation?: StringFieldUpdateOperationsInput | string
+    matchedSkills?: AIEvaluationUpdatematchedSkillsInput | string[]
+    missingSkills?: AIEvaluationUpdatemissingSkillsInput | string[]
+    experienceMatch?: StringFieldUpdateOperationsInput | string
+    employerId?: IntFieldUpdateOperationsInput | number
+    jobId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIEvaluationUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    matchScore?: IntFieldUpdateOperationsInput | number
+    summary?: StringFieldUpdateOperationsInput | string
+    recommendation?: StringFieldUpdateOperationsInput | string
+    matchedSkills?: AIEvaluationUpdatematchedSkillsInput | string[]
+    missingSkills?: AIEvaluationUpdatemissingSkillsInput | string[]
+    experienceMatch?: StringFieldUpdateOperationsInput | string
+    applicationId?: IntFieldUpdateOperationsInput | number
+    employerId?: IntFieldUpdateOperationsInput | number
+    jobId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -17896,6 +20898,11 @@ export namespace Prisma {
     every?: JobWhereInput
     some?: JobWhereInput
     none?: JobWhereInput
+  }
+
+  export type SubscriptionNullableScalarRelationFilter = {
+    is?: SubscriptionWhereInput | null
+    isNot?: SubscriptionWhereInput | null
   }
 
   export type JobOrderByRelationAggregateInput = {
@@ -18253,6 +21260,11 @@ export namespace Prisma {
     isNot?: ResumeWhereInput
   }
 
+  export type AIEvaluationNullableScalarRelationFilter = {
+    is?: AIEvaluationWhereInput | null
+    isNot?: AIEvaluationWhereInput | null
+  }
+
   export type JobApplicationJobIdApplicantIdCompoundUniqueInput = {
     jobId: number
     applicantId: number
@@ -18589,6 +21601,123 @@ export namespace Prisma {
     interviewScore?: SortOrder
   }
 
+  export type SubscriptionCountOrderByAggregateInput = {
+    id?: SortOrder
+    employerId?: SortOrder
+    planName?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    jobLimit?: SortOrder
+    aiCredits?: SortOrder
+    aiCreditsUsed?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SubscriptionAvgOrderByAggregateInput = {
+    id?: SortOrder
+    employerId?: SortOrder
+    jobLimit?: SortOrder
+    aiCredits?: SortOrder
+    aiCreditsUsed?: SortOrder
+  }
+
+  export type SubscriptionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    employerId?: SortOrder
+    planName?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    jobLimit?: SortOrder
+    aiCredits?: SortOrder
+    aiCreditsUsed?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SubscriptionMinOrderByAggregateInput = {
+    id?: SortOrder
+    employerId?: SortOrder
+    planName?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    jobLimit?: SortOrder
+    aiCredits?: SortOrder
+    aiCreditsUsed?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SubscriptionSumOrderByAggregateInput = {
+    id?: SortOrder
+    employerId?: SortOrder
+    jobLimit?: SortOrder
+    aiCredits?: SortOrder
+    aiCreditsUsed?: SortOrder
+  }
+
+  export type JobApplicationScalarRelationFilter = {
+    is?: JobApplicationWhereInput
+    isNot?: JobApplicationWhereInput
+  }
+
+  export type AIEvaluationCountOrderByAggregateInput = {
+    id?: SortOrder
+    matchScore?: SortOrder
+    summary?: SortOrder
+    recommendation?: SortOrder
+    matchedSkills?: SortOrder
+    missingSkills?: SortOrder
+    experienceMatch?: SortOrder
+    applicationId?: SortOrder
+    employerId?: SortOrder
+    jobId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AIEvaluationAvgOrderByAggregateInput = {
+    id?: SortOrder
+    matchScore?: SortOrder
+    applicationId?: SortOrder
+    employerId?: SortOrder
+    jobId?: SortOrder
+  }
+
+  export type AIEvaluationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    matchScore?: SortOrder
+    summary?: SortOrder
+    recommendation?: SortOrder
+    experienceMatch?: SortOrder
+    applicationId?: SortOrder
+    employerId?: SortOrder
+    jobId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AIEvaluationMinOrderByAggregateInput = {
+    id?: SortOrder
+    matchScore?: SortOrder
+    summary?: SortOrder
+    recommendation?: SortOrder
+    experienceMatch?: SortOrder
+    applicationId?: SortOrder
+    employerId?: SortOrder
+    jobId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AIEvaluationSumOrderByAggregateInput = {
+    id?: SortOrder
+    matchScore?: SortOrder
+    applicationId?: SortOrder
+    employerId?: SortOrder
+    jobId?: SortOrder
+  }
+
   export type ApplicantCreateNestedOneWithoutUserInput = {
     create?: XOR<ApplicantCreateWithoutUserInput, ApplicantUncheckedCreateWithoutUserInput>
     connectOrCreate?: ApplicantCreateOrConnectWithoutUserInput
@@ -18792,11 +21921,23 @@ export namespace Prisma {
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
   }
 
+  export type SubscriptionCreateNestedOneWithoutEmployerInput = {
+    create?: XOR<SubscriptionCreateWithoutEmployerInput, SubscriptionUncheckedCreateWithoutEmployerInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutEmployerInput
+    connect?: SubscriptionWhereUniqueInput
+  }
+
   export type JobUncheckedCreateNestedManyWithoutEmployerInput = {
     create?: XOR<JobCreateWithoutEmployerInput, JobUncheckedCreateWithoutEmployerInput> | JobCreateWithoutEmployerInput[] | JobUncheckedCreateWithoutEmployerInput[]
     connectOrCreate?: JobCreateOrConnectWithoutEmployerInput | JobCreateOrConnectWithoutEmployerInput[]
     createMany?: JobCreateManyEmployerInputEnvelope
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
+  }
+
+  export type SubscriptionUncheckedCreateNestedOneWithoutEmployerInput = {
+    create?: XOR<SubscriptionCreateWithoutEmployerInput, SubscriptionUncheckedCreateWithoutEmployerInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutEmployerInput
+    connect?: SubscriptionWhereUniqueInput
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -18829,6 +21970,16 @@ export namespace Prisma {
     deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
   }
 
+  export type SubscriptionUpdateOneWithoutEmployerNestedInput = {
+    create?: XOR<SubscriptionCreateWithoutEmployerInput, SubscriptionUncheckedCreateWithoutEmployerInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutEmployerInput
+    upsert?: SubscriptionUpsertWithoutEmployerInput
+    disconnect?: SubscriptionWhereInput | boolean
+    delete?: SubscriptionWhereInput | boolean
+    connect?: SubscriptionWhereUniqueInput
+    update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutEmployerInput, SubscriptionUpdateWithoutEmployerInput>, SubscriptionUncheckedUpdateWithoutEmployerInput>
+  }
+
   export type JobUncheckedUpdateManyWithoutEmployerNestedInput = {
     create?: XOR<JobCreateWithoutEmployerInput, JobUncheckedCreateWithoutEmployerInput> | JobCreateWithoutEmployerInput[] | JobUncheckedCreateWithoutEmployerInput[]
     connectOrCreate?: JobCreateOrConnectWithoutEmployerInput | JobCreateOrConnectWithoutEmployerInput[]
@@ -18841,6 +21992,16 @@ export namespace Prisma {
     update?: JobUpdateWithWhereUniqueWithoutEmployerInput | JobUpdateWithWhereUniqueWithoutEmployerInput[]
     updateMany?: JobUpdateManyWithWhereWithoutEmployerInput | JobUpdateManyWithWhereWithoutEmployerInput[]
     deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
+  }
+
+  export type SubscriptionUncheckedUpdateOneWithoutEmployerNestedInput = {
+    create?: XOR<SubscriptionCreateWithoutEmployerInput, SubscriptionUncheckedCreateWithoutEmployerInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutEmployerInput
+    upsert?: SubscriptionUpsertWithoutEmployerInput
+    disconnect?: SubscriptionWhereInput | boolean
+    delete?: SubscriptionWhereInput | boolean
+    connect?: SubscriptionWhereUniqueInput
+    update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutEmployerInput, SubscriptionUpdateWithoutEmployerInput>, SubscriptionUncheckedUpdateWithoutEmployerInput>
   }
 
   export type UserCreateNestedOneWithoutApplicantInput = {
@@ -19199,6 +22360,18 @@ export namespace Prisma {
     connect?: ResumeWhereUniqueInput
   }
 
+  export type AIEvaluationCreateNestedOneWithoutApplicationInput = {
+    create?: XOR<AIEvaluationCreateWithoutApplicationInput, AIEvaluationUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: AIEvaluationCreateOrConnectWithoutApplicationInput
+    connect?: AIEvaluationWhereUniqueInput
+  }
+
+  export type AIEvaluationUncheckedCreateNestedOneWithoutApplicationInput = {
+    create?: XOR<AIEvaluationCreateWithoutApplicationInput, AIEvaluationUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: AIEvaluationCreateOrConnectWithoutApplicationInput
+    connect?: AIEvaluationWhereUniqueInput
+  }
+
   export type EnumApplicationStatusFieldUpdateOperationsInput = {
     set?: $Enums.ApplicationStatus
   }
@@ -19225,6 +22398,26 @@ export namespace Prisma {
     upsert?: ResumeUpsertWithoutApplicationsInput
     connect?: ResumeWhereUniqueInput
     update?: XOR<XOR<ResumeUpdateToOneWithWhereWithoutApplicationsInput, ResumeUpdateWithoutApplicationsInput>, ResumeUncheckedUpdateWithoutApplicationsInput>
+  }
+
+  export type AIEvaluationUpdateOneWithoutApplicationNestedInput = {
+    create?: XOR<AIEvaluationCreateWithoutApplicationInput, AIEvaluationUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: AIEvaluationCreateOrConnectWithoutApplicationInput
+    upsert?: AIEvaluationUpsertWithoutApplicationInput
+    disconnect?: AIEvaluationWhereInput | boolean
+    delete?: AIEvaluationWhereInput | boolean
+    connect?: AIEvaluationWhereUniqueInput
+    update?: XOR<XOR<AIEvaluationUpdateToOneWithWhereWithoutApplicationInput, AIEvaluationUpdateWithoutApplicationInput>, AIEvaluationUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type AIEvaluationUncheckedUpdateOneWithoutApplicationNestedInput = {
+    create?: XOR<AIEvaluationCreateWithoutApplicationInput, AIEvaluationUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: AIEvaluationCreateOrConnectWithoutApplicationInput
+    upsert?: AIEvaluationUpsertWithoutApplicationInput
+    disconnect?: AIEvaluationWhereInput | boolean
+    delete?: AIEvaluationWhereInput | boolean
+    connect?: AIEvaluationWhereUniqueInput
+    update?: XOR<XOR<AIEvaluationUpdateToOneWithWhereWithoutApplicationInput, AIEvaluationUpdateWithoutApplicationInput>, AIEvaluationUncheckedUpdateWithoutApplicationInput>
   }
 
   export type JobCreateNestedOneWithoutSavedJobsInput = {
@@ -19386,6 +22579,52 @@ export namespace Prisma {
     upsert?: ApplicantUpsertWithoutInterviewInput
     connect?: ApplicantWhereUniqueInput
     update?: XOR<XOR<ApplicantUpdateToOneWithWhereWithoutInterviewInput, ApplicantUpdateWithoutInterviewInput>, ApplicantUncheckedUpdateWithoutInterviewInput>
+  }
+
+  export type EmployerCreateNestedOneWithoutSubscriptionInput = {
+    create?: XOR<EmployerCreateWithoutSubscriptionInput, EmployerUncheckedCreateWithoutSubscriptionInput>
+    connectOrCreate?: EmployerCreateOrConnectWithoutSubscriptionInput
+    connect?: EmployerWhereUniqueInput
+  }
+
+  export type EmployerUpdateOneRequiredWithoutSubscriptionNestedInput = {
+    create?: XOR<EmployerCreateWithoutSubscriptionInput, EmployerUncheckedCreateWithoutSubscriptionInput>
+    connectOrCreate?: EmployerCreateOrConnectWithoutSubscriptionInput
+    upsert?: EmployerUpsertWithoutSubscriptionInput
+    connect?: EmployerWhereUniqueInput
+    update?: XOR<XOR<EmployerUpdateToOneWithWhereWithoutSubscriptionInput, EmployerUpdateWithoutSubscriptionInput>, EmployerUncheckedUpdateWithoutSubscriptionInput>
+  }
+
+  export type AIEvaluationCreatematchedSkillsInput = {
+    set: string[]
+  }
+
+  export type AIEvaluationCreatemissingSkillsInput = {
+    set: string[]
+  }
+
+  export type JobApplicationCreateNestedOneWithoutAiEvaluationInput = {
+    create?: XOR<JobApplicationCreateWithoutAiEvaluationInput, JobApplicationUncheckedCreateWithoutAiEvaluationInput>
+    connectOrCreate?: JobApplicationCreateOrConnectWithoutAiEvaluationInput
+    connect?: JobApplicationWhereUniqueInput
+  }
+
+  export type AIEvaluationUpdatematchedSkillsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type AIEvaluationUpdatemissingSkillsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type JobApplicationUpdateOneRequiredWithoutAiEvaluationNestedInput = {
+    create?: XOR<JobApplicationCreateWithoutAiEvaluationInput, JobApplicationUncheckedCreateWithoutAiEvaluationInput>
+    connectOrCreate?: JobApplicationCreateOrConnectWithoutAiEvaluationInput
+    upsert?: JobApplicationUpsertWithoutAiEvaluationInput
+    connect?: JobApplicationWhereUniqueInput
+    update?: XOR<XOR<JobApplicationUpdateToOneWithWhereWithoutAiEvaluationInput, JobApplicationUpdateWithoutAiEvaluationInput>, JobApplicationUncheckedUpdateWithoutAiEvaluationInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -19748,6 +22987,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: JobCreateNestedManyWithoutEmployerInput
+    subscription?: SubscriptionCreateNestedOneWithoutEmployerInput
   }
 
   export type EmployerUncheckedCreateWithoutUserInput = {
@@ -19763,6 +23003,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: JobUncheckedCreateNestedManyWithoutEmployerInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutEmployerInput
   }
 
   export type EmployerCreateOrConnectWithoutUserInput = {
@@ -19896,6 +23137,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: JobUpdateManyWithoutEmployerNestedInput
+    subscription?: SubscriptionUpdateOneWithoutEmployerNestedInput
   }
 
   export type EmployerUncheckedUpdateWithoutUserInput = {
@@ -19911,6 +23153,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: JobUncheckedUpdateManyWithoutEmployerNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutEmployerNestedInput
   }
 
   export type SavedJobUpsertWithWhereUniqueWithoutUserInput = {
@@ -20146,6 +23389,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SubscriptionCreateWithoutEmployerInput = {
+    planName: string
+    startDate?: Date | string
+    endDate?: Date | string | null
+    jobLimit?: number
+    aiCredits?: number
+    aiCreditsUsed?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubscriptionUncheckedCreateWithoutEmployerInput = {
+    id?: number
+    planName: string
+    startDate?: Date | string
+    endDate?: Date | string | null
+    jobLimit?: number
+    aiCredits?: number
+    aiCreditsUsed?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubscriptionCreateOrConnectWithoutEmployerInput = {
+    where: SubscriptionWhereUniqueInput
+    create: XOR<SubscriptionCreateWithoutEmployerInput, SubscriptionUncheckedCreateWithoutEmployerInput>
+  }
+
   export type UserUpsertWithoutEmployerInput = {
     update: XOR<UserUpdateWithoutEmployerInput, UserUncheckedUpdateWithoutEmployerInput>
     create: XOR<UserCreateWithoutEmployerInput, UserUncheckedCreateWithoutEmployerInput>
@@ -20232,6 +23505,42 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Job"> | Date | string
   }
 
+  export type SubscriptionUpsertWithoutEmployerInput = {
+    update: XOR<SubscriptionUpdateWithoutEmployerInput, SubscriptionUncheckedUpdateWithoutEmployerInput>
+    create: XOR<SubscriptionCreateWithoutEmployerInput, SubscriptionUncheckedCreateWithoutEmployerInput>
+    where?: SubscriptionWhereInput
+  }
+
+  export type SubscriptionUpdateToOneWithWhereWithoutEmployerInput = {
+    where?: SubscriptionWhereInput
+    data: XOR<SubscriptionUpdateWithoutEmployerInput, SubscriptionUncheckedUpdateWithoutEmployerInput>
+  }
+
+  export type SubscriptionUpdateWithoutEmployerInput = {
+    planName?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jobLimit?: IntFieldUpdateOperationsInput | number
+    aiCredits?: IntFieldUpdateOperationsInput | number
+    aiCreditsUsed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionUncheckedUpdateWithoutEmployerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    planName?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jobLimit?: IntFieldUpdateOperationsInput | number
+    aiCredits?: IntFieldUpdateOperationsInput | number
+    aiCreditsUsed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateWithoutApplicantInput = {
     name: string
     userName: string
@@ -20277,6 +23586,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     job: JobCreateNestedOneWithoutApplicationsInput
     resume: ResumeCreateNestedOneWithoutApplicationsInput
+    aiEvaluation?: AIEvaluationCreateNestedOneWithoutApplicationInput
   }
 
   export type JobApplicationUncheckedCreateWithoutApplicantInput = {
@@ -20287,6 +23597,7 @@ export namespace Prisma {
     status?: $Enums.ApplicationStatus
     appliedAt?: Date | string
     updatedAt?: Date | string
+    aiEvaluation?: AIEvaluationUncheckedCreateNestedOneWithoutApplicationInput
   }
 
   export type JobApplicationCreateOrConnectWithoutApplicantInput = {
@@ -20636,6 +23947,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutEmployerInput
+    subscription?: SubscriptionCreateNestedOneWithoutEmployerInput
   }
 
   export type EmployerUncheckedCreateWithoutJobsInput = {
@@ -20651,6 +23963,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutEmployerInput
   }
 
   export type EmployerCreateOrConnectWithoutJobsInput = {
@@ -20665,6 +23978,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     applicant: ApplicantCreateNestedOneWithoutApplicationsInput
     resume: ResumeCreateNestedOneWithoutApplicationsInput
+    aiEvaluation?: AIEvaluationCreateNestedOneWithoutApplicationInput
   }
 
   export type JobApplicationUncheckedCreateWithoutJobInput = {
@@ -20675,6 +23989,7 @@ export namespace Prisma {
     status?: $Enums.ApplicationStatus
     appliedAt?: Date | string
     updatedAt?: Date | string
+    aiEvaluation?: AIEvaluationUncheckedCreateNestedOneWithoutApplicationInput
   }
 
   export type JobApplicationCreateOrConnectWithoutJobInput = {
@@ -20734,6 +24049,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutEmployerNestedInput
+    subscription?: SubscriptionUpdateOneWithoutEmployerNestedInput
   }
 
   export type EmployerUncheckedUpdateWithoutJobsInput = {
@@ -20749,6 +24065,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subscription?: SubscriptionUncheckedUpdateOneWithoutEmployerNestedInput
   }
 
   export type JobApplicationUpsertWithWhereUniqueWithoutJobInput = {
@@ -20906,6 +24223,36 @@ export namespace Prisma {
     create: XOR<ResumeCreateWithoutApplicationsInput, ResumeUncheckedCreateWithoutApplicationsInput>
   }
 
+  export type AIEvaluationCreateWithoutApplicationInput = {
+    matchScore: number
+    summary: string
+    recommendation: string
+    matchedSkills?: AIEvaluationCreatematchedSkillsInput | string[]
+    missingSkills?: AIEvaluationCreatemissingSkillsInput | string[]
+    experienceMatch: string
+    employerId: number
+    jobId: number
+    createdAt?: Date | string
+  }
+
+  export type AIEvaluationUncheckedCreateWithoutApplicationInput = {
+    id?: number
+    matchScore: number
+    summary: string
+    recommendation: string
+    matchedSkills?: AIEvaluationCreatematchedSkillsInput | string[]
+    missingSkills?: AIEvaluationCreatemissingSkillsInput | string[]
+    experienceMatch: string
+    employerId: number
+    jobId: number
+    createdAt?: Date | string
+  }
+
+  export type AIEvaluationCreateOrConnectWithoutApplicationInput = {
+    where: AIEvaluationWhereUniqueInput
+    create: XOR<AIEvaluationCreateWithoutApplicationInput, AIEvaluationUncheckedCreateWithoutApplicationInput>
+  }
+
   export type ApplicantUpsertWithoutApplicationsInput = {
     update: XOR<ApplicantUpdateWithoutApplicationsInput, ApplicantUncheckedUpdateWithoutApplicationsInput>
     create: XOR<ApplicantCreateWithoutApplicationsInput, ApplicantUncheckedCreateWithoutApplicationsInput>
@@ -21045,6 +24392,42 @@ export namespace Prisma {
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIEvaluationUpsertWithoutApplicationInput = {
+    update: XOR<AIEvaluationUpdateWithoutApplicationInput, AIEvaluationUncheckedUpdateWithoutApplicationInput>
+    create: XOR<AIEvaluationCreateWithoutApplicationInput, AIEvaluationUncheckedCreateWithoutApplicationInput>
+    where?: AIEvaluationWhereInput
+  }
+
+  export type AIEvaluationUpdateToOneWithWhereWithoutApplicationInput = {
+    where?: AIEvaluationWhereInput
+    data: XOR<AIEvaluationUpdateWithoutApplicationInput, AIEvaluationUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type AIEvaluationUpdateWithoutApplicationInput = {
+    matchScore?: IntFieldUpdateOperationsInput | number
+    summary?: StringFieldUpdateOperationsInput | string
+    recommendation?: StringFieldUpdateOperationsInput | string
+    matchedSkills?: AIEvaluationUpdatematchedSkillsInput | string[]
+    missingSkills?: AIEvaluationUpdatemissingSkillsInput | string[]
+    experienceMatch?: StringFieldUpdateOperationsInput | string
+    employerId?: IntFieldUpdateOperationsInput | number
+    jobId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIEvaluationUncheckedUpdateWithoutApplicationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    matchScore?: IntFieldUpdateOperationsInput | number
+    summary?: StringFieldUpdateOperationsInput | string
+    recommendation?: StringFieldUpdateOperationsInput | string
+    matchedSkills?: AIEvaluationUpdatematchedSkillsInput | string[]
+    missingSkills?: AIEvaluationUpdatemissingSkillsInput | string[]
+    experienceMatch?: StringFieldUpdateOperationsInput | string
+    employerId?: IntFieldUpdateOperationsInput | number
+    jobId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type JobCreateWithoutSavedJobsInput = {
@@ -21246,6 +24629,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     applicant: ApplicantCreateNestedOneWithoutApplicationsInput
     job: JobCreateNestedOneWithoutApplicationsInput
+    aiEvaluation?: AIEvaluationCreateNestedOneWithoutApplicationInput
   }
 
   export type JobApplicationUncheckedCreateWithoutResumeInput = {
@@ -21256,6 +24640,7 @@ export namespace Prisma {
     status?: $Enums.ApplicationStatus
     appliedAt?: Date | string
     updatedAt?: Date | string
+    aiEvaluation?: AIEvaluationUncheckedCreateNestedOneWithoutApplicationInput
   }
 
   export type JobApplicationCreateOrConnectWithoutResumeInput = {
@@ -21668,6 +25053,144 @@ export namespace Prisma {
     assessments?: AssessmentUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
+  export type EmployerCreateWithoutSubscriptionInput = {
+    name?: string | null
+    description?: string | null
+    bannerImageUrl?: string | null
+    organizationType?: string | null
+    teamSize?: string | null
+    yearOfEstablishment?: number | null
+    websiteUrl?: string | null
+    location?: string | null
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutEmployerInput
+    jobs?: JobCreateNestedManyWithoutEmployerInput
+  }
+
+  export type EmployerUncheckedCreateWithoutSubscriptionInput = {
+    id: number
+    name?: string | null
+    description?: string | null
+    bannerImageUrl?: string | null
+    organizationType?: string | null
+    teamSize?: string | null
+    yearOfEstablishment?: number | null
+    websiteUrl?: string | null
+    location?: string | null
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    jobs?: JobUncheckedCreateNestedManyWithoutEmployerInput
+  }
+
+  export type EmployerCreateOrConnectWithoutSubscriptionInput = {
+    where: EmployerWhereUniqueInput
+    create: XOR<EmployerCreateWithoutSubscriptionInput, EmployerUncheckedCreateWithoutSubscriptionInput>
+  }
+
+  export type EmployerUpsertWithoutSubscriptionInput = {
+    update: XOR<EmployerUpdateWithoutSubscriptionInput, EmployerUncheckedUpdateWithoutSubscriptionInput>
+    create: XOR<EmployerCreateWithoutSubscriptionInput, EmployerUncheckedCreateWithoutSubscriptionInput>
+    where?: EmployerWhereInput
+  }
+
+  export type EmployerUpdateToOneWithWhereWithoutSubscriptionInput = {
+    where?: EmployerWhereInput
+    data: XOR<EmployerUpdateWithoutSubscriptionInput, EmployerUncheckedUpdateWithoutSubscriptionInput>
+  }
+
+  export type EmployerUpdateWithoutSubscriptionInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationType?: NullableStringFieldUpdateOperationsInput | string | null
+    teamSize?: NullableStringFieldUpdateOperationsInput | string | null
+    yearOfEstablishment?: NullableIntFieldUpdateOperationsInput | number | null
+    websiteUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutEmployerNestedInput
+    jobs?: JobUpdateManyWithoutEmployerNestedInput
+  }
+
+  export type EmployerUncheckedUpdateWithoutSubscriptionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationType?: NullableStringFieldUpdateOperationsInput | string | null
+    teamSize?: NullableStringFieldUpdateOperationsInput | string | null
+    yearOfEstablishment?: NullableIntFieldUpdateOperationsInput | number | null
+    websiteUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    jobs?: JobUncheckedUpdateManyWithoutEmployerNestedInput
+  }
+
+  export type JobApplicationCreateWithoutAiEvaluationInput = {
+    coverLetter?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    updatedAt?: Date | string
+    applicant: ApplicantCreateNestedOneWithoutApplicationsInput
+    job: JobCreateNestedOneWithoutApplicationsInput
+    resume: ResumeCreateNestedOneWithoutApplicationsInput
+  }
+
+  export type JobApplicationUncheckedCreateWithoutAiEvaluationInput = {
+    id?: number
+    jobId: number
+    applicantId: number
+    resumeId: number
+    coverLetter?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type JobApplicationCreateOrConnectWithoutAiEvaluationInput = {
+    where: JobApplicationWhereUniqueInput
+    create: XOR<JobApplicationCreateWithoutAiEvaluationInput, JobApplicationUncheckedCreateWithoutAiEvaluationInput>
+  }
+
+  export type JobApplicationUpsertWithoutAiEvaluationInput = {
+    update: XOR<JobApplicationUpdateWithoutAiEvaluationInput, JobApplicationUncheckedUpdateWithoutAiEvaluationInput>
+    create: XOR<JobApplicationCreateWithoutAiEvaluationInput, JobApplicationUncheckedCreateWithoutAiEvaluationInput>
+    where?: JobApplicationWhereInput
+  }
+
+  export type JobApplicationUpdateToOneWithWhereWithoutAiEvaluationInput = {
+    where?: JobApplicationWhereInput
+    data: XOR<JobApplicationUpdateWithoutAiEvaluationInput, JobApplicationUncheckedUpdateWithoutAiEvaluationInput>
+  }
+
+  export type JobApplicationUpdateWithoutAiEvaluationInput = {
+    coverLetter?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicant?: ApplicantUpdateOneRequiredWithoutApplicationsNestedInput
+    job?: JobUpdateOneRequiredWithoutApplicationsNestedInput
+    resume?: ResumeUpdateOneRequiredWithoutApplicationsNestedInput
+  }
+
+  export type JobApplicationUncheckedUpdateWithoutAiEvaluationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    jobId?: IntFieldUpdateOperationsInput | number
+    applicantId?: IntFieldUpdateOperationsInput | number
+    resumeId?: IntFieldUpdateOperationsInput | number
+    coverLetter?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SavedJobCreateManyUserInput = {
     id?: number
     jobId: number
@@ -21883,6 +25406,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     job?: JobUpdateOneRequiredWithoutApplicationsNestedInput
     resume?: ResumeUpdateOneRequiredWithoutApplicationsNestedInput
+    aiEvaluation?: AIEvaluationUpdateOneWithoutApplicationNestedInput
   }
 
   export type JobApplicationUncheckedUpdateWithoutApplicantInput = {
@@ -21893,6 +25417,7 @@ export namespace Prisma {
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiEvaluation?: AIEvaluationUncheckedUpdateOneWithoutApplicationNestedInput
   }
 
   export type JobApplicationUncheckedUpdateManyWithoutApplicantInput = {
@@ -22059,6 +25584,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicant?: ApplicantUpdateOneRequiredWithoutApplicationsNestedInput
     resume?: ResumeUpdateOneRequiredWithoutApplicationsNestedInput
+    aiEvaluation?: AIEvaluationUpdateOneWithoutApplicationNestedInput
   }
 
   export type JobApplicationUncheckedUpdateWithoutJobInput = {
@@ -22069,6 +25595,7 @@ export namespace Prisma {
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiEvaluation?: AIEvaluationUncheckedUpdateOneWithoutApplicationNestedInput
   }
 
   export type JobApplicationUncheckedUpdateManyWithoutJobInput = {
@@ -22118,6 +25645,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applicant?: ApplicantUpdateOneRequiredWithoutApplicationsNestedInput
     job?: JobUpdateOneRequiredWithoutApplicationsNestedInput
+    aiEvaluation?: AIEvaluationUpdateOneWithoutApplicationNestedInput
   }
 
   export type JobApplicationUncheckedUpdateWithoutResumeInput = {
@@ -22128,6 +25656,7 @@ export namespace Prisma {
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiEvaluation?: AIEvaluationUncheckedUpdateOneWithoutApplicationNestedInput
   }
 
   export type JobApplicationUncheckedUpdateManyWithoutResumeInput = {

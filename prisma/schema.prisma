@@ -51,7 +51,9 @@ model Employer {
   updatedAt           DateTime  @updatedAt
   user                User      @relation(fields: [id], references: [id], onDelete: Cascade)
   jobs                Job[]
+  subscription        Subscription?
 }
+
 
 model Applicant {
   id            Int              @id
@@ -115,9 +117,11 @@ model JobApplication {
   applicant   Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
   job         Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
   resume      Resume    @relation(fields: [resumeId], references: [id])
+  aiEvaluation AIEvaluation?
 
   @@unique([jobId, applicantId])
 }
+
 
 
 
@@ -225,4 +229,34 @@ model Interview {
   updatedAt      DateTime @updatedAt
 
   @@index([applicantId])
+}
+
+model Subscription {
+  id              Int      @id @default(autoincrement())
+  employerId      Int      @unique
+  planName        String   // "Free", "Basic", "Pro", "Unlimited"
+  startDate       DateTime @default(now())
+  endDate         DateTime?
+  jobLimit        Int      @default(3)      // -1 for unlimited
+  aiCredits       Int      @default(10)     // -1 for unlimited
+  aiCreditsUsed   Int      @default(0)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  employer        Employer @relation(fields: [employerId], references: [id], onDelete: Cascade)
+}
+
+model AIEvaluation {
+  id             Int      @id @default(autoincrement())
+  matchScore     Int
+  summary        String
+  recommendation String
+  matchedSkills  String[]
+  missingSkills  String[]
+  experienceMatch String
+  applicationId  Int      @unique
+  employerId     Int
+  jobId          Int
+  createdAt      DateTime @default(now())
+  application    JobApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 }

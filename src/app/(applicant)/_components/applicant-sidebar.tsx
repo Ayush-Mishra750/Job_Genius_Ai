@@ -23,7 +23,7 @@ const navigationItems = [
   { name: "Find Jobs", icon: User, href: "/find-jobs" },
   { name: "Applied Jobs", icon: Briefcase, href: "/dashboard/applied-jobs" },
   { name: "Saved Jobs", icon: Bookmark, href: "/dashboard/saved-jobs" },
-  { name: "Plans & Billing", icon: CreditCard, href: "/dashboard/plans-billing" },
+
   { name: "Settings", icon: Settings, href: "/dashboard/settings" },
 ];
 

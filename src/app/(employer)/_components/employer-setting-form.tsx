@@ -82,7 +82,7 @@ const EmployerSettingsForm = ({
     <Card className="mx-auto w-full rounded-[2.5rem] border-border/50 bg-white/40 dark:bg-card/40 backdrop-blur-xl shadow-2xl shadow-black/[0.03] overflow-hidden animate-in zoom-in-95 duration-500">
       <CardContent className="p-0">
         <form onSubmit={handleSubmit(handleFormSubmit)}>
-          
+
           {/* Section: Visual Identity */}
           <div className="p-8 sm:p-12 space-y-10">
             <div className="flex items-center gap-4">
@@ -261,7 +261,7 @@ const EmployerSettingsForm = ({
           <div className="p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
               {isDirty ? (
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-black uppercase tracking-widest border border-amber-500/20 animate-pulse">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-black uppercase  border border-amber-500/20 animate-pulse">
                   <AlertCircle className="w-3 h-3" />
                   Unsaved Changes
                 </div>
@@ -298,7 +298,7 @@ const EmployerSettingsForm = ({
 
 export default EmployerSettingsForm;
 
-/* --- Sub-Component: ImageUpload --- */
+
 
 type ImageUploadProps = Omit<ComponentProps<"div">, "onChange"> & {
   value?: string;
