@@ -89,7 +89,7 @@ export const updateJobAction = async (
     await prisma.job.update({
       where: { id: jobId },
       data: {
-        ...values,
+        ...(values as any),
         updatedAt: new Date(),
       },
     });

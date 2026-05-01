@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { generateInterview, saveInterviewResult } from "../_actions/interview";
 import SpeechRecorder from "./SpeechRecoder";
-import { InterviewResult } from "./InterviewResult";
+import { InterviewResult, InterviewResultType, QuestionResult } from "./InterviewResult";
 import { Volume2 } from "lucide-react";
 import SpeakButton from "./speech-text";
 
@@ -22,19 +22,6 @@ type Question = {
   question: string;
   correctAnswer: string;
   explanation: string;
-};
-type QuestionResult = {
-  question: string;
-  answer: string;
-  userAnswer: string;
-  interviewScore: number;
-  explanation: string;
-  isCorrect: boolean;
-};
-type InterviewResultType = {
-  interviewScore: number;
-  improvementTip?: string | null;
-  questions: QuestionResult[];
 };
 
 
@@ -110,7 +97,10 @@ const Interview = () => {
       setResultData({
         interviewScore: result.interviewScore,
         improvementTip: result.improvementTip,
-        questions: (result.questions as QuestionResult[]) ?? [],
+        questions: (result.questions as any[]).map(q => ({
+          ...q,
+          score: q.interviewScore || q.score // Handle both possible names from API
+        })) ?? [],
       });
     } catch (error: unknown) {
       toast.error((error as Error).message || "Failed to save interview results");

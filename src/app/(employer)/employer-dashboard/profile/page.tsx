@@ -178,7 +178,7 @@ function Detail({ label, value, isLink = false, icon = null }: { label: string, 
     <div className="space-y-2 group">
       <div className="flex items-center gap-2 text-muted-foreground/70">
         <div className="transition-transform group-hover:scale-110">
-          {icon && React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement, { className: "w-4 h-4" }) : null}
+          {icon && React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<any>, { className: "w-4 h-4" }) : null}
         </div>
         <p className="text-xs uppercase tracking-widest font-bold">
           {label}

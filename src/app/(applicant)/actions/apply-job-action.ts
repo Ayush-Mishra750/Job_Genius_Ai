@@ -9,95 +9,63 @@ import { applyJobSchema, ApplyJobSchemaType } from "../_utils/apply-job-schema";
 
 
 
-export async function applyForJobAction(data:ApplyJobSchemaType){
-try {
-    const user=await getCurrentUser();
+export async function applyForJobAction(data: ApplyJobSchemaType) {
+    try {
+        const user = await getCurrentUser();
 
-    if(!user){
-        return {
-            status:"ERROR",
-            message:"Unauthorized. Please Login."
+        if (!user) {
+            return {
+                status: "ERROR",
+                message: "Unauthorized. Please Login."
+            }
         }
-    }
-    const {data:validatedData,error}=applyJobSchema.safeParse(data);
-    if(error){
-        return {
-            status:"ERROR",
-            message:error.issues[0].message
+        const { data: validatedData, error } = applyJobSchema.safeParse(data);
+        if (error) {
+            return {
+                status: "ERROR",
+                message: error.issues[0].message
+            }
         }
-    }
-    const {jobId,resumeId,coverLetter}=validatedData;
+        const { jobId, resumeId, coverLetter } = validatedData;
 
-    const existingApplication=await prisma.jobApplication.findFirst({
-        where:{
-            jobId:jobId,
-            applicantId:user.id,
-        },
-       
-    })
-    if(existingApplication){
+        const existingApplication = await prisma.jobApplication.findFirst({
+            where: {
+                jobId: jobId,
+                applicantId: user.id,
+            },
+
+        })
+        if (existingApplication) {
+            return {
+                status: "ERROR",
+                message: "You have already applied for this job."
+            }
+        }
+        await prisma.jobApplication.create({
+            data: {
+                jobId,
+                applicantId: user.id,
+                resumeId,
+                coverLetter: coverLetter || null,
+            }
+        })
+        revalidatePath(`/jobs/${jobId}`);
         return {
-            status:"ERROR",
-            message:"You have already applied for this job."
+            status: "SUCCESS",
+            message: "Application submitted successfully!"
         }
-    }
-    await prisma.jobApplication.create({
-        data:{
-            jobId,
-            applicantId:user.id,
-            resumeId,
-            coverLetter:coverLetter||null,
+    } catch (error) {
+        console.error("APPLY JOB ERROR:", error);
+        return {
+            status: "ERROR",
+            message: "Failed to submit application."
         }
-    })
-    revalidatePath(`/jobs/${jobId}`);
-    return {
-        status:"SUCCESS",
-        message:"Application submitted successfully!"
-    }
-} catch (error) {
-    console.error("APPLY JOB ERROR:", error);
-    return {
-        status:"ERROR",
-        message:"Failed to submit application."
     }
 }
-}
 
 
 
-// export async function getAppliedJobsForApplicant(userId: number) {
-//   const applications = await prisma.jobApplication.findMany({
-//     where: {
-//       applicantId: userId,
-//     },
-//     include: {
-//         // jobApplication: true,
-//       job: {
-//         include: {
-//           employer: true,
-          
-//         },
-//       },
-//     },
-//     orderBy: {
-//       appliedAt: "desc",
-//     },
-//   });
 
-//   // Convert to Drizzle-like grouped structure
-//   return applications.map((app) => ({
-//     JobApplication: {
-//       id: app.id,
-//       jobId: app.jobId,
-//       applicantId: app.applicantId,
-//       resumeId: app.resumeId,
-//       coverLetter: app.coverLetter,
-//       appliedAt: app.appliedAt,
-//     },
-//     job: app.job,
-//     employer: app.job?.employer ?? null,
-//   }));
-// }
 
 export async function getAppliedJobsForApplicant(userId: number) {
     const applications = await prisma.jobApplication.findMany({
@@ -108,12 +76,12 @@ export async function getAppliedJobsForApplicant(userId: number) {
             job: {
                 include: {
                     employer: true,
-                    jobApplication: {
+                    applications: {
                         where: {
                             applicantId: userId,
                         },
                     },
-                    
+
                 },
             },
         },
