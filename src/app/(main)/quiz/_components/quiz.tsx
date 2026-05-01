@@ -89,7 +89,7 @@ const Quiz = () => {
     register,
     handleSubmit,
     setValue,
-    
+
     formState: { errors, isLoading, isSubmitting },
     reset,
   } = useForm({
@@ -133,7 +133,7 @@ const Quiz = () => {
 
   if (!quiz) {
     return (
-      <Card className="mx-2">
+      <Card className="m-3 sm:m-10">
         <CardHeader>
           <CardTitle>Ready to test your knowledge?</CardTitle>
         </CardHeader>
@@ -236,7 +236,7 @@ const Quiz = () => {
   const finishQuiz = async () => {
     const score = calculateScore();
     try {
-    
+
       const result = await saveQuizResult(quizData, answers, score, formData.category, formData.topic, formData.difficulty);
       toast.success("Quiz completed!");
       setResultData(true);

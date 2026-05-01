@@ -17,7 +17,7 @@ export default async function CoverLetterPage() {
           AI Cover Letter
         </h1>
         <Link href="/cover/new">
-          <Button className="cursor-pointer">
+          <Button className="cursor-pointer ">
             <Plus />
             Create New
           </Button>

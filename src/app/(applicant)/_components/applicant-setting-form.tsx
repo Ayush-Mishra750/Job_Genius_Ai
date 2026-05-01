@@ -42,9 +42,7 @@ import Tiptap from "@/components/richTextEditor/text-editor";
 import { ResumeUpload } from "./resume-upload";
 import { ApplicantProfileType } from "../actions/applicant.queries";
 
-// ── ChatGPT-style dark palette helpers ──────────────────────────────────────
-// bg: #212121  |  card: #2f2f2f  |  input: #404040
-// text: #ececec |  muted: #8e8ea0 |  border: rgba(255,255,255,0.1)
+
 
 const cardCls =
   "border border-slate-200 dark:border-white/10 bg-white dark:bg-[#2f2f2f] shadow-sm";
@@ -60,7 +58,6 @@ const inputCls =
 
 const iconCls = "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-[#8e8ea0]";
 
-// ─────────────────────────────────────────────────────────────────────────────
 
 interface ApplicantSettingsFormProps {
   initialData: ApplicantProfileType | null;

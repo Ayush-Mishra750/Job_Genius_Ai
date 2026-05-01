@@ -1,17 +1,3 @@
-//* Route Groups in Next.js are a feature introduced to help you organize routes inside the app/ directory without affecting the actual URL structure. They are created by wrapping a folder name inside parentheses, for example:
-//! app/(auth)/login/page.js
-//! app/(dashboard)/users/page.js
-
-//! What Route Groups Do
-// 1. Organize your project without changing URLs
-
-//? 2. Apply different layouts to different sections
-//! Route groups allow you to define multiple layouts inside a single Next.js project.
-// app/(auth)/layout.js       → used for login, register pages
-// app/(dashboard)/layout.js  → used for dashboard pages
-
-// 3. Better code splitting and maintainability
-
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { ApplicantStats } from "../_components/applicant-stats";
@@ -22,8 +8,6 @@ import { Sparkles } from "lucide-react";
 
 export default async function ApplicantDashboard() {
   const user = await getCurrentUser();
-
-  // Redirect if not logged in
   if (!user) return redirect("/login");
 
   return (
@@ -54,20 +38,10 @@ export default async function ApplicantDashboard() {
                 Here are your daily activities and job alerts
               </p>
             </div>
-
-            <div className="flex-shrink-0 hidden sm:flex items-center justify-center h-16 w-16 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 shadow-lg">
-              <span className="text-3xl">💼</span>
-            </div>
           </div>
         </div>
-
-        {/* 1. Stats Row */}
         <ApplicantStats />
-
-        {/* 2. Red Alert Banner (Profile Incomplete) */}
         <ApplicantProfileStatus />
-
-        {/* 3. Recently Applied Table */}
         <RecentApplications />
       </div>
     </div>

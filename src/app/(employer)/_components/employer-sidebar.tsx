@@ -51,13 +51,10 @@ const EmployerSidebar = ({ className, onClose, user }: EmployerSidebarProps) => 
     href: string;
     pathname: string;
   }) {
-    const normalizedHref = href.replace(/\/$/, "") || "/";
-    try {
-      const pattern = new URLPattern({ pathname: normalizedHref });
-      return pattern.test({ pathname });
-    } catch {
-      return pathname === normalizedHref;
+    if (href === "/employer-dashboard/") {
+      return pathname === "/employer-dashboard/";
     }
+    return pathname.startsWith(href);
   }
 
   return (

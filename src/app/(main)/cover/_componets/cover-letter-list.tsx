@@ -85,13 +85,13 @@ export default function CoverLetterList({ coverLetters }: coverLetterProps) {
     );
   }
 
-  // ── Card Grid ────────────────────────────────────────────────────────────
+  // ── Card Grid 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {coverLetters.map((letter) => (
         <Card
           key={letter.id}
-          className="group flex flex-col border border-slate-200 dark:border-white/10 bg-white dark:bg-[#2f2f2f] shadow-sm hover:shadow-md hover:border-violet-300 dark:hover:border-violet-500/40 transition-all duration-200 rounded-2xl overflow-hidden"
+          className="group flex flex-col border border-slate-200 dark:border-white/10 bg-white dark:bg-[#2f2f2f] shadow-sm hover:shadow-md hover:border-violet-300 dark:hover:border-violet-500/40 transition-all duration-200 rounded-2xl overflow-hidden mt-1.5 mb-1.5"
         >
           <CardHeader className="pb-3">
             <div className="flex items-start justify-between gap-2">

@@ -16,10 +16,7 @@ const EmployerSettings = async () => {
         <div className="absolute top-0 right-0 -mt-8 -mr-8 w-64 h-64 bg-primary/10 rounded-full blur-3xl opacity-50" />
 
         <div className="relative z-10 space-y-4 text-center sm:text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-            <ShieldCheck className="w-3 h-3" />
-            Employer Settings
-          </div>
+
 
           <div className="space-y-2">
             <h1 className="text-3xl sm:text-3xl lg:text-4xl font-black tracking-tight text-foreground">

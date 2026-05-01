@@ -66,6 +66,11 @@ export async function getSavedJobs(userId: number) {
         employer: {
           select: {
             name: true,
+            user: {
+              select: {
+                avatarUrl: true,
+              },
+            },
           },
         },
       },

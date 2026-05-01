@@ -397,7 +397,7 @@ export default async function HomePage() {
                       Get Started Free <Sparkles className="w-4 h-4" />
                     </Link>
                   ) : (
-                    <Link href="/sign-up">
+                    <Link href="#">
                       Get Started Free <Sparkles className="w-4 h-4" />
                     </Link>
                   )
@@ -426,7 +426,7 @@ export default async function HomePage() {
                   Trusted by Thousands of Job Seekers
                 </h3>
                 <p className="text-muted-foreground max-w-md">
-                  Join a community of professionals who found their dream job through Job Genius AI.
+                  Join a community of professionals who found their dream job through CareerHive.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -468,7 +468,7 @@ export default async function HomePage() {
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
                   <Briefcase className="w-4 h-4 text-white" />
                 </div>
-                Job_Genius_AI
+                CareerHive
               </div>
               <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
                 AI-powered job portal connecting talented professionals with the world&apos;s best companies.
@@ -505,7 +505,7 @@ export default async function HomePage() {
 
           {/* Bottom bar */}
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-xs text-gray-600">
-            <p>© {new Date().getFullYear()} Job_Genius_AI. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} CareerHive. All rights reserved.</p>
             <div className="flex gap-5">
               {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((l) => (
                 <Link key={l} href="#" className="hover:text-gray-400 transition-colors">{l}</Link>

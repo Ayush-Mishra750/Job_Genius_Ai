@@ -16,9 +16,8 @@ import {
   MapPin,
   Upload,
   X,
-  Sparkles,
-  Info,
-  CheckCircle2
+  CheckCircle2,
+  AlertCircle
 } from "lucide-react";
 import {
   Select,
@@ -86,9 +85,7 @@ const EmployerSettingsForm = ({
           {/* Section: Visual Identity */}
           <div className="p-8 sm:p-12 space-y-10">
             <div className="flex items-center gap-4">
-              <div className="rounded-2xl bg-primary/10 p-3">
-                <Sparkles className="w-6 h-6 text-primary" />
-              </div>
+
               <div>
                 <h2 className="text-2xl font-black tracking-tight text-foreground">Company Branding</h2>
                 <p className="text-muted-foreground text-sm font-medium">How your company looks to potential candidates.</p>
@@ -141,9 +138,7 @@ const EmployerSettingsForm = ({
           {/* Section: Core Info */}
           <div className="p-8 sm:p-12 bg-muted/20 dark:bg-muted/5 border-y border-border/50 space-y-10">
             <div className="flex items-center gap-4">
-              <div className="rounded-2xl bg-primary/10 p-3">
-                <Info className="w-6 h-6 text-primary" />
-              </div>
+
               <div>
                 <h2 className="text-2xl font-black tracking-tight text-foreground">Core Information</h2>
                 <p className="text-muted-foreground text-sm font-medium">Essential details about your organization.</p>
@@ -306,7 +301,7 @@ type ImageUploadProps = Omit<ComponentProps<"div">, "onChange"> & {
   onChange: (url: string) => void;
 };
 
-const ImageUpload = ({
+export const ImageUpload = ({
   value,
   onChange,
   className,
@@ -419,4 +414,4 @@ const ImageUpload = ({
   );
 };
 
-import { AlertCircle } from "lucide-react";
+

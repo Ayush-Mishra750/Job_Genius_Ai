@@ -7,10 +7,13 @@ import {
   Bookmark,
   Briefcase,
   CreditCard,
+  GraduationCap,
   LayoutDashboard,
   LogOut,
   Menu,
+  Mic,
   Settings,
+  Sparkle,
   User,
   X,
 } from "lucide-react";
@@ -23,9 +26,12 @@ const navigationItems = [
   { name: "Find Jobs", icon: User, href: "/find-jobs" },
   { name: "Applied Jobs", icon: Briefcase, href: "/dashboard/applied-jobs" },
   { name: "Saved Jobs", icon: Bookmark, href: "/dashboard/saved-jobs" },
-
+  { name: "Ai Cover Letter", icon: Sparkle, href: "/cover" },
+  { name: "Ai Interview", icon: Mic, href: "/mock-interview" },
+  { name: "Ai Quiz", icon: GraduationCap, href: "/quiz" },
   { name: "Settings", icon: Settings, href: "/dashboard/settings" },
 ];
+
 
 const ApplicantSidebar = () => {
   const pathname = usePathname();
@@ -37,11 +43,11 @@ const ApplicantSidebar = () => {
   }: {
     href: string;
     pathname: string;
-    base?: string;
   }) {
-    const normalizedHref = href.replace(/\/$/, "") || "/";
-    const pattern = new URLPattern({ pathname: normalizedHref });
-    return pattern.test({ pathname });
+    if (href === "/dashboard") {
+      return pathname === "/dashboard";
+    }
+    return pathname.startsWith(href);
   }
 
   const SidebarContent = () => (
@@ -54,7 +60,7 @@ const ApplicantSidebar = () => {
               Dashboard
             </p>
             <h2 className="text-base font-bold text-foreground leading-tight">
-              Career <span className="text-blue-600">Hive</span>
+              <Link href={"/"}><span className="text-blue-600">CareerHive</span></Link>
             </h2>
           </div>
           {/* Mobile close */}
@@ -77,7 +83,6 @@ const ApplicantSidebar = () => {
           const active = isLinkActive({
             href: curNav.href || "#",
             pathname,
-            base: "/dashboard",
           });
           return (
             <Link

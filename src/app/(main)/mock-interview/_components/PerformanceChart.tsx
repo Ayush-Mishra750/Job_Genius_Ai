@@ -23,7 +23,7 @@ import { useTheme } from "next-themes";
 const CustomXTick = ({ x, y, payload }: any) => {
   const isMobile =
     typeof window !== "undefined" && window.innerWidth < 768;
-const { theme } = useTheme();
+  const { theme } = useTheme();
 
 
   return (
@@ -31,7 +31,7 @@ const { theme } = useTheme();
       x={x}
       y={y + (isMobile ? 8 : 16)}
       textAnchor="middle"
-          fill={theme === "dark" ? "#fff" : "#000"}
+      fill={theme === "dark" ? "#fff" : "#000"}
 
       fontSize={isMobile ? 10 : 14}
     >
@@ -43,7 +43,7 @@ const { theme } = useTheme();
 const CustomYTick = ({ x, y, payload }: any) => {
   const isMobile =
     typeof window !== "undefined" && window.innerWidth < 768;
-const { theme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <text
@@ -70,7 +70,7 @@ export default function PerformanceChart({
     })) || [];
 
   return (
-    <Card className="shadow-xl border-none bg-gradient-to-br from-background to-muted/30">
+    <Card className="shadow-xl border-none bg-gradient-to-br from-background to-muted/30 m-3 sm:m-10">
       <CardHeader>
         <CardTitle className="text-3xl md:text-4xl font-bold">
           Performance Trend
@@ -84,12 +84,12 @@ export default function PerformanceChart({
         <div className="h-[320px]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData}>
-              
+
               {/* 🔥 Gradient */}
               <defs>
                 <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1}/>
+                  <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1} />
                 </linearGradient>
               </defs>
 

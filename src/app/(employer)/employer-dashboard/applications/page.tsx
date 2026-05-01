@@ -5,13 +5,13 @@ import { getEmployerApplications } from "../../_actions/employer-applicant";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 import { cn } from "@/lib/utils";
-import { 
-  Download, 
-  FileText, 
-  UserCircle, 
-  Briefcase, 
-  Search, 
-  Filter, 
+import {
+  Download,
+  FileText,
+  UserCircle,
+  Briefcase,
+  Search,
+  Filter,
   Clock,
   CheckCircle2,
   XCircle,
@@ -58,7 +58,7 @@ const EmployerApplicantPage = async () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:py-12 space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-      
+
       {/* Premium Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-1">
@@ -117,7 +117,7 @@ const EmployerApplicantPage = async () => {
                       </div>
                     </div>
                     <div className="flex sm:justify-end">
-                      <ApplicationStatusSelect appId={app.id} currentStatus={app.status}/>
+                      <ApplicationStatusSelect appId={app.id} currentStatus={app.status} />
                     </div>
                   </div>
 
@@ -145,9 +145,9 @@ const EmployerApplicantPage = async () => {
                       <Button disabled variant="outline" className="flex-1 rounded-2xl h-12 font-bold border-dashed">No Resume</Button>
                     )}
                     {app.resume?.fileUrl && (
-                      <AIEvaluationButton 
-                        applicationId={app.id} 
-                        candidateName={app.applicant.user.name} 
+                      <AIEvaluationButton
+                        applicationId={app.id}
+                        candidateName={app.applicant.user.name}
                       />
                     )}
                     {app.coverLetter && <CoverLetterDialog app={app} isMobile />}
@@ -219,15 +219,15 @@ const EmployerApplicantPage = async () => {
                     </TableCell>
 
                     <TableCell>
-                      <ApplicationStatusSelect appId={app.id} currentStatus={app.status}/>
+                      <ApplicationStatusSelect appId={app.id} currentStatus={app.status} />
                     </TableCell>
 
                     <TableCell className="text-right pr-8">
                       <div className="flex items-center justify-end gap-3">
                         {app.resume?.fileUrl && (
-                          <AIEvaluationButton 
-                            applicationId={app.id} 
-                            candidateName={app.applicant.user.name} 
+                          <AIEvaluationButton
+                            applicationId={app.id}
+                            candidateName={app.applicant.user.name}
                           />
                         )}
                         {app.coverLetter && (
@@ -283,9 +283,9 @@ function CoverLetterDialog({ app, isMobile = false }: { app: any, isMobile?: boo
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button 
-          variant="outline" 
-          size={isMobile ? "icon" : "sm"} 
+        <Button
+          variant="outline"
+          size={isMobile ? "icon" : "sm"}
           className={cn(
             "rounded-xl font-bold transition-all hover:bg-primary/5 hover:text-primary",
             isMobile ? "h-12 w-12 rounded-2xl shrink-0 shadow-lg shadow-black/[0.03]" : "h-10 px-4"
@@ -297,7 +297,7 @@ function CoverLetterDialog({ app, isMobile = false }: { app: any, isMobile?: boo
       </DialogTrigger>
       <DialogContent className="sm:max-w-3xl p-0 overflow-hidden border-none bg-transparent shadow-none">
         <div className="relative w-full max-h-[90vh] overflow-y-auto rounded-[1.5rem] sm:rounded-[2.5rem] border border-border/50 bg-white dark:bg-card/95 dark:backdrop-blur-3xl shadow-2xl animate-in zoom-in-95 duration-300">
-          
+
           {/* Header */}
           <DialogHeader className="p-6 sm:p-10 pb-4 sm:pb-6 border-b border-border/50">
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
@@ -327,23 +327,20 @@ function CoverLetterDialog({ app, isMobile = false }: { app: any, isMobile?: boo
           <div className="p-6 sm:p-10">
             <div className="relative">
               {/* Decorative Quote Icons */}
-              <div className="absolute -top-4 -left-2 sm:-top-6 sm:-left-4 text-6xl sm:text-8xl text-primary/10 font-serif pointer-events-none select-none">"</div>
-              <div className="absolute -bottom-10 -right-2 sm:-bottom-12 sm:-right-4 text-6xl sm:text-8xl text-primary/10 font-serif rotate-180 pointer-events-none select-none">"</div>
-              
+
+
               <div className="relative z-10 px-4 sm:px-8 py-2 font-medium leading-relaxed text-foreground/90 text-base sm:text-lg whitespace-pre-wrap italic selection:bg-primary/20">
                 {app.coverLetter || "No statement provided by the candidate."}
               </div>
             </div>
-            
+
             {/* Footer / Meta */}
             <div className="mt-12 pt-8 border-t border-border/50 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground/50">
               <div className="flex items-center gap-2">
                 <Clock className="w-3 h-3" />
                 Submitted {formatDistanceToNow(new Date(app.appliedAt), { addSuffix: true })}
               </div>
-              <div className="px-3 py-1 rounded-full bg-muted/50 border border-border/50">
-                Application Ref: #{app.id}
-              </div>
+
             </div>
           </div>
         </div>

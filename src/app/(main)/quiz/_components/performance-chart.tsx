@@ -35,9 +35,9 @@ type AssessmentResult = {
 };
 
 const CustomXTick = ({ x, y, payload }: any) => {
- 
+
   const isMobile = window.innerWidth < 768;
-const { theme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <text
@@ -53,10 +53,10 @@ const { theme } = useTheme();
 };
 
 const CustomYTick = ({ x, y, payload }: any) => {
- 
+
 
   const isMobile = window.innerWidth < 768;
-const { theme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <text
@@ -91,7 +91,7 @@ const PerformanceCharts = ({
 
 
   return (
-    <Card className="m-2">
+    <Card className="m-3 sm:m-10">
       <CardHeader>
         <CardTitle className="text-3xl md:text-4xl">
           Performance Trend

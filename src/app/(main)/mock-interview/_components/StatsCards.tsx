@@ -1,21 +1,7 @@
 import { Brain, Target, Trophy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-type Question = {
-  question: string;
-  correctAnswer: string;
-  explanation: string;
-};
+import { Interview } from "./InterviewList";
 
-interface Interview {
-  id: number;
-  applicantId: number;
-  interviewScore: number;
-  questions: Question[];
-  category: string;
-  improvementTip: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-}
 type StatsCardsProps = {
   interviews: Interview[];
 };
@@ -46,7 +32,7 @@ export default function StatsCards({ interviews }: StatsCardsProps) {
   };
 
   return (
-    <div className="grid gap-2 md:grid-cols-3 ml-4 mr-4">
+    <div className="grid gap-2 md:grid-cols-3 m-3 sm:m-10">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Average Score</CardTitle>

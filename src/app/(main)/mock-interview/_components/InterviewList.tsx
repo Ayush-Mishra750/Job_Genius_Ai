@@ -17,26 +17,19 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { InterviewResult } from "./InterviewResult";
+import { InterviewResult, InterviewResultType, QuestionResult } from "./InterviewResult";
 
-// import { Interview } from "../../../../../generated/prisma";
-
-type Question = {
-  question: string;
-  correctAnswer: string;
-  explanation: string;
-};
-
-interface Interview {
+export interface Interview {
   id: number;
   applicantId: number;
   interviewScore: number;
-  questions: Question[];
+  questions: any;
   category: string;
   improvementTip: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
+
 type StatsCardsProps = {
   interviews: Interview[];
 };
@@ -47,7 +40,7 @@ export default function InterviewList({ interviews }: StatsCardsProps) {
 
   return (
     <>
-      <Card>
+      <Card className="m-5 sm:m-10">
         <CardHeader>
           <div className="flex md:items-center justify-between flex-col md:flex-row gap-4 items-start">
             <div>
@@ -72,10 +65,10 @@ export default function InterviewList({ interviews }: StatsCardsProps) {
             {interviews
               ?.slice()
               .sort(
-  (a, b) =>
-    new Date(b.createdAt).getTime() -
-    new Date(a.createdAt).getTime()
-)
+                (a, b) =>
+                  new Date(b.createdAt).getTime() -
+                  new Date(a.createdAt).getTime()
+              )
               .map((interview, i) => (
                 <Card
                   key={interview.id}
@@ -118,7 +111,7 @@ export default function InterviewList({ interviews }: StatsCardsProps) {
             result={selectedInterview}
             hideStartNew
             onStartNew={() => router.push("/mock-interview/mock")}
-          /> 
+          />
         </DialogContent>
       </Dialog>
     </>

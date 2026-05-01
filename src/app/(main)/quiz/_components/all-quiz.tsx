@@ -42,7 +42,7 @@ const AllQuiz = ({ assessments }: { assessments: AssessmentResult[] }) => {
 
   return (
     <>
-      <Card className="m-2">
+      <Card className="m-3 sm:m-10">
         <CardHeader>
           <div className="flex justify-between items-center">
             <div>
@@ -123,9 +123,9 @@ const AllQuiz = ({ assessments }: { assessments: AssessmentResult[] }) => {
           </DialogHeader>
 
           {/* ✅ PASS SELECTED QUIZ ONLY */}
-         
-            <QuizList assessments={assessments} />
-          
+
+          <QuizList assessments={assessments} />
+
         </DialogContent>
       </Dialog>
     </>
