@@ -6,6 +6,7 @@ import {
   ApplicantSettingsSchema,
 } from "../_utils/setting-schema";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 
 export const createApplicantProfile = async (
   data: ApplicantSettingsSchema
@@ -39,7 +40,7 @@ export const createApplicantProfile = async (
       resumeSize,
     } = validatedData;
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
 
       // 1️ Update user table
       await tx.user.update({

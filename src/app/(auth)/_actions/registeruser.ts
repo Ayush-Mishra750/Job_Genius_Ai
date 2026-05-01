@@ -30,6 +30,8 @@ import { createSessionAndSetCookies, invalidateSession } from "./session";
 
 // It provides methods like .get(), .set(), .append(), and .entries() — which you’re already using here.
 
+import { Prisma } from "@prisma/client";
+
 export const registerUserAction = async (data: RegisterUserData) => {
   try {
     const { data: validatedData, error } =
@@ -56,7 +58,7 @@ export const registerUserAction = async (data: RegisterUserData) => {
 
     const hashPassword = await argon2.hash(password);
 
-    const user = await prisma.$transaction(async (tx) => {
+    const user = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const newUser = await tx.user.create({
         data: {
           name,

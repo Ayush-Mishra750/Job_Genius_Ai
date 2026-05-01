@@ -2,6 +2,7 @@
 
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { GoogleGenAI } from "@google/genai";
 import { getSubscription } from "./subscription";
 
@@ -97,7 +98,7 @@ export async function evaluateResumeAction(applicationId: number) {
     const evaluationData: ResumeEvaluationResult = JSON.parse(cleanedJson);
 
     // 5. Transaction: Save Evaluation & Deduct Credit
-    const finalEvaluation = await prisma.$transaction(async (tx) => {
+    const finalEvaluation = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       // Save evaluation
       const savedEval = await tx.aIEvaluation.create({
         data: {
@@ -124,9 +125,9 @@ export async function evaluateResumeAction(applicationId: number) {
 
     return finalEvaluation as unknown as ResumeEvaluationResult;
 
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error in evaluateResumeAction:", error);
-    if (error.message === "CREDIT_EXHAUSTED") throw error;
+
     throw new Error("Failed to evaluate resume. Please try again.");
   }
 }
