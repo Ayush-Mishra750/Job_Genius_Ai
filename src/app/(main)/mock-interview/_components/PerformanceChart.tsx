@@ -17,7 +17,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { format } from "date-fns";
-import { Interview } from "../../../../../generated/prisma";
+import { Interview } from "@prisma/client";
 import { useTheme } from "next-themes";
 
 const CustomXTick = ({ x, y, payload }: any) => {

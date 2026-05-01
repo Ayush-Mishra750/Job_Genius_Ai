@@ -2,7 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { JobFormData } from "../_components/job_form_schema";
-import { Prisma } from "@/generated/prisma/browser";
+import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { getSubscription } from "./subscription";
 

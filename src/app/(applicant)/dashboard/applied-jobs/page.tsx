@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { getAppliedJobsForApplicant } from "../../actions/applicant.queries";
-import { ApplicationStatus } from "../../../../../generated/prisma";
+import { ApplicationStatus } from "@prisma/client";
 
 const statusStyles: Record<ApplicationStatus, { pill: string; dot: string; label: string }> = {
   pending:     { pill: "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border-yellow-500/20",  dot: "bg-yellow-400",  label: "Pending" },

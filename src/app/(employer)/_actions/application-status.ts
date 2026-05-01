@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
-import { ApplicationStatus } from "../../../../generated/prisma";
+import { ApplicationStatus } from "@prisma/client";
 
 
 export async function updateApplicationStatus(appId: number, status: ApplicationStatus) {

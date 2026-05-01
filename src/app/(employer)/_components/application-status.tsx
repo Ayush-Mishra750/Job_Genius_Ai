@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { updateApplicationStatus } from "../_actions/application-status";
 import { useState } from "react";
-import { ApplicationStatus } from "../../../../generated/prisma";
+import { ApplicationStatus } from "@prisma/client";
 import { cn } from "@/lib/utils";
 
 const statusOptions: ApplicationStatus[] = [
