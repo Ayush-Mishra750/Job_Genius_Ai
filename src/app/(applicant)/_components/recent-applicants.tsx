@@ -16,7 +16,7 @@ import {
 
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
-import { getAppliedJobsForApplicant } from "../actions/applicant.queries";
+import { getAppliedJobsForApplicant, AppliedJobType } from "../actions/applicant.queries";
 
 export async function RecentApplications() {
   const user = await getCurrentUser();
@@ -84,7 +84,7 @@ export async function RecentApplications() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {recentApplications.map((app) => {
+                {recentApplications.map((app: AppliedJobType) => {
                   const { employer } = app.job;
 
                   return (
@@ -167,7 +167,7 @@ export async function RecentApplications() {
 
           {/* Mobile Card View */}
           <div className="md:hidden divide-y divide-border">
-            {recentApplications.map((app) => {
+            {recentApplications.map((app: AppliedJobType) => {
               const { employer } = app.job;
               return (
                 <div key={app.id} className="p-4 hover:bg-muted/20 transition-colors">

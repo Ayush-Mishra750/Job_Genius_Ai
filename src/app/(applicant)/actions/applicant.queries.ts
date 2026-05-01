@@ -80,3 +80,5 @@ export async function getAppliedJobsForApplicant(userId: number) {
   return applications;
 }
 
+export type AppliedJobType = Awaited<ReturnType<typeof getAppliedJobsForApplicant>>[number];
+
