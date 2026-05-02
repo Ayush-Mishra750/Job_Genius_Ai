@@ -402,13 +402,11 @@ export const ImageUpload = ({
     >
       <input {...getInputProps()} />
       <div className="flex flex-col items-center px-6 text-center">
-        <div className="w-16 h-16 rounded-3xl bg-primary/10 flex items-center justify-center mb-4 transition-transform group-hover:scale-110 group-hover:rotate-3 duration-500">
-          <Upload className="w-8 h-8 text-primary" />
+        <div className="w-12 h-12 rounded-3xl bg-primary/10 flex items-center justify-center mb-4 transition-transform group-hover:scale-110 group-hover:rotate-3 duration-500">
+          <Upload className="w-6 h-6 text-primary" />
         </div>
-        <p className="text-sm font-bold text-foreground mb-1">
-          <span className="text-primary underline-offset-4 group-hover:underline">Browse identity visuals</span>
-        </p>
-        <p className="text-[10px] font-black uppercase tracking-tighter text-muted-foreground/60">{boxText || "Supports JPG, PNG, WEBP (Max 4MB)"}</p>
+
+
       </div>
     </div>
   );

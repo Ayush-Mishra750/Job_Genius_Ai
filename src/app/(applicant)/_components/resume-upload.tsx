@@ -23,7 +23,7 @@ export const ResumeUpload = ({
 
   const { startUpload } = useUploadThing("resumeUploader", {
     onClientUploadComplete: (res) => {
-    //   console.log("res pdf: ", res);
+      //   console.log("res pdf: ", res);
 
       if (res && res[0]) {
         const file = res[0];
@@ -135,7 +135,7 @@ export const ResumeUpload = ({
             <span className="text-primary">Browse file</span> or drop here
           </h4>
           <p className="text-xs text-muted-foreground mt-1">
-            Only PDF format available. Max file size 5 MB.
+            Only PDF format available. Max file size 4 MB.
           </p>
         </>
       )}

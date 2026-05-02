@@ -24,7 +24,7 @@ export default async function RootLayout({
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-h-screen md:ml-72">
+      <div className="flex-1 flex flex-col min-h-screen md:ml-72 overflow-x-hidden">
         <MobileNav user={user} />
         <main className="flex-1">
           <div className="container mx-auto p-4 md:p-8 lg:p-10 max-w-7xl">

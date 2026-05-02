@@ -1,6 +1,7 @@
 "use client";
 
 import React, { ChangeEvent, FormEvent, useState } from "react";
+import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import {
   Card,
@@ -19,10 +20,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginUserData, loginUserSchema } from "./auth-schema/auth.schema";
 import { loginUserAction } from "@/app/(auth)/_actions/registeruser";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { LoginUserData, loginUserSchema } from "@/features/auth/auth.schema";
-// import { loginUserAction } from "../server/auth.action";
-// import { LoginUserData, loginUserSchema } from "./auth-schema/login-schema";
+
 
 const LoginForm: React.FC = () => {
   const {
@@ -40,61 +38,62 @@ const LoginForm: React.FC = () => {
     try {
       const result = await loginUserAction(data);
 
-      if (result.status === "SUCCESS") toast.success(result.message);
-      else toast.error(result.message);
+      if (result.status === "SUCCESS") {
+        toast.success(result.message);
+        // Page redirect is usually handled by the server action or the user session state
+      } else {
+        toast.error(result.message);
+      }
     } catch (error) {
-      console.log(error)
+      toast.error("An unexpected error occurred during login");
+      console.error(error);
     }
   };
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
-            <UserCheck className="w-8 h-8 text-primary-foreground" />
+      <Card className="w-full max-w-md shadow-2xl border-primary/10">
+        <CardHeader className="text-center space-y-1">
+          <div className="mx-auto w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 -rotate-3">
+            <UserCheck className="w-8 h-8 text-primary" />
           </div>
-          <CardTitle className="text-2xl">Join CareerHive </CardTitle>
-          <CardDescription>Login to get started</CardDescription>
+          <CardTitle className="text-3xl ">Join CareerHive</CardTitle>
+          <CardDescription className="text-muted-foreground font-medium">Login to get started</CardDescription>
         </CardHeader>
 
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Email Field */}
-            <div className="space-y-2">
-              <Label htmlFor="email">Email Address *</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-muted-foreground/80">Email Address *</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   id="email"
                   type="email"
                   placeholder="Enter your email"
-                  required
                   {...register("email")}
-                  className={`pl-10 ${errors.email ? "border-destructive" : ""
-                    }`}
+                  className={cn("pl-10 h-11 rounded-xl transition-all", errors.email && "border-destructive focus-visible:ring-destructive")}
                 />
               </div>
               {errors.email && (
-                <p className="text-sm text-destructive">
+                <p className="text-[11px] font-bold text-destructive px-1">
                   {errors.email.message}
                 </p>
               )}
             </div>
 
             {/* Password Field */}
-            <div className="space-y-2">
-              <Label htmlFor="password">Password *</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="password" className="text-xs font-bold uppercase tracking-wider text-muted-foreground/80">Password *</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Create a strong password"
-                  required
+                  placeholder="Enter your password"
                   {...register("password")}
-                  className={`pl-10 ${errors.password ? "border-destructive" : ""
-                    }`}
+                  className={cn("pl-10 pr-10 h-11 rounded-xl transition-all", errors.password && "border-destructive focus-visible:ring-destructive")}
                 />
 
                 <Button
@@ -112,14 +111,14 @@ const LoginForm: React.FC = () => {
                 </Button>
               </div>
               {errors.password && (
-                <p className="text-sm text-destructive">
+                <p className="text-[11px] font-bold text-destructive px-1">
                   {errors.password.message}
                 </p>
               )}
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full h-12 rounded-xl  ">
               Sign In
             </Button>
 

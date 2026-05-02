@@ -51,10 +51,10 @@ const EmployerSidebar = ({ className, onClose, user }: EmployerSidebarProps) => 
     href: string;
     pathname: string;
   }) {
-    if (href === "/employer-dashboard/") {
-      return pathname === "/employer-dashboard/";
+    if (href === "/employer-dashboard/" || href === "/employer-dashboard") {
+      return pathname === "/employer-dashboard/" || pathname === "/employer-dashboard";
     }
-    return pathname.startsWith(href);
+    return pathname === href || pathname.startsWith(href + "/");
   }
 
   return (

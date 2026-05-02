@@ -18,7 +18,7 @@ export default async function SavedJobsPage() {
         {/* ── Hero Header ── */}
         <div className="relative overflow-hidden rounded-3xl shadow-2xl">
           {/* Layered gradient - Amber/Orange/Rose theme for Saved */}
-          <div className="absolute inset-0 " />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-600 via-orange-600 to-rose-600 dark:from-amber-900/40 dark:via-orange-900/40 dark:to-rose-900/40" />
 
           {/* Glow orbs */}
           <div className="pointer-events-none absolute -top-14 -right-14 h-64 w-64 rounded-full bg-white/10 dark:bg-amber-400/10 blur-3xl" />

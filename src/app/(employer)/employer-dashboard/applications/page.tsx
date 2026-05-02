@@ -159,9 +159,9 @@ const EmployerApplicantPage = async () => {
           </div>
 
           {/* Desktop Table View */}
-          <div className="hidden lg:block overflow-hidden rounded-[2rem] border border-border/50 bg-white dark:bg-card/40 dark:backdrop-blur-xl shadow-xl shadow-black/[0.02]">
-            <Table>
-              <TableHeader className="bg-muted/30">
+          <div className="hidden lg:block overflow-x-auto overflow-y-auto max-h-[700px] w-full rounded-[2rem] border border-border/50 bg-white dark:bg-card/40 dark:backdrop-blur-xl shadow-xl shadow-black/[0.02] custom-scrollbar">
+            <Table className="min-w-[900px] relative">
+              <TableHeader className="sticky top-0 z-20 bg-muted/80 backdrop-blur-md shadow-sm">
                 <TableRow className="hover:bg-transparent border-border/50">
                   <TableHead className="py-5 pl-8 font-bold text-foreground">Candidate</TableHead>
                   <TableHead className="font-bold text-foreground">Applied Role</TableHead>
