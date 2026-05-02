@@ -30,7 +30,7 @@ import { createSessionAndSetCookies, invalidateSession } from "./session";
 
 // It provides methods like .get(), .set(), .append(), and .entries() — which you’re already using here.
 
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 
 export const registerUserAction = async (data: RegisterUserData) => {
   try {

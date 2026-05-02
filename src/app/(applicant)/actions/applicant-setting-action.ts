@@ -6,7 +6,7 @@ import {
   ApplicantSettingsSchema,
 } from "../_utils/setting-schema";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 
 export const createApplicantProfile = async (
   data: ApplicantSettingsSchema

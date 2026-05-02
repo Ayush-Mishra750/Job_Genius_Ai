@@ -2,7 +2,7 @@
 
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 import { GoogleGenAI } from "@google/genai";
 import { getSubscription } from "./subscription";
 

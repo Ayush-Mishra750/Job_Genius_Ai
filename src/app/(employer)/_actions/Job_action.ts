@@ -2,7 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/app/(auth)/_actions/auth.queries";
 import { JobFormData } from "../_components/job_form_schema";
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { getSubscription } from "./subscription";
 
@@ -10,7 +10,7 @@ import { getSubscription } from "./subscription";
 export const createJobAction = async (data: JobFormData) => {
   try {
     const currentUser = await getCurrentUser();
-console.log(currentUser)
+    console.log(currentUser)
     if (!currentUser || currentUser.role !== "employer") {
       return { status: "ERROR", message: "Unauthorized" };
     }
@@ -26,9 +26,9 @@ console.log(currentUser)
     });
 
     if (subscription.jobLimit !== -1 && jobCount >= subscription.jobLimit) {
-      return { 
-        status: "ERROR", 
-        message: "You have reached your job posting limit. Please upgrade your plan." 
+      return {
+        status: "ERROR",
+        message: "You have reached your job posting limit. Please upgrade your plan."
       };
     }
 
@@ -107,18 +107,18 @@ export const updateJobAction = async (
 
 
 export async function getJobs() {
- const user=await getCurrentUser();
- if(!user)redirect("/login");
- const employerId=user.id;
- const jobs = await prisma.job.findMany({
-  where: {
-    employerId: employerId, //  only this employer jobs
-  },
-  orderBy: {
-    createdAt: "desc",
-  },
-});
-return jobs;
+  const user = await getCurrentUser();
+  if (!user) redirect("/login");
+  const employerId = user.id;
+  const jobs = await prisma.job.findMany({
+    where: {
+      employerId: employerId, //  only this employer jobs
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return jobs;
 }
 
 
