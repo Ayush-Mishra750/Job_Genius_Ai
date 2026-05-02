@@ -10,7 +10,6 @@ import { getSubscription } from "./subscription";
 export const createJobAction = async (data: JobFormData) => {
   try {
     const currentUser = await getCurrentUser();
-    console.log(currentUser)
     if (!currentUser || currentUser.role !== "employer") {
       return { status: "ERROR", message: "Unauthorized" };
     }
@@ -146,6 +145,12 @@ export async function deleteAction(jobId: number) {
 
 
 export async function getJobIDAction(jobId: number) {
+  if (isNaN(jobId)) {
+    return {
+      status: "ERROR",
+      message: "Invalid Job ID",
+    };
+  }
   try {
     const currentUser = await getCurrentUser();
 

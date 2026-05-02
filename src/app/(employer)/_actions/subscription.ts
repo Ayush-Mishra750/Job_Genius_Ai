@@ -7,10 +7,26 @@ import Razorpay from "razorpay";
 import crypto from "crypto";
 import { revalidatePath } from "next/cache";
 
-const razorpay = new Razorpay({
-  key_id: process.env.PAYMENT_API_KEY!,
-  key_secret: process.env.PAYMENT_SECRET_KEY!,
-});
+let razorpayInstance: Razorpay | null = null;
+
+const getRazorpay = () => {
+  if (razorpayInstance) return razorpayInstance;
+
+  const key_id = process.env.PAYMENT_API_KEY;
+  const key_secret = process.env.PAYMENT_SECRET_KEY;
+
+  if (!key_id || !key_secret) {
+    console.warn("Razorpay API keys are missing. Payment features will fail.");
+    return null;
+  }
+
+  razorpayInstance = new Razorpay({
+    key_id,
+    key_secret,
+  });
+
+  return razorpayInstance;
+};
 
 /**
  * Get or Initialize Employer Subscription
@@ -74,6 +90,9 @@ export async function createRazorpayOrder(planName: PlanName) {
   };
 
   try {
+    const razorpay = getRazorpay();
+    if (!razorpay) throw new Error("Payment system is not configured.");
+
     const order = await razorpay.orders.create(options);
     return {
       orderId: order.id,

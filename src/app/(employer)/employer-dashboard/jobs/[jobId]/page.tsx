@@ -1,4 +1,6 @@
 import { notFound, redirect } from "next/navigation";
+export const dynamic = "force-dynamic";
+
 import { Badge } from "@/components/ui/badge";
 import {
   MapPin,
@@ -15,7 +17,7 @@ import { formatPostedTime } from "@/app/(employer)/_components/format-posted";
 import Link from "next/link";
 import { formatJobDescription } from "@/app/(applicant)/_utils/json-to-text";
 
-export default async function ViewJobPage({ params }: { params: { jobId: number } }) {
+export default async function ViewJobPage({ params }: { params: Promise<{ jobId: string }> }) {
 
  const { jobId } = await params;
  const id = Number(jobId)

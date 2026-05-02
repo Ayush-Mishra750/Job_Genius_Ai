@@ -6,7 +6,18 @@ import type { Prisma } from "@prisma/client";
 import { GoogleGenAI } from "@google/genai";
 import { getSubscription } from "./subscription";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+let aiInstance: GoogleGenAI | null = null;
+
+const getAI = () => {
+  if (aiInstance) return aiInstance;
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    console.warn("GEMINI_API_KEY is missing.");
+    return null;
+  }
+  aiInstance = new GoogleGenAI({ apiKey });
+  return aiInstance;
+};
 
 export type ResumeEvaluationResult = {
   matchScore: number;
@@ -74,6 +85,10 @@ export async function evaluateResumeAction(applicationId: number) {
       "recommendation": "Shortlist | Consider | Reject"
     }
     `;
+
+    // 4. Extract Text and Call Gemini
+    const ai = getAI();
+    if (!ai) throw new Error("AI service is not configured.");
 
     const result = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
