@@ -25,9 +25,9 @@ export function MobileNav({ user }: { user: any }) {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setIsOpen(!isOpen)}
             className="rounded-xl bg-muted/50"
           >
@@ -68,7 +68,7 @@ export function MobileNav({ user }: { user: any }) {
               onClick={() => setIsOpen(false)}
               className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] md:hidden"
             />
-            
+
             {/* Sidebar Content */}
             <motion.div
               initial={{ x: "-100%" }}
@@ -77,10 +77,10 @@ export function MobileNav({ user }: { user: any }) {
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
               className="fixed inset-y-0 left-0 w-80 bg-background z-[70] md:hidden shadow-2xl overflow-hidden"
             >
-              <EmployerSidebar 
-                user={user} 
-                onClose={() => setIsOpen(false)} 
-                className="w-full border-r-0 shadow-none h-full" 
+              <EmployerSidebar
+                user={user}
+                onClose={() => setIsOpen(false)}
+                className="w-full border-r-0 shadow-none h-full"
               />
             </motion.div>
           </>

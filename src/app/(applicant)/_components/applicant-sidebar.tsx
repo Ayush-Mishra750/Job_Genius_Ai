@@ -105,10 +105,11 @@ const ApplicantSidebar = () => {
 
       {/* Bottom section */}
       <div className="px-3 py-4 border-t border-border space-y-2">
-        {/* <div className="flex items-center justify-between px-3 py-2">
-          <span className="text-xs text-muted-foreground font-medium">Theme</span>
+        <div className="flex flex-col">
+          <span className="text-xs font-medium text-muted-foreground">Appearance</span>
           <ThemeToggle />
-        </div> */}
+
+        </div>
         <Button
           onClick={logoutUserAction}
           variant="ghost"
